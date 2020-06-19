@@ -1,0 +1,27 @@
+{
+  "name": "esmtk",
+  "version": "0.0.0",
+  "description": "ES Module Toolkit",
+  "keywords": [
+    "tooling",
+    "esm"
+  ],
+  "repository": "https://github.com/vanillaes/esmtk.git",
+  "author": "Evan Plaice <evanplaice@gmail.com> (https://evanplaice.com/)",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "esmtk": "bin/esmtk.js"
+  },
+  "scripts": {
+    "preversion": "npm test && npm run lint",
+    "postversion": "git push --follow-tags"
+  },
+  "dependencies": {
+    "commander": "^5.1.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "~14"
+  }
+}

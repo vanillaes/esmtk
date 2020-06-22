@@ -1,7 +1,7 @@
 import { spawn } from 'child_process'
-import { fileURLToPath } from 'url'
+import { join } from 'path'
 
-const BIN_PATH = fileURLToPath(new URL('../../node_modules/.bin/standard', import.meta.url))
+const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'standard')
 
 export async function lint (flags) {
   spawn(BIN_PATH, flags, {

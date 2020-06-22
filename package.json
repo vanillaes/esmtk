@@ -18,7 +18,8 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
-    "commander": "^5.1.0"
+    "commander": "^5.1.0",
+    "standard": "^14.3.4"
   },
   "devDependencies": {},
   "engines": {

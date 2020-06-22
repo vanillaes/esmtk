@@ -14,7 +14,8 @@
     "esmtk": "bin/esmtk.js"
   },
   "scripts": {
-    "preversion": "npm test && npm run lint",
+    "lint": "standard",
+    "preversion": "npm run lint",
     "postversion": "git push --follow-tags"
   },
   "dependencies": {

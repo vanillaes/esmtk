@@ -1,4 +1,4 @@
-export function preflight() {
+export function preflight () {
   var match = process.version.match(/v(\d+)\.(\d+)/)
   var major = parseInt(match[1], 10)
   var minor = parseInt(match[2], 10)

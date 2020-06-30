@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "commander": "^5.1.0",
+    "esbuild": "^0.5.14",
     "standard": "^14.3.4"
   },
   "devDependencies": {},

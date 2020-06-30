@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 import cli from 'commander'
 import { preflight } from '../src/preflight.js'
-import { bundle } from './commands/bundle.js'
-import { lint } from './commands/lint.js'
-
+import { bundle, lint, minify } from './commands/index.js'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
@@ -16,6 +14,11 @@ cli.command('bundle <input> <output>')
   .action((input, output) => {
     bundle(input, output)
   })
+cli.command('minify <input> <output>')
+  .description('Minify the source using ESBuild')
+  .action((input, output) => {
+    minify(input, output)
+  })
 cli.command('lint')
   .description('Lint the package using StandardJS')
   .option('--fix', 'Automatically fix problems')
@@ -23,5 +26,4 @@ cli.command('lint')
     const flags = opt.fix ? ['--fix'] : []
     lint(flags)
   })
-
 cli.parse(process.argv)

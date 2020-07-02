@@ -7,70 +7,69 @@ ESMTK, essential tools and libs for ES module development
 [![Latest Status](https://github.com/vanillaes/esmtk/workflows/Latest/badge.svg)](https://github.com/vanillaes/esmtk/actions)
 [![Release Status](https://github.com/vanillaes/esmtk/workflows/Release/badge.svg)](https://github.com/vanillaes/esmtk/actions)
 
-## Command Line Interface
 
-### Lint
+## Lint
 
 Lint uses StandardJS to lint the source
 
-#### Arguments
+### Arguments
 
 `esmtk lint [--fix]`
 
 - `--fix` - automatically fix problems
 
-#### Usage
+### Usage
 
 ```sh
 esmtk lint
 ```
 
-### Bundle
+## Bundle
 
 Bundle uses ESBuild to compile an ES module (and its deps) into a bundle
 
-#### Arguments
+### Arguments
 
 `esmtk bundle [input] [output]`
 
 - `[input]` - the input source file path
 - `[output]` - the output bundle file path
 
-#### Usage
+### Usage
 
 ```sh
 esmtk bundle src/sample.js bundle.js
 ```
 
-### Minify
+## Minify
 
 Minify uses ESBuild to compile an ES module (and its deps) into a minified bundle
 
-#### Arguments
+### Arguments
 
 `esmtk minify [input] [output]`
 
 - `[input]` - the input source file path
 - `[output]` - the output bundle file path
 
-#### Usage
+### Usage
 
 ```sh
 esmtk minify src/sample.js bundle.min.js
 ```
 
-### CommonJS
+## CommonJS
 
 CommonJS uses ESBuild to compile an ES module (and its deps) into a CommonJS bundle
 
-#### Arguments
+### Arguments
 
 `esmtk commonjs [input] [output]`
 
 - `[input]` - the input source file path
 - `[output]` - the output bundle file path
 
-#### Usage
+### Usage
 
 ```sh
 esmtk commonjs src/sample.js bundle.cjs
@@ -78,4 +77,16 @@ esmtk commonjs src/sample.js bundle.cjs
 
 -----
 
-## API
+# API Documentation
+
+## preflight()
+
+Verify the node meets the minimum version
+
+### Usage
+
+```javascript
+import { preflight } from 'node_modules/esmtk'
+
+preflight()
+```

@@ -13,6 +13,9 @@
   "bin": {
     "esmtk": "bin/esmtk.js"
   },
+  "exports": {
+    "import": "./src/index.js"
+  },
   "scripts": {
     "lint": "standard",
     "preversion": "npm run lint",

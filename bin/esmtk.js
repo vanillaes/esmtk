@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import cli from 'commander'
-import { preflight } from '../src/preflight.js'
+import { preflight } from 'esmtk'
 import { bundle, commonjs, lint, minify } from './commands/index.js'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)

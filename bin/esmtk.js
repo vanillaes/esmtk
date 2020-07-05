@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import cli from 'commander'
 import { preflight } from 'esmtk'
-import { bundle, commonjs, lint, minify } from './commands/index.js'
+import { bundle, cp, commonjs, lint, minify } from './commands/index.js'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
@@ -30,5 +30,13 @@ cli.command('minify <input> <output>')
   .description('Minify the source using ESBuild')
   .action((input, output) => {
     minify(input, output)
+  })
+cli.command('cp')
+  .description('Copy files from the source to the destination')
+  .usage('[options] [source] [destination]')
+  .option('-f, --force', 'do not prompt before overwriting')
+  .option('-r, --recursive', 'copy directories recursively')
+  .action((opt) => {
+    cp(opt)
   })
 cli.parse(process.argv)

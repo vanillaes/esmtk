@@ -75,6 +75,25 @@ CommonJS uses ESBuild to compile an ES module (and its deps) into a CommonJS bun
 esmtk commonjs src/sample.js bundle.cjs
 ```
 
+## Copy
+
+Copy us a cross-platform clone of the `cp` command in Linux
+
+### Arguments
+
+`esmtk cp -rf [source] [destination]`
+
+- `[source]` - the source file/glob
+- `[destination]` - the destination file/directory
+- `-r, --recursive` - copy files/directories recursively
+- `-f --force` - force overwrite existing files
+
+### Usage
+
+```sh
+esmtk cp src/* dest/
+```
+
 -----
 
 # API Documentation

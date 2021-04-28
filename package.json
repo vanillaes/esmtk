@@ -22,12 +22,11 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
-    "commander": "^5.1.0",
-    "esbuild": "^0.5.19",
+    "commander": "^7.2.0",
+    "esbuild": "^0.11.16",
     "glob": "^7.1.6",
-    "standard": "^14.3.4"
+    "standard": "^16.0.3"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=14"
   }

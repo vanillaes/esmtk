@@ -93,19 +93,3 @@ Copy us a cross-platform clone of the `cp` command in Linux
 ```sh
 esmtk cp src/* dest/
 ```
-
------
-
-# API Documentation
-
-## preflight()
-
-Verify the node meets the minimum version
-
-### Usage
-
-```javascript
-import { preflight } from 'node_modules/esmtk'
-
-preflight()
-```

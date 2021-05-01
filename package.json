@@ -5,7 +5,9 @@
   "keywords": [
     "esm",
     "esmodules",
-    "tooling"
+    "nodejs",
+    "cli",
+    "developer-tools"
   ],
   "repository": "https://github.com/vanillaes/esmtk",
   "author": "Evan Plaice <evanplaice@gmail.com> (https://evanplaice.com/)",

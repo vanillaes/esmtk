@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "commander": "^7.2.0",
-    "esbuild": "^0.11.16",
+    "esbuild": "^0.11.17",
     "glob": "^7.1.6",
     "standard": "^16.0.3"
   },

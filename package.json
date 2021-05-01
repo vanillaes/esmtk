@@ -7,7 +7,7 @@
     "esmodules",
     "tooling"
   ],
-  "repository": "https://github.com/vanillaes/esmtk.git",
+  "repository": "https://github.com/vanillaes/esmtk",
   "author": "Evan Plaice <evanplaice@gmail.com> (https://evanplaice.com/)",
   "license": "MIT",
   "type": "module",

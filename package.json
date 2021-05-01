@@ -3,8 +3,9 @@
   "version": "0.5.1",
   "description": "ES Module Toolkit",
   "keywords": [
-    "tooling",
-    "esm"
+    "esm",
+    "esmodules",
+    "tooling"
   ],
   "repository": "https://github.com/vanillaes/esmtk.git",
   "author": "Evan Plaice <evanplaice@gmail.com> (https://evanplaice.com/)",

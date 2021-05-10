@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 import cli from 'commander'
-import { preflight } from 'esmtk'
 import { bundle, cp, commonjs, lint, minify } from './commands/index.js'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
-
-preflight()
 
 cli.version(pkg.version, '-v, --version')
 cli.command('lint')

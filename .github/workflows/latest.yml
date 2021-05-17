@@ -36,4 +36,4 @@ jobs:
       - name: Lint
         run: npm run lint
       - name: Types
-        run: npm run types
+        run: npm run types --if-present

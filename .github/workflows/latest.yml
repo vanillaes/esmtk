@@ -32,8 +32,8 @@ jobs:
       - name: Install
         run: npm i
       - name: Test
-        run: npm t
+        run: npm t --if-present
       - name: Lint
-        run: npm run lint
+        run: npm run lint --if-present
       - name: Types
         run: npm run types --if-present

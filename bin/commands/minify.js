@@ -1,4 +1,4 @@
-import { spawn } from 'child_process'
+import spawn from 'cross-spawn'
 import { join } from 'path'
 
 const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'esbuild')

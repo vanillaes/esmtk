@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import cli from 'commander'
 import { bundle, cp, commonjs, lint, minify } from './commands/index.js'
-import pkg from '../package.json' with { type: 'json' }; 
+import pkg from '../package.json' with { type: 'json' }
 
 cli.version(pkg.version, '-v, --version')
 cli.command('lint')

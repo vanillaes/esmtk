@@ -1,39 +1,46 @@
 #!/usr/bin/env node
-import cli from 'commander'
 import { bundle, cp, commonjs, lint, minify } from './commands/index.js'
+import { Command } from 'commander'
 import { createRequire } from 'module'
+const program = new Command()
 const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
 
-cli.version(pkg.version, '-v, --version')
-cli.command('lint')
-  .description('Lint the package using StandardJS')
+program.version(pkg.version, '-v, --version')
+
+program.command('lint')
+  .description('Lint the source using StandardJS')
   .option('--fix', 'Automatically fix problems')
-  .action(opt => {
-    const flags = opt.fix ? ['--fix'] : []
+  .action(options => {
+    const flags = options.fix ? ['--fix'] : []
     lint(flags)
   })
-cli.command('bundle <input> <output>')
+
+program.command('bundle <input> <output>')
   .description('Bundle the source using ESBuild')
   .action((input, output) => {
     bundle(input, output)
   })
-cli.command('commonjs <input> <output>')
+
+program.command('commonjs <input> <output>')
   .description('Transpile the source to CommonJS using ESBuild')
   .action((input, output) => {
     commonjs(input, output)
   })
-cli.command('minify <input> <output>')
+
+program.command('minify <input> <output>')
   .description('Minify the source using ESBuild')
   .action((input, output) => {
     minify(input, output)
   })
-cli.command('cp')
-  .description('Copy files from the source to the destination')
-  .usage('[options] [source] [destination]')
+
+program.command('cp <source> <target>')
+  .usage('[-rf] source target')
+  .description('Copy files from the source to the target')
   .option('-f, --force', 'do not prompt before overwriting')
   .option('-r, --recursive', 'copy directories recursively')
   .action((opt) => {
     cp(opt)
   })
-cli.parse(process.argv)
+
+program.parse(process.argv)

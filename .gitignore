@@ -1,4 +1,5 @@
 node_modules/
 package/
+test/
 .DS_Store
 *.tgz

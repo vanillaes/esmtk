@@ -39,8 +39,8 @@ program.command('cp <source> <target>')
   .description('Copy files from the source to the target')
   .option('-f, --force', 'do not prompt before overwriting')
   .option('-r, --recursive', 'copy directories recursively')
-  .action((opt) => {
-    cp(opt)
+  .action((source, target, options) => {
+    cp(source, target, options)
   })
 
 program.parse(process.argv)

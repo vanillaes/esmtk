@@ -17,14 +17,14 @@
     "esmtk": "bin/esmtk.js"
   },
   "scripts": {
-    "lint": "standard",
+    "lint": "./bin/esmtk.js lint",
     "preversion": "npm run lint",
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
     "commander": "^14.0.3",
     "esbuild": "^0.13.13",
-    "glob": "^7.2.0",
+    "glob": "^13.0.6",
     "standard": "^17.1.2"
   },
   "engines": {

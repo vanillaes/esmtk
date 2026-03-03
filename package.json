@@ -1,5 +1,5 @@
 {
-  "name": "esmtk",
+  "name": "@vanillaes/esmtk",
   "version": "0.6.2",
   "description": "ES Module Toolkit",
   "keywords": [

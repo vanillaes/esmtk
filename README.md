@@ -82,7 +82,7 @@ Copy us a cross-platform clone of the `cp` command in Linux
 
 ### Arguments
 
-`esmtk cp -rf [source] [destination]`
+`esmtk cp [-rf] [source] [destination]`
 
 - `[source]` - the source file/glob
 - `[destination]` - the destination file/directory
@@ -92,5 +92,5 @@ Copy us a cross-platform clone of the `cp` command in Linux
 ### Usage
 
 ```sh
-esmtk cp src/* dest/
+esmtk cp -r src/ dest/
 ```

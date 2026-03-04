@@ -78,7 +78,7 @@ esmtk commonjs src/sample.js bundle.cjs
 
 ## Copy
 
-Copy us a cross-platform clone of the `cp` command in Linux
+Copy is a cross-platform clone of the `cp` command in Linux
 
 ### Arguments
 
@@ -86,11 +86,29 @@ Copy us a cross-platform clone of the `cp` command in Linux
 
 - `[source]` - the source file/glob
 - `[destination]` - the destination file/directory
+- `-f --force` - ignore exceptions if the file doesn't exist
 - `-r, --recursive` - copy files/directories recursively
-- `-f --force` - force overwrite existing files
 
 ### Usage
 
 ```sh
 esmtk cp -r src/ dest/
+```
+
+## Remove
+
+Remove is a cross-platform clone of the `rm` command in Linux
+
+### Arguments
+
+`esmtk rm [-rf] [file|directory]`
+
+- `[file|directory]` - the source file/glob
+- `-f --force` - force remove existing file(s)
+- `-r, --recursive` - remove files/directories recursively
+
+### Usage
+
+```sh
+esmtk rm -r src/
 ```

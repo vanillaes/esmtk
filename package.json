@@ -15,7 +15,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.js",
-    "./cp": "./src/cp.js"
+    "./cp": "./src/cp.js",
+    "./rm": "./src/rm.js"
   },
   "bin": {
     "esmtk": "bin/esmtk.js"

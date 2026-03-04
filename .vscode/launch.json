@@ -49,5 +49,29 @@
             "args": ["lint"],
             "console": "integratedTerminal",
         },
+        {
+            "name": "RemoveFile",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["rm", "./test/cp2/test1.txt"],
+            "console": "integratedTerminal",
+        },
+                {
+            "name": "RemoveDirectory",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["rm", "-r", "./test/cp2/"],
+            "console": "integratedTerminal",
+        }
     ]
 }

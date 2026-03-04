@@ -1,6 +1,6 @@
 {
   "name": "@vanillaes/esmtk",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "ES Module Toolkit",
   "keywords": [
     "esm",

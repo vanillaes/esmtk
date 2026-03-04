@@ -1,7 +1,12 @@
 import { basename, dirname } from 'node:path'
 import { access, constants, cp, stat } from 'node:fs/promises'
 
-// copy a single file
+/**
+ * Copy a single file asynchronously
+ * @param {string} source The source file
+ * @param {string} target The target file
+ * @param {boolean} force If the file already exists, overwrite it (default false)
+ */
 export async function copyAsync (source, target, force = false) {
   const sExists = await fileExists(source)
   if (!sExists) {
@@ -42,7 +47,12 @@ export async function copyAsync (source, target, force = false) {
   }
 }
 
-// copy a directory recursively
+/**
+ * Recursively copy a directory asynchronously
+ * @param {string} source The source directory
+ * @param {string} target The target directory
+ * @param {bool} force If the file already exists, overwrite it (default false)
+ */
 export async function copyRecursiveAsync (source, target, force = false) {
   const sExists = await fileExists(source)
   if (!sExists) {

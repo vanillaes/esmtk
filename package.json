@@ -13,6 +13,10 @@
   "author": "Evan Plaice <evanplaice@gmail.com> (https://evanplaice.com/)",
   "license": "MIT",
   "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./cp": "./src/cp.js"
+  },
   "bin": {
     "esmtk": "bin/esmtk.js"
   },

@@ -36,6 +36,18 @@
             "cwd": "${workspaceFolder}",
             "args": ["cp", "-r", "./test/cp/", "./test/cp2"],
             "console": "integratedTerminal",
-        }
+        },
+        {
+            "name": "Lint",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["lint"],
+            "console": "integratedTerminal",
+        },
     ]
 }

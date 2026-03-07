@@ -11,14 +11,14 @@ export async function bundle (input, output) {
   if (!npmExists) {
     console.error('npm not found')
     console.error('is node installed?')
-    return
+    process.exit(1)
   }
 
   const esbuildExists = await installed('esbuild')
   if (!esbuildExists) {
     console.error('esbuild not found')
     console.error('esbuild can be installed with `npm i -g esbuild`')
-    return
+    process.exit(1)
   }
 
   spawn('esbuild', ['--format=esm', '--bundle', input, `--outfile=${output}`], {

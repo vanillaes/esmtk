@@ -2,6 +2,30 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Lint",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["lint"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Types",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["types", "./test/index.js"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "CopyFileToFile",
             "type": "node",
             "request": "launch",
@@ -35,18 +59,6 @@
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
             "args": ["cp", "-r", "./test/cp/", "./test/cp2"],
-            "console": "integratedTerminal",
-        },
-        {
-            "name": "Lint",
-            "type": "node",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
-            "cwd": "${workspaceFolder}",
-            "args": ["lint"],
             "console": "integratedTerminal",
         },
         {

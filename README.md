@@ -25,6 +25,22 @@ Lint the source code (using StandardJS)
 esmtk lint
 ```
 
+## Types
+
+Type check the JSDoc typings (using Typescript)
+
+### Arguments
+
+`esmtk types index.js`
+
+- `[entry]` - the entry-point for the source
+
+### Usage
+
+```sh
+esmtk types index.js
+```
+
 ## Bundle
 
 Bundle the source code to an ECMAScript module (using ESBuild)

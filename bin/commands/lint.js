@@ -8,7 +8,7 @@ export async function lint (flags) {
     cwd: process.cwd(),
     stdio: ['pipe', 'pipe', 'pipe']
   }).on('error', err => {
-    console.error(`test${err}`)
+    console.error(`${err}`)
   })
 
   child.stdout.on('data', (data) => {

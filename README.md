@@ -1,6 +1,6 @@
-<h1 align="center">ES Module Toolkit</h1>
+<h1 align="center">ECMAScript Module Toolkit</h1>
 
-ESMTK, essential tools and libs for ES module development
+ESMTK, essential tools for ECMAScript module development
 
 <div align="center">
   <a href="https://github.com/vanillaes/esmtk/releases"><img src="https://badgen.net/github/tag/vanillaes/esmtk" alt="GitHub Release"></a>
@@ -11,7 +11,7 @@ ESMTK, essential tools and libs for ES module development
 
 ## Lint
 
-Lint uses StandardJS to lint the source
+Lint the source code (using StandardJS)
 
 ### Arguments
 
@@ -27,7 +27,7 @@ esmtk lint
 
 ## Bundle
 
-Bundle uses ESBuild to compile an ES module (and its deps) into a bundle
+Bundle the source code to an ECMAScript module (using ESBuild)
 
 ### Arguments
 
@@ -44,7 +44,7 @@ esmtk bundle src/sample.js bundle.js
 
 ## Minify
 
-Minify uses ESBuild to compile an ES module (and its deps) into a minified bundle
+Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 
 ### Arguments
 
@@ -61,7 +61,7 @@ esmtk minify src/sample.js bundle.min.js
 
 ## CommonJS
 
-CommonJS uses ESBuild to compile an ES module (and its deps) into a CommonJS bundle
+Bundle the source code to a CommonJS module (using ESBuild)
 
 ### Arguments
 

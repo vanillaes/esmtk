@@ -51,7 +51,7 @@ export async function copyAsync (source, target, force = false) {
  * Recursively copy a directory asynchronously
  * @param {string} source The source directory
  * @param {string} target The target directory
- * @param {bool} force If the file already exists, overwrite it (default false)
+ * @param {boolean} force If the file already exists, overwrite it (default false)
  */
 export async function copyRecursiveAsync (source, target, force = false) {
   const sExists = await fileExists(source)

@@ -27,7 +27,7 @@ export async function removeAsync (path, force = false) {
 /**
  * Recursively remove a file|directory asynchronously
  * @param {string} path The file|directory to remove
- * @param {bool} force Ignore exceptions if the file|directory doesn't exist (default false)
+ * @param {boolean} force Ignore exceptions if the file|directory doesn't exist (default false)
  */
 export async function removeRecursiveAsync (path, force = false) {
   const exists = await fileExists(path)

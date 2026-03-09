@@ -26,6 +26,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Typings",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["typings", "./test/index.js"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "CopyFileToFile",
             "type": "node",
             "request": "launch",

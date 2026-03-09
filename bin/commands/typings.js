@@ -2,10 +2,10 @@ import { installed, which } from '../../src/index.js'
 import { spawn } from 'child_process'
 
 /**
- * Type Check the JSDOC typings
+ * Generate Typescript typings from JSDoc
  * @param {string} entry the entry point
  */
-export async function types (entry) {
+export async function typings (entry) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -20,7 +20,7 @@ export async function types (entry) {
     process.exit(1)
   }
 
-  spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--noEmit'], {
+  spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--declaration', '--emitDeclarationOnly', '--noEmitOnError'], {
     cwd: process.cwd(),
     stdio: ['pipe', process.stdout, process.stderr]
   }).on('error', err => {

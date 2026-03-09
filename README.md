@@ -41,6 +41,22 @@ Type check the JSDoc typings (using Typescript)
 esmtk types index.js
 ```
 
+## Typings
+
+Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
+
+### Arguments
+
+`esmtk typings index.js`
+
+- `[entry]` - the entry-point for the source
+
+### Usage
+
+```sh
+esmtk typings index.js
+```
+
 ## Bundle
 
 Bundle the source code to an ECMAScript module (using ESBuild)

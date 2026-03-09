@@ -1,5 +1,6 @@
+import { fileExists } from './index.js'
 import { basename, dirname } from 'node:path'
-import { access, constants, cp, stat } from 'node:fs/promises'
+import { cp, stat } from 'node:fs/promises'
 
 /**
  * Copy a single file asynchronously
@@ -84,14 +85,5 @@ export async function copyRecursiveAsync (source, target, force = false) {
     await cp(source, target, { force, recursive: true })
   } catch (err) {
     console.error(`cp": error ${err.message}`)
-  }
-}
-
-async function fileExists (file) {
-  try {
-    await access(file, constants.F_OK)
-    return true
-  } catch (error) {
-    return false
   }
 }

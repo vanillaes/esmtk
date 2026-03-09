@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, cp, commonjs, lint, minify, rm, types } from './commands/index.js'
+import { bundle, cp, commonjs, lint, minify, rm, types, typings } from './commands/index.js'
 import { Command } from 'commander'
 import { createRequire } from 'module'
 const program = new Command()
@@ -20,6 +20,12 @@ program.command('types <entry>')
   .description('Type check the JSDoc typings using Typescript')
   .action((entry) => {
     types(entry)
+  })
+
+program.command('typings <entry>')
+  .description('Generate typings from JSDoc using Typescript')
+  .action((entry) => {
+    typings(entry)
   })
 
 program.command('bundle <input> <output>')

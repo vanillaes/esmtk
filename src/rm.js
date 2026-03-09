@@ -1,4 +1,5 @@
-import { access, constants, rm, stat } from 'node:fs/promises'
+import { fileExists } from './index.js'
+import { rm, stat } from 'node:fs/promises'
 
 /**
  * Remove a file asynchronously
@@ -45,14 +46,5 @@ export async function removeRecursiveAsync (path, force = false) {
     await rm(path, { force, recursive: true })
   } catch (err) {
     console.error(`rm": error ${err.message}`)
-  }
-}
-
-async function fileExists (file) {
-  try {
-    await access(file, constants.F_OK)
-    return true
-  } catch (error) {
-    return false
   }
 }

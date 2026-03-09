@@ -14,9 +14,18 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    ".": "./src/index.js",
-    "./cp": "./src/cp.js",
-    "./rm": "./src/rm.js"
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./cp": {
+      "types": "./src/cp.d.ts",
+      "default": "./src/cp.js"
+    },
+    "./rm": {
+      "types": "./src/rm.d.ts",
+      "default": "./src/rm.js"
+    }
   },
   "bin": {
     "esmtk": "bin/esmtk.js"

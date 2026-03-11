@@ -34,7 +34,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["types", "./test/index.js"],
+            "args": ["types", "./src/index.js"],
             "console": "integratedTerminal",
         },
         {
@@ -46,7 +46,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["typings", "./test/index.js"],
+            "args": ["typings", "./src/index.js"],
             "console": "integratedTerminal",
         },
         {

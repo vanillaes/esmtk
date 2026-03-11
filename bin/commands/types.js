@@ -5,7 +5,7 @@ import { spawn } from 'child_process'
  * Type Check the JSDOC typings
  * @param {string} entry the entry point
  */
-export async function types (entry) {
+export async function types (entry, options) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -20,10 +20,19 @@ export async function types (entry) {
     process.exit(1)
   }
 
-  spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--noEmit'], {
-    cwd: process.cwd(),
-    stdio: ['pipe', process.stdout, process.stderr]
-  }).on('error', err => {
-    console.error(err)
-  })
+  if (options?.strict) {
+    spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--noEmit', '--strict'], {
+      cwd: process.cwd(),
+      stdio: ['pipe', process.stdout, process.stderr]
+    }).on('error', err => {
+      console.error(err)
+    })
+  } else {
+    spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--noEmit'], {
+      cwd: process.cwd(),
+      stdio: ['pipe', process.stdout, process.stderr]
+    }).on('error', err => {
+      console.error(err)
+    })
+  }
 }

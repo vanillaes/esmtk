@@ -34,6 +34,7 @@ Type check the JSDoc typings (using Typescript)
 `esmtk types index.js`
 
 - `[entry]` - the entry-point for the source
+- `--strict` - enable 'strict mode' type checks
 
 ### Usage
 

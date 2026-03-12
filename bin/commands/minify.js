@@ -6,7 +6,7 @@ import { spawn } from 'child_process'
  * @param {string} input the input path
  * @param {string} output the output path
  */
-export async function minify (input, output) {
+export async function minify (input, output, options) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -21,7 +21,17 @@ export async function minify (input, output) {
     process.exit(1)
   }
 
-  spawn('esbuild', ['--format=esm', '--minify', '--bundle', input, `--outfile=${output}`], {
+  const args = []
+  args.push('--format=esm')
+  args.push('--minify')
+  args.push('--bundle')
+  if (options?.sourcemap) {
+    args.push('--sourcemap')
+  }
+  args.push(input)
+  args.push(`--outfile=${output}`)
+
+  spawn('esbuild', args, {
     cwd: process.cwd(),
     stdio: ['pipe', process.stdout, process.stderr]
   }).on('error', err => {

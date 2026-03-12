@@ -85,6 +85,7 @@ Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 
 - `[input]` - the input source file path
 - `[output]` - the output bundle file path
+- `--sourcemap` - generate a source map for the minified bundle
 
 ### Usage
 

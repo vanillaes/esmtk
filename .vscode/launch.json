@@ -50,6 +50,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Minify",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["minify", "--sourcemap", "./src/index.js", "./src/index.min.js"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "CopyFileToFile",
             "type": "node",
             "request": "launch",

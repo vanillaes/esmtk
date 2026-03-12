@@ -43,6 +43,7 @@ program.command('commonjs <input> <output>')
 
 program.command('minify <input> <output>')
   .description('Minify the source using ESBuild')
+  .option('--platform <platform>', 'Target a specific platform (ex node)')
   .option('--sourcemap', 'Generate a source map')
   .action((input, output, options) => {
     minify(input, output, options)

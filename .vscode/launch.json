@@ -58,7 +58,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["minify", "--sourcemap", "./src/index.js", "./src/index.min.js"],
+            "args": ["minify", "--sourcemap", "--platform=node", "./src/index.js", "./src/index.min.js"],
             "console": "integratedTerminal",
         },
         {

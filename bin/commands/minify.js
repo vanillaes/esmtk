@@ -26,6 +26,9 @@ export async function minify (input, output, options) {
   args.push('--format=esm')
   args.push('--minify')
   args.push('--bundle')
+  if (options?.platform) {
+    args.push(`--platform=${options?.platform}`)
+  }
   if (options?.sourcemap) {
     args.push('--sourcemap')
   }

@@ -23,9 +23,9 @@ export async function minify (input, output, options) {
   }
 
   const args = []
+  args.push('--bundle')
   args.push('--format=esm')
   args.push('--minify')
-  args.push('--bundle')
   if (options?.platform) {
     args.push(`--platform=${options?.platform}`)
   }

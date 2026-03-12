@@ -50,6 +50,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Bundle",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["bundle", "--platform=node", "./src/index.js", "./dist/index.js"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Minify",
             "type": "node",
             "request": "launch",
@@ -58,7 +70,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["minify", "--sourcemap", "--platform=node", "./src/index.js", "./src/index.min.js"],
+            "args": ["minify", "--sourcemap", "--platform=node", "./src/index.js", "./dist/index.min.js"],
             "console": "integratedTerminal",
         },
         {

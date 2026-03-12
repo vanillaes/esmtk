@@ -31,8 +31,9 @@ program.command('typings <entry>')
 
 program.command('bundle <input> <output>')
   .description('Bundle the source using ESBuild')
-  .action((input, output) => {
-    bundle(input, output)
+  .option('--platform <platform>', 'Target a specific platform (ex node)')
+  .action((input, output, options) => {
+    bundle(input, output, options)
   })
 
 program.command('commonjs <input> <output>')

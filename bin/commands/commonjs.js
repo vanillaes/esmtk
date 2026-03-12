@@ -5,8 +5,9 @@ import { spawn } from 'child_process'
  * Bundle CJS (CommonJS) code
  * @param {string} input the input path
  * @param {string} output the output path
+ * @param {any} options commonjs options
  */
-export async function commonjs (input, output) {
+export async function commonjs (input, output, options) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -21,7 +22,16 @@ export async function commonjs (input, output) {
     process.exit(1)
   }
 
-  spawn('esbuild', ['--format=cjs', '--bundle', input, `--outfile=${output}`], {
+  const args = []
+  args.push('--bundle')
+  args.push('--format=cjs')
+  if (options?.platform) {
+    args.push(`--platform=${options?.platform}`)
+  }
+  args.push(input)
+  args.push(`--outfile=${output}`)
+
+  spawn('esbuild', args, {
     cwd: process.cwd(),
     stdio: ['pipe', process.stdout, process.stderr]
   }).on('error', err => {

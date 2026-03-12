@@ -38,8 +38,9 @@ program.command('bundle <input> <output>')
 
 program.command('commonjs <input> <output>')
   .description('Transpile the source to CommonJS using ESBuild')
-  .action((input, output) => {
-    commonjs(input, output)
+  .option('--platform <platform>', 'Target a specific platform (ex node)')
+  .action((input, output, options) => {
+    commonjs(input, output, options)
   })
 
 program.command('minify <input> <output>')

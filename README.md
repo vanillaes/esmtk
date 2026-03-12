@@ -105,6 +105,7 @@ Bundle the source code to a CommonJS module (using ESBuild)
 
 - `[input]` - the input source file path
 - `[output]` - the output bundle file path
+- `--platform=<platform>` - target a specific platform (ex 'node')
 
 ### Usage
 

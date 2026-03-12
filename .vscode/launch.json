@@ -74,6 +74,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "CommonJS",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["commonjs", "--platform=node", "./src/index.js", "./dist/index.cjs"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "CopyFileToFile",
             "type": "node",
             "request": "launch",

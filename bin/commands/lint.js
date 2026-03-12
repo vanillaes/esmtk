@@ -3,8 +3,17 @@ import { join } from 'path'
 
 const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'standard')
 
-export async function lint (flags) {
-  const child = spawn(BIN_PATH, flags, {
+/**
+ * Lint the source code (using StandardJS)
+ * @param {any} options
+ */
+export async function lint (options) {
+  const args = []
+  if (options?.fix) {
+    args.push('--fix')
+  }
+
+  const child = spawn(BIN_PATH, args, {
     cwd: process.cwd(),
     stdio: ['pipe', 'pipe', 'pipe']
   }).on('error', err => {

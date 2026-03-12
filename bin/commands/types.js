@@ -20,19 +20,22 @@ export async function types (entry, options) {
     process.exit(1)
   }
 
+  const args = []
+  args.push(entry)
+  args.push('-t')
+  args.push('esnext')
+  args.push('--allowJS')
+  args.push('--checkJS')
+  args.push('--noEmit')
+  args.push('--skipLibCheck')
   if (options?.strict) {
-    spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--noEmit', '--strict'], {
-      cwd: process.cwd(),
-      stdio: ['pipe', process.stdout, process.stderr]
-    }).on('error', err => {
-      console.error(err)
-    })
-  } else {
-    spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--noEmit'], {
-      cwd: process.cwd(),
-      stdio: ['pipe', process.stdout, process.stderr]
-    }).on('error', err => {
-      console.error(err)
-    })
+    args.push('--strict')
   }
+
+  spawn('tsc', args, {
+    cwd: process.cwd(),
+    stdio: ['pipe', process.stdout, process.stderr]
+  }).on('error', err => {
+    console.error(err)
+  })
 }

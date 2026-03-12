@@ -5,6 +5,7 @@ import { spawn } from 'child_process'
  * Bundle and minify ESM (ECMAScript Module) code (with tree-shaking)
  * @param {string} input the input path
  * @param {string} output the output path
+ * @param {any} options minify options
  */
 export async function minify (input, output, options) {
   const npmExists = await which('npm')

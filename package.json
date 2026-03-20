@@ -3,11 +3,17 @@
   "version": "0.17.0",
   "description": "ES Module Toolkit",
   "keywords": [
+    "ecmascript",
     "esm",
     "esmodules",
-    "nodejs",
     "cli",
-    "developer-tools"
+    "developer-tools",
+    "jsdoc",
+    "fs",
+    "cp",
+    "copy",
+    "rm",
+    "remove"
   ],
   "repository": "https://github.com/vanillaes/esmtk",
   "author": "Evan Plaice <evanplaice@gmail.com> (https://evanplaice.com/)",

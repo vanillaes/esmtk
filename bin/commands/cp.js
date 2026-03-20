@@ -16,12 +16,17 @@ export async function cp (paths, options) {
     const source = paths[0]
     const target = paths[1]
 
-    if (!options?.recursive) {
+    if (!options?.recursive && !source.includes('*')) {
       await copyAsync(source, target, options?.force)
     }
 
     if (options?.recursive) {
       await copyRecursiveAsync(source, target, options?.force)
+    }
+
+    if (source.includes('*')) {
+      const sources = await expandSource(source)
+      await copyMultipleAsync(sources, target)
     }
   }
 

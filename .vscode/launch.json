@@ -109,6 +109,18 @@
             "args": ["cp", "./test/cp/test1.txt", "./test/cp2/test1.txt"],
             "console": "integratedTerminal",
         },
+                {
+            "name": "CopyGlobToFolder",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["cp", "./test/cp/*.js", "./test/cp2/"],
+            "console": "integratedTerminal",
+        },
         {
             "name": "CopyFileToFile - Error source doesn't exist",
             "type": "node",

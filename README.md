@@ -148,9 +148,10 @@ Clean up build artifacts
 `esmtk clean [root]`
 
 - `[root]` - the root directory to perform the cleanup (default: `process.cwd()`)
-- `--bundle` - Clean bundled build artifacts (default: `*.esm.js`)
-- `--minify` - Clean minified build artifacts (default: `*.min.js`)
-- `--typings` - Clean typing artifacts (default: `*.d.ts`)
+- `--bundle` - Clean bundled build artifacts (default: `**/*.esm.js`)
+- `--minify` - Clean minified build artifacts (default: `**/*.min.js`)
+- `--typings` - Clean typing artifacts (default: `**/*.d.ts`)
+- `--custom` - Clean based on a user-defined pattern
 
 ### Usage
 
@@ -160,6 +161,9 @@ esmtk clean --bundle --minify --typings
 
 # override default extension
 esmtk clean --bundle *.mjs
+
+# define your own pattern
+esmtk clean --custom *.scss.css
 ```
 
 **Node: The `clean` command automatically ignores the contents of `node_modules/`**

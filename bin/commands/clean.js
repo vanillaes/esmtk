@@ -24,6 +24,10 @@ export async function clean (root, options) {
   if (options?.typings) {
     await cleanOne(root, options.typings, options)
   }
+
+  if (options?.custom) {
+    await cleanOne(root, options.custom, options)
+  }
 }
 
 async function cleanOne (root, glob, options) {

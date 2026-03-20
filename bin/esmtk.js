@@ -54,9 +54,10 @@ program.command('minify <input> <output>')
 program.command('clean')
   .description('Clean build artificts')
   .argument('[root]', 'The root directory to perform operations from (default cwd)', process.cwd())
-  .option('--bundle [bundle]', 'Clean bundled build artifacts (default: *.esm.js)')
-  .option('--minify [minify]', 'Clean minified build artifacts (default: *.min.js)')
-  .option('--typings [typings]', 'Clean typing artifacts (default: *.d.ts)')
+  .option('--bundle [bundle]', 'Clean bundled build artifacts (default: **/*.esm.js)')
+  .option('--minify [minify]', 'Clean minified build artifacts (default: **/*.min.js)')
+  .option('--typings [typings]', 'Clean typing artifacts (default: **/*.d.ts)')
+  .option('--custom <custom>', 'Clean based on a user-defined pattern')
   // .option('-f, --force', 'Do not prompt before overwriting', false)
   .action((root, options) => {
     // set --bundle default
@@ -71,6 +72,7 @@ program.command('clean')
     if (options?.typings && typeof (options.typings) === 'boolean') {
       options.typings = '**/*.d.ts'
     }
+
     clean(root, options)
   })
 

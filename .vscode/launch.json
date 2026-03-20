@@ -408,6 +408,18 @@
             "cwd": "${workspaceFolder}",
             "args": ["clean", "--bundle", "--minify", "--typings"],
             "console": "integratedTerminal",
-        }
+        },
+        {
+            "name": "Clean --custom",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["clean", "--custom", "**/*.min.js"],
+            "console": "integratedTerminal",
+        },
     ]
 }

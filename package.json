@@ -33,7 +33,10 @@
   "scripts": {
     "lint": "./bin/esmtk.js lint",
     "types": "./bin/esmtk.js types src/index.js",
+    "bundle": "./bin/esmtk.js bundle --platform=node src/index.js src/index.esm.js",
+    "minify": "./bin/esmtk.js minify --platform=node src/index.js src/index.min.js",
     "typings": "./bin/esmtk.js typings src/index.js",
+    "clean": "./bin/esmtk.js clean --bundle --minify --typings",
     "preversion": "npm run lint && npm run types",
     "postversion": "git push --follow-tags"
   },

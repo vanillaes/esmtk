@@ -1,10 +1,10 @@
 /**
- * Expand source file/glob into a list of paths
+ * Expand file/glob into a list of paths
  *
  * @param {*} source the source file/glob
  * @returns {Promise<string[]>} an array of paths
  */
-export function expandSource(source: any): Promise<string[]>;
+export function expand(source: any): Promise<string[]>;
 /**
  * Check if a file/folder exists
  * @param {string} path the path to the file/folder
@@ -20,9 +20,11 @@ export function installed(pkg: string): Promise<boolean>;
 /**
  * Description
  * @param {string} pattern glob pattern(s) to match
+ * @param {string} root root path where the matcher runs from
+ * @param {string} ignore glob of pattern(s) to ignore
  * @returns {Promise<string[]>} an array of paths
  */
-export function match(pattern: string): Promise<string[]>;
+export function match(pattern: string, root?: string, ignore?: string): Promise<string[]>;
 /**
  * Check to see if an application is installed globally
  * @param {string} program the name of the application

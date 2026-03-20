@@ -1,5 +1,5 @@
 import { copyAsync, copyMultipleAsync, copyRecursiveAsync } from '../../src/cp.js'
-import { expandSource } from '../../src/index.js'
+import { expand } from '../../src/index.js'
 
 /**
  * POSIX cp Implemented in Node
@@ -25,14 +25,14 @@ export async function cp (paths, options) {
     }
 
     if (source.includes('*')) {
-      const sources = await expandSource(source)
+      const sources = await expand(source)
       await copyMultipleAsync(sources, target, options?.force)
     }
   }
 
   if (paths.length > 2) {
     let sources = paths.slice(0, -1)
-    sources = await await Promise.all(sources.map(source => expandSource(source)))
+    sources = await await Promise.all(sources.map(source => expand(source)))
     sources = sources.flat()
     const target = paths.slice(-1)[0]
 

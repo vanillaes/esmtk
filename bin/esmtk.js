@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, cp, commonjs, lint, minify, rm, types, typings } from './commands/index.js'
+import { bundle, clean, cp, commonjs, lint, minify, rm, types, typings } from './commands/index.js'
 import { Command } from 'commander'
 import { createRequire } from 'module'
 const program = new Command()
@@ -51,6 +51,29 @@ program.command('minify <input> <output>')
     minify(input, output, options)
   })
 
+program.command('clean')
+  .description('Clean build artificts')
+  .argument('[root]', 'The root directory to perform operations from (default cwd)', process.cwd())
+  .option('--bundle [bundle]', 'Clean bundled build artifacts (default: *.esm.js)')
+  .option('--minify [minify]', 'Clean minified build artifacts (default: *.min.js)')
+  .option('--typings [typings]', 'Clean typing artifacts (default: *.d.ts)')
+  // .option('-f, --force', 'Do not prompt before overwriting', false)
+  .action((root, options) => {
+    // set --bundle default
+    if (options?.bundle && typeof (options.bundle) === 'boolean') {
+      options.bundle = '**/*.esm.js'
+    }
+    // set --minify default
+    if (options?.minify && typeof (options.minify) === 'boolean') {
+      options.minify = '**/*.min.js'
+    }
+    // set --typings default
+    if (options?.typings && typeof (options.typings) === 'boolean') {
+      options.typings = '**/*.d.ts'
+    }
+    clean(root, options)
+  })
+
 program.command('cp')
   .usage(`[-r] source target
 
@@ -63,6 +86,7 @@ program.command('cp')
   .description('Copy files and directories')
   .argument('[paths...]')
   .option('-r, --recursive', 'Copy directories recursively', false)
+  // .option('-f, --force', 'Do not prompt before overwriting', false)
   .action((paths, options) => {
     cp(paths, options)
   })
@@ -78,7 +102,7 @@ program.command('rm')
   `)
   .description('Remove files or directories')
   .argument('[paths...]')
-  .option('-f, --force', 'Do not prompt before overwriting', false)
+  // .option('-f, --force', 'Do not prompt before overwriting', false)
   .option('-r, --recursive', 'Remove directories recursively', false)
   .action((paths, options) => {
     rm(paths, options)

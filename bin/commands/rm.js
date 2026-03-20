@@ -1,5 +1,5 @@
 import { removeAsync, removeMultipleAsync, removeRecursiveAsync } from '../../src/rm.js'
-import { expandSource } from '../../src/util.js'
+import { expand } from '../../src/util.js'
 
 /**
  * POSIX rm Implemented in Node
@@ -20,13 +20,13 @@ export async function rm (paths, options) {
 
     if (paths[0].includes('*')) {
       const glob = paths[0]
-      const files = await expandSource(glob)
+      const files = await expand(glob)
       await removeMultipleAsync(files, options?.force)
     }
   }
 
   if (paths.length > 1) {
-    let files = await await Promise.all(paths.map(path => expandSource(path)))
+    let files = await await Promise.all(paths.map(path => expand(path)))
     files = files.flat()
 
     await removeMultipleAsync(files, options?.force)

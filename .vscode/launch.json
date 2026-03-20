@@ -336,6 +336,78 @@
             "cwd": "${workspaceFolder}",
             "args": ["rm", "./test/cp2/test1.txt", "./test/cp2/*.js"],
             "console": "integratedTerminal",
+        },
+        {
+            "name": "Clean --bundle",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["clean", "--bundle"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Clean --bundle w/ override",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["clean", "--bundle", "**/*.js"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Clean --bundle w/ Error",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["clean", "--bundle", "**/*.mjs"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Clean --minify",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["clean", "--minify"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Clean --typings",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["clean", "--typings"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Clean All",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["clean", "--bundle", "--minify", "--typings"],
+            "console": "integratedTerminal",
         }
     ]
 }

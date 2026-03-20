@@ -1,4 +1,5 @@
 export { bundle } from './bundle.js'
+export { clean } from './clean.js'
 export { commonjs } from './commonjs.js'
 export { cp } from './cp.js'
 export { lint } from './lint.js'

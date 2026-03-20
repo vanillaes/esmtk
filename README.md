@@ -22,7 +22,11 @@ Lint the source code (using StandardJS)
 ### Usage
 
 ```sh
+# lint the sources
 esmtk lint
+
+# lint the sources and attempt to automatally fix the issues
+esmtk --fix lint
 ```
 
 ## Types
@@ -31,7 +35,7 @@ Type check the JSDoc typings (using Typescript)
 
 ### Arguments
 
-`esmtk types index.js`
+`esmtk types [entry]`
 
 - `[entry]` - the entry-point for the source
 - `--strict` - enable 'strict mode' type checks
@@ -39,24 +43,14 @@ Type check the JSDoc typings (using Typescript)
 ### Usage
 
 ```sh
+# type check the sources
 esmtk types index.js
+
+# type check the sources (with 'strict mode' enabled)
+esmtk types --strict index.js
 ```
 
-## Typings
-
-Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
-
-### Arguments
-
-`esmtk typings index.js`
-
-- `[entry]` - the entry-point for the source
-
-### Usage
-
-```sh
-esmtk typings index.js
-```
+**Node: Due to Typescript limitations, inline JSDoc typings will be ignored if typings (ie `*.d.ts` files) exist.**
 
 ## Bundle
 
@@ -73,7 +67,11 @@ Bundle the source code to an ECMAScript module (using ESBuild)
 ### Usage
 
 ```sh
+# bundle ESM source -> ESM bundle
 esmtk bundle src/sample.js bundle.js
+
+# bundle ESM source -> ESM bundle (includes Node-specific bindings)
+esmtk bundle --platform=node src/sample.js bundle.js
 ```
 
 ## Minify
@@ -92,7 +90,14 @@ Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 ### Usage
 
 ```sh
+# bundle ESM source -> minified ESM bundle
 esmtk minify src/sample.js bundle.min.js
+
+# bundle ESM source -> minified ESM bundle (includes Node-specific bindings)
+esmtk minify --platform=node src/sample.js bundle.min.js
+
+# bundle ESM source -> minified ESM bundle (output a sourcemap)
+esmtk minify --sourcemap src/sample.js bundle.min.js
 ```
 
 ## CommonJS
@@ -110,8 +115,54 @@ Bundle the source code to a CommonJS module (using ESBuild)
 ### Usage
 
 ```sh
+# bundle ESM source -> CommonJS bundle
 esmtk commonjs src/sample.js bundle.cjs
+
+# bundle ESM source -> CommonJS bundle (includes Node-specific bindings)
+esmtk commonjs --platform=node src/sample.js bundle.cjs
 ```
+
+## Typings
+
+Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
+
+### Arguments
+
+`esmtk typings [entry]`
+
+- `[entry]` - the entry-point for the source
+
+### Usage
+
+```sh
+# generate .d.ts files for all linked source files
+esmtk typings index.js
+```
+
+## Clean
+
+Clean up build artifacts
+
+### Arguments
+
+`esmtk clean [root]`
+
+- `[root]` - the root directory to perform the cleanup (default: `process.cwd()`)
+- `--bundle` - Clean bundled build artifacts (default: `*.esm.js`)
+- `--minify` - Clean minified build artifacts (default: `*.min.js`)
+- `--typings` - Clean typing artifacts (default: `*.d.ts`)
+
+### Usage
+
+```sh
+# clean all build artifacts
+esmtk clean --bundle --minify --typings
+
+# override default extension
+esmtk clean --bundle *.mjs
+```
+
+**Node: The `clean` command automatically ignores the contents of `node_modules/`**
 
 ## Copy
 
@@ -121,17 +172,26 @@ Copy is a cross-platform clone of the `cp` command in Linux
 
 `esmtk cp [-r] [source...] [destination]`
 
-- `[source...]` - the source file(s)/glob(s)
+- `[source(s)...]` - the source file(s)/glob(s)
 - `[destination]` - the destination file/directory
 - `-r, --recursive` - copy files/directories recursively
 
 ### Usage
 
 ```sh
+# copy one file
 esmtk cp file1.txt dest/file1.txt
+
+# copy multiple files
 esmtk cp file1.txt file2.txt file3.txt dest/
+
+# copy files that match a glob
 esmtk cp *.txt dest/
+
+# copy files that match multiple globs
 esmtk cp *.txt *.js *.ts dest/
+
+# recursively copy files from one directory to another
 esmtk cp -r src/ dest/
 ```
 
@@ -149,9 +209,18 @@ Remove is a cross-platform clone of the `rm` command in Linux
 ### Usage
 
 ```sh
+# remove one file
 esmtk rm file1.txt
+
+# remove multiple files
 esmtk rm file1.txt file3.txt file3.txt
+
+# remove files that match a glob
 esmtk rm *.txt
+
+# remove files that match miltiple globs
 esmtk rm *.txt *.js *.ts
+
+# recursively remove a 
 esmtk rm -r src/
 ```

@@ -26,11 +26,11 @@ export async function cp (paths, options) {
 
     if (source.includes('*')) {
       const sources = await expandSource(source)
-      await copyMultipleAsync(sources, target)
+      await copyMultipleAsync(sources, target, options?.force)
     }
   }
 
-  if (paths.length >= 2) {
+  if (paths.length > 2) {
     let sources = paths.slice(0, -1)
     sources = await await Promise.all(sources.map(source => expandSource(source)))
     sources = sources.flat()

@@ -52,7 +52,6 @@ program.command('minify <input> <output>')
   })
 
 program.command('cp')
-  .argument('[paths...]')
   .usage(`[-r] source target
 
     Examples:
@@ -62,6 +61,7 @@ program.command('cp')
       $ cp -r SOURCEDIR DIRECTORY
   `)
   .description('Copy files and directories')
+  .argument('[paths...]')
   .option('-r, --recursive', 'Copy directories recursively', false)
   .action((paths, options) => {
     cp(paths, options)

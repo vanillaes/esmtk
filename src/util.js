@@ -15,7 +15,7 @@ export async function expandSource (source) {
   if (isGlob) {
     const paths = await match(source)
     if (paths.length === 0) {
-      console.error(`cp: ${paths} no matches found`)
+      console.error(`cp: ${source} no matches found`)
       process.exit(1)
     }
     return paths

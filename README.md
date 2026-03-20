@@ -119,16 +119,19 @@ Copy is a cross-platform clone of the `cp` command in Linux
 
 ### Arguments
 
-`esmtk cp [-rf] [source] [destination]`
+`esmtk cp [-r] [source...] [destination]`
 
-- `[source]` - the source file/glob
+- `[source...]` - the source file(s)/glob(s)
 - `[destination]` - the destination file/directory
-- `-f --force` - ignore exceptions if the file doesn't exist
 - `-r, --recursive` - copy files/directories recursively
 
 ### Usage
 
 ```sh
+esmtk cp file1.txt dest/file1.txt
+esmtk cp file1.txt file2.txt file3.txt dest/
+esmtk cp *.txt dest/
+esmtk cp *.txt *.js *.ts dest/
 esmtk cp -r src/ dest/
 ```
 
@@ -138,14 +141,17 @@ Remove is a cross-platform clone of the `rm` command in Linux
 
 ### Arguments
 
-`esmtk rm [-rf] [file|directory]`
+`esmtk rm [-r] [path(s)...]`
 
-- `[file|directory]` - the source file/glob
-- `-f --force` - force remove existing file(s)
-- `-r, --recursive` - remove files/directories recursively
+- `[path(s)...]` - the source file(s)/glob(s)
+- `-r, --recursive` - remove directory recursively
 
 ### Usage
 
 ```sh
+esmtk rm file1.txt
+esmtk rm file1.txt file3.txt file3.txt
+esmtk rm *.txt
+esmtk rm *.txt *.js *.ts
 esmtk rm -r src/
 ```

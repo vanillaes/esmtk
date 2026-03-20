@@ -41,8 +41,8 @@ export async function copyAsync (source, target, force = false) {
 
     // append source file name to target directory
     const sourceFile = basename(source)
-    target = target.endsWith('/') ? target.slice(0, -1) : target
-    target = `${target}/${sourceFile}`
+    target = target.endsWith(sep) ? target.slice(0, -1) : target
+    target = `${target}${sep}${sourceFile}`
   }
 
   try {
@@ -72,9 +72,9 @@ export async function copyMultipleAsync (sources, target, force = false) {
   }
 
   try {
-    target = target.endsWith('/') ? target.slice(0, -1) : target
+    target = target.endsWith(sep) ? target.slice(0, -1) : target
     for (const source of sources) {
-      await cp(source, `${target}/${basename(source)}`, { force: true })
+      await cp(source, `${target}${sep}${basename(source)}`, { force: true })
     }
   } catch (err) {
     console.error(`cp": error ${err.message}`)

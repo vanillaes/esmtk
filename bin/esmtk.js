@@ -53,9 +53,15 @@ program.command('minify <input> <output>')
 
 program.command('cp')
   .argument('[paths...]')
-  .usage('[-rf] source target')
-  .description('Copy files from the source to the target')
-  // .option('-f, --force', 'Do not prompt before overwriting', false)
+  .usage(`[-r] source target
+
+    Examples:
+      $ cp SOURCE DEST
+      $ cp SOURCE... DIRECTORY
+      $ cp SOURCEGLOB... DIRECTORY
+      $ cp -r SOURCEDIR DIRECTORY
+  `)
+  .description('Copy files and directories')
   .option('-r, --recursive', 'Copy directories recursively', false)
   .action((paths, options) => {
     cp(paths, options)

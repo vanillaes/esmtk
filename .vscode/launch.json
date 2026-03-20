@@ -158,6 +158,66 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "CopyMultipleFiles",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["cp", "./test/cp/test1.txt", "./test/cp/test1.js", "./test/cp/test2.txt", "./test/cp/test2.js", "./test/cp2/"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "CopyMultipleFiles - Error file doesn't exist",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["cp", "./test/cp/test1.ts", "./test/cp/test1.js", "./test/cp/test2.txt", "./test/cp/test2.js", "./test/cp2/"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "CopyMultipleGlobs",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["cp", "./test/cp/*.txt", "./test/cp/*.js", "./test/cp2/"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "CopyMultipleGlobs - Error glob not found",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["cp", "./test/cp/*.ts", "./test/cp/*.js", "./test/cp2/"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "CopyMultipleMixed",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["cp", "./test/cp/test1.txt", "./test/cp/test2.txt", "./test/cp/*.js", "./test/cp2/"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "RemoveFile",
             "type": "node",
             "request": "launch",

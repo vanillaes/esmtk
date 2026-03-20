@@ -37,6 +37,9 @@
     "preversion": "npm run lint && npm run types",
     "postversion": "git push --follow-tags"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
     "commander": "^14.0.3",
     "standard": "^17.1.2"

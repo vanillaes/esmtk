@@ -4,6 +4,7 @@ import { cp, stat } from 'node:fs/promises'
 
 /**
  * Copy a single file asynchronously
+ *
  * @param {string} source The source file
  * @param {string} target The target file
  * @param {boolean} force If the file already exists, overwrite it (default false)
@@ -52,7 +53,37 @@ export async function copyAsync (source, target, force = false) {
 }
 
 /**
+ * Copy a multiple files/globs asynchronously
+ *
+ * @param {string[]} sources The source files/globs
+ * @param {string} target The target file
+ * @param {boolean} force If the file already exists, overwrite it (default false)
+ */
+export async function copyMultipleAsync (sources, target, force = false) {
+  const tExists = await fileExists(target)
+  if (!tExists) {
+    console.error(`cp: ${target} No such file or directory`)
+    process.exit(1)
+  }
+  const tStats = await stat(target)
+  if (tStats.isSymbolicLink()) {
+    console.error(`cp: ${target} is a sybolic link (not copied)`)
+    process.exit(1)
+  }
+
+  try {
+    target = target.endsWith('/') ? target.slice(0, -1) : target
+    for (const source of sources) {
+      await cp(source, `${target}/${basename(source)}`, { force: true })
+    }
+  } catch (err) {
+    console.error(`cp": error ${err.message}`)
+  }
+}
+
+/**
  * Recursively copy a directory asynchronously
+ *
  * @param {string} source The source directory
  * @param {string} target The target directory
  * @param {boolean} force If the file already exists, overwrite it (default false)

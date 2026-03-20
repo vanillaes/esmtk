@@ -1,8 +1,33 @@
 import { exec } from 'child_process'
-import { access, constants } from 'node:fs/promises'
+import { access, constants, glob } from 'node:fs/promises'
 import { promisify } from 'node:util'
 
 const execAsync = promisify(exec)
+
+/**
+ * Expand source file/glob into a list of paths
+ *
+ * @param {*} source the source file/glob
+ * @returns {Promise<string[]>} an array of paths
+ */
+export async function expandSource (source) {
+  const isGlob = source.includes('*')
+  if (isGlob) {
+    const paths = await match(source)
+    if (paths.length === 0) {
+      console.error(`cp: ${paths} no matches found`)
+      process.exit(1)
+    }
+    return paths
+  } else {
+    const exists = await fileExists(source)
+    if (!exists) {
+      console.error(`cp: ${source} No such file or directory`)
+      process.exit(1)
+    }
+    return [source]
+  }
+}
 
 /**
  * Check if a file/folder exists
@@ -30,6 +55,15 @@ export async function installed (pkg) {
   } catch (e) {
     return false
   }
+}
+
+/**
+ * Description
+ * @param {string} pattern glob pattern(s) to match
+ * @returns {Promise<string[]>} an array of paths
+ */
+export async function match (pattern) {
+  return await Array.fromAsync(glob(pattern))
 }
 
 /**

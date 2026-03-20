@@ -67,13 +67,21 @@ program.command('cp')
     cp(paths, options)
   })
 
-program.command('rm <path>')
-  .usage('[-rf] file|directory')
-  .description('Remove a file|directory')
+program.command('rm')
+  .usage(`[-r] path/glob
+
+    Examples:
+      $ rm FILE
+      $ rm FILES...
+      $ rm GLOB...
+      $ rm -r DIRECTORY
+  `)
+  .description('Remove files or directories')
+  .argument('[paths...]')
   .option('-f, --force', 'Do not prompt before overwriting', false)
   .option('-r, --recursive', 'Remove directories recursively', false)
-  .action((path, options) => {
-    rm(path, options)
+  .action((paths, options) => {
+    rm(paths, options)
   })
 
 program.parse(process.argv)

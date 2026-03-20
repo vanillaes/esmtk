@@ -45,6 +45,7 @@
     "standard": "^17.1.2"
   },
   "devDependencies": {
-    "@types/node": "^25.3.5"
+    "@types/json5": "^0.0.30",
+    "@types/node": "^25.5.0"
   }
 }

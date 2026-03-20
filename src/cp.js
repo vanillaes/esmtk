@@ -1,5 +1,5 @@
 import { fileExists } from './index.js'
-import { basename, dirname } from 'node:path'
+import { basename, sep } from 'node:path'
 import { cp, stat } from 'node:fs/promises'
 
 /**
@@ -11,38 +11,41 @@ import { cp, stat } from 'node:fs/promises'
 export async function copyAsync (source, target, force = false) {
   const sExists = await fileExists(source)
   if (!sExists) {
-    console.error(`cp: source ${source} does not exist`)
+    console.error(`cp: ${source} No such file or directory`)
     process.exit(1)
   }
   const sStats = await stat(source)
   if (sStats.isSymbolicLink()) {
-    console.error(`cp: source ${source} is a sybolic link`)
+    console.error(`cp: ${source} is a sybolic link (not copied)`)
     process.exit(1)
   }
-
-  const tDir = dirname(target)
-  const tDirExists = await fileExists(tDir)
-  if (!tDirExists) {
-    console.error(`cp: target directory ${tDir} does not exist`)
+  if (!sStats.isFile()) {
+    console.error(`cp: ${source} is a directory (not copied)`)
     process.exit(1)
   }
 
   const tExists = await fileExists(target)
-  if (tExists) {
-    const tStats = await stat(target)
-    if (tStats.isSymbolicLink()) {
-      console.error(`cp: target ${target} is a sybolic link`)
+  const tIsDir = target.endsWith(sep)
+  // copy file-to-directory
+  if (tIsDir) {
+    if (!tExists) {
+      console.error(`cp: ${target} No such file or directory`)
       process.exit(1)
     }
-    if (tStats.isDirectory()) {
-      const sourceFile = basename(source)
-      target = target.endsWith('/') ? target.slice(0, -1) : target
-      target = `${target}/${sourceFile}`
+    const tStats = await stat(target)
+    if (tStats.isSymbolicLink()) {
+      console.error(`cp: ${target} is a sybolic link (not copied)`)
+      process.exit(1)
     }
+
+    // append source file name to target directory
+    const sourceFile = basename(source)
+    target = target.endsWith('/') ? target.slice(0, -1) : target
+    target = `${target}/${sourceFile}`
   }
 
   try {
-    await cp(source, target, { force })
+    await cp(source, target, { force: true })
   } catch (err) {
     console.error(`cp: error ${err.message}`)
   }
@@ -57,32 +60,32 @@ export async function copyAsync (source, target, force = false) {
 export async function copyRecursiveAsync (source, target, force = false) {
   const sExists = await fileExists(source)
   if (!sExists) {
-    console.error(`cp: source ${source} does not exist`)
+    console.error(`cp: ${source} No such file or directory`)
     process.exit(1)
   }
   const sStats = await stat(source)
   if (sStats.isSymbolicLink()) {
-    console.error(`cp: source ${source} is a sybolic link`)
+    console.error(`cp: ${source} is a sybolic link (not copied)`)
     process.exit(1)
   }
 
   const tExists = await fileExists(target)
   if (!tExists) {
-    console.error(`cp: target directory ${target} does not exist`)
+    console.error(`cp: ${target} No such file or directory`)
     process.exit(1)
   }
   const tStats = await stat(target)
   if (tStats.isSymbolicLink()) {
-    console.error(`cp: target ${target} is a sybolic link`)
+    console.error(`cp: ${target} is a sybolic link (not copied)`)
     process.exit(1)
   }
   if (!tStats.isDirectory()) {
-    console.error(`cp: target ${target} is not a directory`)
+    console.error(`cp: target ${target} Not a directory`)
     process.exit(1)
   }
 
   try {
-    await cp(source, target, { force, recursive: true })
+    await cp(source, target, { force: true, recursive: true })
   } catch (err) {
     console.error(`cp": error ${err.message}`)
   }

@@ -51,13 +51,14 @@ program.command('minify <input> <output>')
     minify(input, output, options)
   })
 
-program.command('cp <source> <target>')
+program.command('cp')
+  .argument('[paths...]')
   .usage('[-rf] source target')
   .description('Copy files from the source to the target')
-  .option('-f, --force', 'Do not prompt before overwriting', false)
+  // .option('-f, --force', 'Do not prompt before overwriting', false)
   .option('-r, --recursive', 'Copy directories recursively', false)
-  .action((source, target, options) => {
-    cp(source, target, options)
+  .action((paths, options) => {
+    cp(paths, options)
   })
 
 program.command('rm <path>')

@@ -86,7 +86,7 @@ export async function init () {
 
   const ok = await ask(program, 'is this OK', 'yes')
   if (ok.toLowerCase() === 'yes') {
-    await writeFile('package.test.json', pkgString)
+    await writeFile('package.json', pkgString)
   } else {
     console.log('Aborted.')
   }

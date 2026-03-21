@@ -25,6 +25,30 @@ Create a package.json file for ECMAScript module development
 npx @vanillaes/esmtk init
 ```
 
+## Test
+
+Run tests (using Tape-ES)
+
+### Arguments
+
+`esmtk test [glob]`
+
+- `[glob]` - the glob used to locate test files (default: `**/*.spec.js`)
+- `--watch` - watch for changes to the tests
+
+### Usage
+
+```sh
+# run the tests
+npx @vanillaes/esmtk test
+
+# run the tests (using a different naming scheme)
+npx @vanillaes/esmtk test **/*.test.js
+
+# run the tests (watch for changes)
+npx @vanillaes/esmtk test --watch
+```
+
 ## Lint
 
 Lint the source code (using StandardJS)

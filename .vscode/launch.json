@@ -26,6 +26,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Test",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["test"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Lint",
             "type": "node",
             "request": "launch",

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, cp, commonjs, init, lint, minify, rm, types, typings } from './commands/index.js'
+import { bundle, clean, cp, commonjs, init, lint, minify, rm, test, types, typings } from './commands/index.js'
 import { Command } from 'commander'
 import { createRequire } from 'module'
 const program = new Command()
@@ -14,6 +14,14 @@ program.command('init')
     init()
   })
 
+program.command('test')
+  .description('Run tests using Tape-ES')
+  .argument('[glob]', 'The glob pattern used to find test files', '**/*.spec.js')
+  .option('--watch', 'Watch the files for changes')
+  .action((glob, options) => {
+    test(glob, options)
+  })
+
 program.command('lint')
   .description('Lint the source using StandardJS')
   .option('--fix', 'Automatically fix problems')
@@ -24,7 +32,6 @@ program.command('lint')
 
 program.command('types <entry>')
   .description('Type check the JSDoc typings using Typescript')
-  .option('--strict', 'Enable strict type checks')
   .action((entry, options) => {
     types(entry, options)
   })

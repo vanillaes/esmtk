@@ -10,6 +10,21 @@ ESMTK, essential tools for ECMAScript module development
   <a href="https://github.com/vanillaes/esmtk/actions"><img src="https://github.com/vanillaes/esmtk/workflows/Release/badge.svg" alt="Release Status"></a>
 </div>
 
+## Commands
+
+- [init](#init) - Create a package.json file for ECMAScript module development
+- [test](#test) - Run tests (using Tape-ES)
+- [lint](#lint) - Lint the source code (using StandardJS)
+- [types](#lint) - Type check the JSDoc typings (using Typescript)
+- [bundle](#bundle) - Bundle the source code to an ECMAScript module (using ESBuild)
+- [minify](#minify) - Bundle and Minify the source code to an ECMAScript module (using ESBuild)
+- [commonjs](#commonjs) - Bundle the source code to a CommonJS module (using ESBuild)
+- [typeings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
+- [clean](#clean) - Clean up build artifacts
+- [cp](#cp) - A cross-platform clone of the `cp` command in Linux
+- [rm](#rm) - A cross-platform clone of the `rm` command in Linux
+
+
 ## Init
 
 Create a package.json file for ECMAScript module development
@@ -24,6 +39,7 @@ Create a package.json file for ECMAScript module development
 # init package.json
 npx @vanillaes/esmtk init
 ```
+
 
 ## Test
 
@@ -49,6 +65,7 @@ npx @vanillaes/esmtk test **/*.test.js
 npx @vanillaes/esmtk test --watch
 ```
 
+
 ## Lint
 
 Lint the source code (using StandardJS)
@@ -68,6 +85,7 @@ esmtk lint
 # lint the sources and attempt to automatally fix the issues
 esmtk --fix lint
 ```
+
 
 ## Types
 
@@ -92,6 +110,7 @@ esmtk types --strict index.js
 
 **Node: Due to Typescript limitations, inline JSDoc typings will be ignored if typings (ie `*.d.ts` files) exist.**
 
+
 ## Bundle
 
 Bundle the source code to an ECMAScript module (using ESBuild)
@@ -113,6 +132,7 @@ esmtk bundle src/sample.js bundle.js
 # bundle ESM source -> ESM bundle (includes Node-specific bindings)
 esmtk bundle --platform=node src/sample.js bundle.js
 ```
+
 
 ## Minify
 
@@ -140,6 +160,7 @@ esmtk minify --platform=node src/sample.js bundle.min.js
 esmtk minify --sourcemap src/sample.js bundle.min.js
 ```
 
+
 ## CommonJS
 
 Bundle the source code to a CommonJS module (using ESBuild)
@@ -162,6 +183,7 @@ esmtk commonjs src/sample.js bundle.cjs
 esmtk commonjs --platform=node src/sample.js bundle.cjs
 ```
 
+
 ## Typings
 
 Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
@@ -178,6 +200,7 @@ Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 # generate .d.ts files for all linked source files
 esmtk typings index.js
 ```
+
 
 ## Clean
 
@@ -208,9 +231,10 @@ esmtk clean --custom *.scss.css
 
 **Node: The `clean` command automatically ignores the contents of `node_modules/`**
 
-## Copy
 
-Copy is a cross-platform clone of the `cp` command in Linux
+## CP
+
+A cross-platform clone of the `cp` command in Linux
 
 ### Arguments
 
@@ -239,9 +263,10 @@ esmtk cp *.txt *.js *.ts dest/
 esmtk cp -r src/ dest/
 ```
 
-## Remove
 
-Remove is a cross-platform clone of the `rm` command in Linux
+## RM
+
+A cross-platform clone of the `rm` command in Linux
 
 ### Arguments
 

@@ -3,7 +3,6 @@ import { expand } from '../../src/index.js'
 
 /**
  * POSIX cp Implemented in Node
- *
  * @param {string[]} paths Variadic of source/destination paths
  * @param {any} options 'cp' options
  */

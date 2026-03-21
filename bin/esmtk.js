@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, cp, commonjs, lint, minify, rm, types, typings } from './commands/index.js'
+import { bundle, clean, cp, commonjs, init, lint, minify, rm, types, typings } from './commands/index.js'
 import { Command } from 'commander'
 import { createRequire } from 'module'
 const program = new Command()
@@ -7,6 +7,12 @@ const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
 
 program.version(pkg.version, '-v, --version')
+
+program.command('init')
+  .description('Create a package.json file for ECMAScript module development')
+  .action(() => {
+    init()
+  })
 
 program.command('lint')
   .description('Lint the source using StandardJS')

@@ -10,6 +10,21 @@ ESMTK, essential tools for ECMAScript module development
   <a href="https://github.com/vanillaes/esmtk/actions"><img src="https://github.com/vanillaes/esmtk/workflows/Release/badge.svg" alt="Release Status"></a>
 </div>
 
+## Init
+
+Create a package.json file for ECMAScript module development
+
+### Arguments
+
+`esmtk init`
+
+### Usage
+
+```sh
+# init package.json
+npx @vanillaes/esmtk init
+```
+
 ## Lint
 
 Lint the source code (using StandardJS)

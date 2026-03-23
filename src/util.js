@@ -64,9 +64,12 @@ export async function installed (pkg) {
  * @param {string} ignore glob of pattern(s) to ignore
  * @returns {Promise<string[]>} an array of paths
  */
-export async function match (pattern, root = process.cwd(), ignore = '') {
-  const ignores = ignore.includes(',') ? [ignore] : ignore.split(',')
-  return await Array.fromAsync(glob(pattern, { cwd: root, exclude: ignores }))
+export async function match (pattern, root = process.cwd(), ignore = null) {
+  if (ignore) {
+    const ignores = ignore.includes(',') ? [ignore] : ignore.split(',')
+    return await Array.fromAsync(glob(pattern, { cwd: root, exclude: ignores }))
+  }
+  return await Array.fromAsync(glob(pattern, { cwd: root }))
 }
 
 /**

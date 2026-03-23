@@ -445,5 +445,16 @@
             "args": ["clean", "--custom", "**/*.min.js"],
             "console": "integratedTerminal",
         },
+        {
+            "name": "Tape - Current File",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${file}",
+            "cwd": "${workspaceFolder}",
+             "console": "integratedTerminal",
+        }
     ]
 }

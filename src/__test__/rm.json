@@ -1,0 +1,35 @@
+{
+  "removeAsync": {
+    "test1.txt": "test 1 text",
+    "test2.txt": "test 2 text"
+  },
+  "removeAsyncExpect": {
+    "test2.txt": "test 2 text"
+  },
+  "removeMultipleAsync": {
+    "test1.txt": "test 1 text",
+    "test2.txt": "test 2 text",
+    "test1.js": "test 1 javascript",
+    "test2.js": "test 2 javascript"
+  },
+  "removeMultipleAsyncExpect": {
+    "test2.txt": "test 2 text",
+    "test2.js": "test 2 javascript"
+  },
+  "removeRecursiveAsync": {
+    "directory1": {
+      "test1.txt": "test 1 text",
+      "test1.js": "test 1 javascript"
+    },
+    "directory2": {
+      "test2.txt": "test 2 text",
+      "test2.js": "test 2 javascript"
+    }
+  },
+  "removeRecursiveAsyncExpect": {
+    "directory2": {
+      "test2.txt": "test 2 text",
+      "test2.js": "test 2 javascript"
+    }
+  }
+}

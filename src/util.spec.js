@@ -1,9 +1,17 @@
-import { test } from './__test__/test.js'
+import { setup, teardown, test } from './__test__/test.js'
 import { expand, fileExists, match } from '@vanillaes/esmtk'
+import { rmSync } from 'node:fs'
 
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const files = require('./__test__/util.json')
+
+setup(async (t) => {
+  process.chdir(process.cwd())
+  rmSync('test', { recursive: true, force: true })
+
+  t.end()
+})
 
 test('expand #1 - match glob', files.expand, async (t) => {
   const actual = await expand('*.txt')
@@ -36,5 +44,12 @@ test('match #1 - match a file', files.match, async (t) => {
   const actual = await match('*.txt')
 
   t.deepEqual(actual, expect)
+  t.end()
+})
+
+teardown(async (t) => {
+  process.chdir(process.cwd())
+  rmSync('test', { recursive: true, force: true })
+
   t.end()
 })

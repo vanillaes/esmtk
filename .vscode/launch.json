@@ -38,6 +38,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Test - --ignore",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["test", "--ignore", "node_modules/**,src/util.spec.js"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Lint",
             "type": "node",
             "request": "launch",

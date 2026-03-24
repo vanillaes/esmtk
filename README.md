@@ -50,6 +50,7 @@ Run tests (using Tape-ES)
 `esmtk test [glob]`
 
 - `[glob]` - the glob used to locate test files (default: `**/*.spec.js`)
+- `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
 - `--watch` - watch for changes to the tests
 
 ### Usage
@@ -60,6 +61,9 @@ npx @vanillaes/esmtk test
 
 # run the tests (using a different naming scheme)
 npx @vanillaes/esmtk test **/*.test.js
+
+# run the tests (ignore tests)
+npx @vanillaes/esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
 
 # run the tests (watch for changes)
 npx @vanillaes/esmtk test --watch

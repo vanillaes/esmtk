@@ -12,6 +12,10 @@ export async function test (glob, options) {
   if (options?.watch) {
     args.push('--watch')
   }
+  if (options?.ignore) {
+    args.push('--ignore')
+    args.push(options.ignore)
+  }
 
   spawn('node', args, {
     cwd: process.cwd(),

@@ -17,6 +17,7 @@ program.command('init')
 program.command('test')
   .description('Run tests using Tape-ES')
   .argument('[glob]', 'The glob pattern used to find test files', '**/*.spec.js')
+  .option('-i, --ignore <ignore>', 'the ignore matcher pattern')
   .option('--watch', 'Watch the files for changes')
   .action((glob, options) => {
     test(glob, options)

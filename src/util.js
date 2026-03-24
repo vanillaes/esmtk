@@ -66,7 +66,7 @@ export async function installed (pkg) {
  */
 export async function match (pattern, root = process.cwd(), ignore = null) {
   if (ignore) {
-    const ignores = ignore.includes(',') ? [ignore] : ignore.split(',')
+    const ignores = ignore.includes(',') ? ignore.split(',') : [ignore]
     return await Array.fromAsync(glob(pattern, { cwd: root, exclude: ignores }))
   }
   return await Array.fromAsync(glob(pattern, { cwd: root }))

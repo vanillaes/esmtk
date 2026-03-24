@@ -3,7 +3,7 @@
 ESMTK, essential tools for ECMAScript module development
 
 <div align="center">
-  <a href="https://github.com/vanillaes/esmtk/releases"><img src="https://badgen.net/github/tag/vanillaes/esmtk" alt="GitHub Release"></a>
+  <a href="https://github.com/vanillaes/esmtk/releases"><img src="https://badgen.net/github/tag/vanillaes/esmtk?cache-control=no-cache" alt="GitHub Release"></a>
   <a href="https://www.npmjs.com/package/@vanillaes/esmtk"><img src="https://badgen.net/npm/v/@vanillaes/esmtk?icon=npm" alt="NPM Version"></a>
   <a href="https://www.npmjs.com/package/@vanillaes/esmtk"><img src="https://badgen.net/npm/dm/@vanillaes/esmtk?icon=npm" alt="NPM Downloads"></a>
   <a href="https://github.com/vanillaes/esmtk/actions"><img src="https://github.com/vanillaes/esmtk/workflows/Latest/badge.svg" alt="Latest Status"></a>
@@ -19,7 +19,7 @@ ESMTK, essential tools for ECMAScript module development
 - [bundle](#bundle) - Bundle the source code to an ECMAScript module (using ESBuild)
 - [minify](#minify) - Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 - [commonjs](#commonjs) - Bundle the source code to a CommonJS module (using ESBuild)
-- [typeings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
+- [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 - [clean](#clean) - Clean up build artifacts
 - [cp](#cp) - A cross-platform clone of the `cp` command in Linux
 - [rm](#rm) - A cross-platform clone of the `rm` command in Linux

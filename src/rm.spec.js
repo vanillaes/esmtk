@@ -30,6 +30,7 @@ test('removeAsync - remove a file', files.removeAsync, async (t) => {
 test('removeAsync - ERROR: no such file or directory', files.removeAsync, async (t) => {
   try {
     await removeAsync('test1.ts')
+    t.fail('Expected error was not thrown')
   } catch (err) {
     t.ok(err, 'Error was thrown as expected')
   }

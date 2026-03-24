@@ -146,30 +146,6 @@
             "console": "integratedTerminal",
         },
         {
-            "name": "CopyFileToFolder",
-            "type": "node",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
-            "cwd": "${workspaceFolder}",
-            "args": ["cp", "./test/cp/test1.txt", "./test/cp2/test1.txt"],
-            "console": "integratedTerminal",
-        },
-                {
-            "name": "CopyGlobToFolder",
-            "type": "node",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
-            "cwd": "${workspaceFolder}",
-            "args": ["cp", "./test/cp/*.js", "./test/cp2/"],
-            "console": "integratedTerminal",
-        },
-        {
             "name": "CopyFileToFile - Error source doesn't exist",
             "type": "node",
             "request": "launch",
@@ -206,7 +182,7 @@
             "console": "integratedTerminal",
         },
         {
-            "name": "CopyFolderRecursively",
+            "name": "CopyFileToDirectory",
             "type": "node",
             "request": "launch",
             "skipFiles": [
@@ -214,7 +190,19 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["cp", "-r", "./test/cp/", "./test/cp2"],
+            "args": ["cp", "./test/cp/test1.txt", "./test/cp2/test1.txt"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "CopyGlobToDirectory",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["cp", "./test/cp/*.js", "./test/cp2/"],
             "console": "integratedTerminal",
         },
         {
@@ -275,6 +263,18 @@
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
             "args": ["cp", "./test/cp/test1.txt", "./test/cp/test2.txt", "./test/cp/*.js", "./test/cp2/"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "CopyDirectoryRecursively",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["cp", "-r", "./test/cp/", "./test/cp2"],
             "console": "integratedTerminal",
         },
         {

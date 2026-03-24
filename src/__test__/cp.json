@@ -1,0 +1,68 @@
+{
+  "copyAsync": {
+    "cp1": {
+      "test1.txt": "test 1 text",
+      "test2.txt": "test 2 text"
+    },
+    "cp2": {}
+  },
+  "copyAsyncExpect": {
+    "cp1": {
+      "test1.txt": "test 1 text",
+      "test2.txt": "test 2 text"
+    },
+    "cp2": {
+      "test1.txt": "test 1 text"
+    }
+  },
+  "copyMultipleAsync": {
+    "cp1": {
+      "test1.txt": "test 1 text",
+      "test2.txt": "test 2 text",
+      "test1.js": "test 1 javascript",
+      "test2.js": "test 2 javascript"
+    },
+    "cp2": {}
+  },
+  "copyMultipleAsyncExpect": {
+    "cp1": {
+      "test1.txt": "test 1 text",
+      "test2.txt": "test 2 text",
+      "test1.js": "test 1 javascript",
+      "test2.js": "test 2 javascript"
+    },
+    "cp2": {
+      "test1.txt": "test 1 text",
+      "test1.js": "test 1 javascript"
+    }
+  },
+  "copyRecursiveAsync": {
+    "cp1": {
+      "test1.txt": "test 1 text",
+      "test1.js": "test 1 javascript",
+      "sub": {
+        "test2.txt": "test 2 text",
+        "test2.js": "test 2 javascript"
+      }
+    },
+    "cp2": {}
+  },
+  "copyRecursiveAsyncExpect": {
+    "cp1": {
+      "test1.txt": "test 1 text",
+      "test1.js": "test 1 javascript",
+      "sub": {
+        "test2.txt": "test 2 text",
+        "test2.js": "test 2 javascript"
+      }
+    },
+    "cp2": {
+      "test1.txt": "test 1 text",
+      "test1.js": "test 1 javascript",
+      "sub": {
+        "test2.txt": "test 2 text",
+        "test2.js": "test 2 javascript"
+      }
+    }
+  }
+}

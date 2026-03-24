@@ -9,12 +9,16 @@ export async function test (glob, options) {
   const args = []
   args.push('./node_modules/.bin/tape-es')
   args.push(glob)
-  if (options?.watch) {
-    args.push('--watch')
-  }
   if (options?.ignore) {
     args.push('--ignore')
     args.push(options.ignore)
+  }
+  if (options?.root) {
+    args.push('--root')
+    args.push(options.root)
+  }
+  if (options?.watch) {
+    args.push('--watch')
   }
 
   spawn('node', args, {

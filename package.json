@@ -51,7 +51,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "@vanillaes/tape-es": "^2.0.2",
+    "@vanillaes/tape-es": "^3.0.0",
     "commander": "^14.0.3",
     "standard": "^17.1.2"
   },

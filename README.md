@@ -32,7 +32,7 @@ Create a package.json file for ECMAScript module development
 
 ### Arguments
 
-`esmtk init`
+`esmtk init [...options]`
 
 - `--scripts` - Include ESMTK scripts
 
@@ -43,7 +43,7 @@ Create a package.json file for ECMAScript module development
 npx @vanillaes/esmtk init
 
 # init package.json (including ESMTK scripts)
-npx @vanillaes/esmtk init
+npx @vanillaes/esmtk init --scripts
 ```
 
 
@@ -53,7 +53,7 @@ Run tests (using Tape-ES)
 
 ### Arguments
 
-`esmtk test [glob]`
+`esmtk test [...options] [glob]`
 
 - `[glob]` - the glob used to locate test files (default: `**/*.spec.js`)
 - `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
@@ -86,7 +86,7 @@ Lint the source code (using StandardJS)
 
 ### Arguments
 
-`esmtk lint [--fix]`
+`esmtk lint [...options]`
 
 - `--fix` - automatically fix problems
 
@@ -107,7 +107,7 @@ Type check the JSDoc typings (using Typescript)
 
 ### Arguments
 
-`esmtk types [entry]`
+`esmtk types [...options] [entry]`
 
 - `[entry]` - the entry-point for the source
 - `--strict` - enable 'strict mode' type checks
@@ -131,7 +131,7 @@ Bundle the source code to an ECMAScript module (using ESBuild)
 
 ### Arguments
 
-`esmtk bundle [input] [output]`
+`esmtk bundle [...options] [input] [output]`
 
 - `[input]` - the input source file path
 - `[output]` - the output bundle file path
@@ -154,7 +154,7 @@ Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 
 ### Arguments
 
-`esmtk minify [input] [output]`
+`esmtk minify [...options] [input] [output]`
 
 - `[input]` - the input source file path
 - `[output]` - the output bundle file path
@@ -181,7 +181,7 @@ Bundle the source code to a CommonJS module (using ESBuild)
 
 ### Arguments
 
-`esmtk commonjs [input] [output]`
+`esmtk commonjs [...options] [input] [output]`
 
 - `[input]` - the input source file path
 - `[output]` - the output bundle file path
@@ -222,7 +222,7 @@ Clean up build artifacts
 
 ### Arguments
 
-`esmtk clean [root]`
+`esmtk clean [...options] [root]`
 
 - `[root]` - the root directory to perform the cleanup (default: `process.cwd()`)
 - `--bundle` - Clean bundled build artifacts (default: `**/*.esm.js`)
@@ -252,9 +252,9 @@ Preview the package contents included during `npm publish`
 
 ### Arguments
 
-`esmtk preview`
+`esmtk preview [...options]`
 
-- `-r` | `--root` - automatically fix problems
+- `-r` | `--root` - the root path to preview
 
 ### Usage
 
@@ -273,7 +273,7 @@ A cross-platform clone of the `cp` command in Linux
 
 ### Arguments
 
-`esmtk cp [-r] [source...] [destination]`
+`esmtk cp [...options] [source...] [destination]`
 
 - `[source(s)...]` - the source file(s)/glob(s)
 - `[destination]` - the destination file/directory
@@ -305,7 +305,7 @@ A cross-platform clone of the `rm` command in Linux
 
 ### Arguments
 
-`esmtk rm [-r] [path(s)...]`
+`esmtk rm [...options] [path(s)...]`
 
 - `[path(s)...]` - the source file(s)/glob(s)
 - `-r, --recursive` - remove directory recursively

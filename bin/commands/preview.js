@@ -73,6 +73,14 @@ function fileCompare (a, b) {
  */
 function formatFile (path) {
   const size = statSync(path).size
+  if (size > (1024 * 1024)) {
+      const megabytes = (size / (1024 * 1024)).toLocaleString('en-US', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+      roundingMode: 'trunc'
+    })
+    return `${megabytes} MB`.padEnd(10) + `${path}`
+  }
   if (size > 1024) {
     const kilobytes = (size / 1024).toLocaleString('en-US', {
       minimumFractionDigits: 1,
@@ -80,7 +88,6 @@ function formatFile (path) {
       roundingMode: 'trunc'
     })
     return `${kilobytes} KB`.padEnd(10) + `${path}`
-  } else {
-    return `${size} B`.padEnd(10) + `${path}`
   }
+  return `${size} B`.padEnd(10) + `${path}`
 }

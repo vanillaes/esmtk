@@ -74,7 +74,7 @@ function fileCompare (a, b) {
 function formatFile (path) {
   const size = statSync(path).size
   if (size > (1024 * 1024)) {
-      const megabytes = (size / (1024 * 1024)).toLocaleString('en-US', {
+    const megabytes = (size / (1024 * 1024)).toLocaleString('en-US', {
       minimumFractionDigits: 1,
       maximumFractionDigits: 1,
       roundingMode: 'trunc'

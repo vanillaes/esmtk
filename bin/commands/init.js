@@ -1,7 +1,7 @@
 import { fileExists, which } from '../../src/index.js'
 import { exec } from 'node:child_process'
 import { readFile, writeFile } from 'node:fs/promises'
-import { basename, join, sep } from 'node:path'
+import { basename, join } from 'node:path'
 import { stdin, stdout } from 'node:process'
 import { createInterface } from 'node:readline/promises'
 import { promisify } from 'node:util'

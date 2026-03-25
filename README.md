@@ -34,10 +34,15 @@ Create a package.json file for ECMAScript module development
 
 `esmtk init`
 
+- `--scripts` - Include ESMTK scripts
+
 ### Usage
 
 ```sh
 # init package.json
+npx @vanillaes/esmtk init
+
+# init package.json (including ESMTK scripts)
 npx @vanillaes/esmtk init
 ```
 

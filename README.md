@@ -21,6 +21,7 @@ ESMTK, essential tools for ECMAScript module development
 - [commonjs](#commonjs) - Bundle the source code to a CommonJS module (using ESBuild)
 - [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 - [clean](#clean) - Clean up build artifacts
+- [preview](#preview) - Preview the package contents included during `npm publish`
 - [cp](#cp) - A cross-platform clone of the `cp` command in Linux
 - [rm](#rm) - A cross-platform clone of the `rm` command in Linux
 

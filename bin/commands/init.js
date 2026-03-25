@@ -69,7 +69,7 @@ export async function init (options) {
   const entry = await ask(program, 'entry point', 'index.js')
   if (entry) {
     pkg.exports = {}
-    pkg.exports['.'] = entry
+    pkg.exports['.'] = `./${entry}`
   }
   if (options?.scripts) {
     pkg.scripts = {}

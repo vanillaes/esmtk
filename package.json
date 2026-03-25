@@ -1,6 +1,6 @@
 {
   "name": "@vanillaes/esmtk",
-  "version": "0.22.1",
+  "version": "0.23.0",
   "description": "ES Module Toolkit",
   "keywords": [
     "ecmascript",

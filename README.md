@@ -240,6 +240,27 @@ esmtk clean --custom *.scss.css
 **Node: The `clean` command automatically ignores the contents of `node_modules/`**
 
 
+## Preview
+
+Preview the package contents included during `npm publish`
+
+### Arguments
+
+`esmtk preview`
+
+- `-r` | `--root` - automatically fix problems
+
+### Usage
+
+```sh
+# preview the package contents
+esmtk preview
+
+# preview the package contents (from another root directory)
+esmtk preview --root some/other/dir
+```
+
+
 ## CP
 
 A cross-platform clone of the `cp` command in Linux

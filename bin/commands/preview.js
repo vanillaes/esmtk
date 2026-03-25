@@ -7,7 +7,7 @@ import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
 /**
- * Preview the package contents on publish
+ * Preview the package contents included during 'npm publish'
  * @param {any} options preview options
  */
 export async function preview (options) {

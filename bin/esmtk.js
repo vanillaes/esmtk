@@ -92,7 +92,7 @@ program.command('clean')
   })
 
 program.command('preview')
-  .description('Preview the package contents on publish')
+  .description('Preview the package contents included during \'npm publish\'')
   .option('-r, --root <root>', 'the root path to run the tests from (default `process.cwd()`)', process.cwd())
   .action((options) => {
     preview(options)

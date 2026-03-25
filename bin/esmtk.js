@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, cp, commonjs, init, lint, minify, rm, test, types, typings } from './commands/index.js'
+import { bundle, clean, cp, commonjs, init, lint, minify, preview, rm, test, types, typings } from './commands/index.js'
 import { Command } from 'commander'
 import { createRequire } from 'module'
 const program = new Command()
@@ -89,6 +89,13 @@ program.command('clean')
     }
 
     clean(root, options)
+  })
+
+program.command('preview')
+  .description('Preview the package contents on publish')
+  .option('-r, --root <root>', 'the root path to run the tests from (default `process.cwd()`)', process.cwd())
+  .action((options) => {
+    preview(options)
   })
 
 program.command('cp')

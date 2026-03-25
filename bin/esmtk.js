@@ -2,11 +2,11 @@
 import { bundle, clean, cp, commonjs, init, lint, minify, preview, rm, test, types, typings } from './commands/index.js'
 import { Command } from 'commander'
 import { createRequire } from 'module'
-const program = new Command()
 const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
 
-program.version(pkg.version, '-v, --version')
+const program = new Command()
+  .version(pkg.version, '-v, --version')
 
 program.command('init')
   .description('Create a package.json file for ECMAScript module development')

@@ -10,8 +10,9 @@ program.version(pkg.version, '-v, --version')
 
 program.command('init')
   .description('Create a package.json file for ECMAScript module development')
-  .action(() => {
-    init()
+  .option('--scripts', 'Include ESMTK scripts')
+  .action((options) => {
+    init(options)
   })
 
 program.command('test')

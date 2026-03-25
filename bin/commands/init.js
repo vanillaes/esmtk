@@ -10,8 +10,9 @@ const execAsync = promisify(exec)
 
 /**
  * Create a package.json file for ECMAScript Development
+ * @param {any} options init options
  */
-export async function init () {
+export async function init (options) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -63,25 +64,28 @@ export async function init () {
       pkg.author += ` (${website})`
     }
   }
-  pkg.license = await ask(program, 'license', 'ISC')
+  pkg.license = await ask(program, 'license', 'MIT')
   pkg.type = 'module'
   const entry = await ask(program, 'entry point', 'index.js')
   if (entry) {
     pkg.exports = {}
     pkg.exports['.'] = 'entry'
   }
-  const scripts = await ask(program, 'include ESMTK scripts?', 'yes')
-  if (scripts.toLowerCase() === 'yes') {
+  if (options?.scripts) {
     pkg.scripts = {}
     pkg.scripts.test = 'esmtk test'
     pkg.scripts.lint = 'esmtk lint'
     pkg.scripts.types = `esmtk types ${entry}`
+    pkg.scripts.typings = `esmtk typings ${entry}`
+    pkg.scripts.clean = 'esmtk clean --typings'
+    pkg.scripts.preview = 'esmtk preview'
   } else {
     pkg.scripts = {}
     pkg.scripts.test = await ask(program, 'test command')
   }
-  const pkgString = JSON.stringify(pkg, null, 2)
-  console.log(`About to write to ${DIR}${sep}package.json:`)
+  const pkgString = JSON.stringify(pkg, null, 2) + '\n'
+  console.log()
+  console.log(`About to write to ${join(DIR, 'package.json')}:`)
   console.log(pkgString)
 
   const ok = await ask(program, 'is this OK', 'yes')

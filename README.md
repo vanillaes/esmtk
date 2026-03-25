@@ -15,7 +15,7 @@ ESMTK, essential tools for ECMAScript module development
 - [init](#init) - Create a package.json file for ECMAScript module development
 - [test](#test) - Run tests (using Tape-ES)
 - [lint](#lint) - Lint the source code (using StandardJS)
-- [types](#lint) - Type check the JSDoc typings (using Typescript)
+- [types](#types) - Type check the JSDoc typings (using Typescript)
 - [bundle](#bundle) - Bundle the source code to an ECMAScript module (using ESBuild)
 - [minify](#minify) - Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 - [commonjs](#commonjs) - Bundle the source code to a CommonJS module (using ESBuild)

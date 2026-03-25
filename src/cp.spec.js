@@ -1,10 +1,10 @@
-import { filesλobjects, setup, teardown, test } from './__test__/test.js'
+import { filesλobjects, setup, teardown, test } from './__tests__/test.js'
 import { copyAsync, copyMultipleAsync, copyRecursiveAsync } from '@vanillaes/esmtk'
 import { rmSync } from 'node:fs'
 
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
-const files = require('./__test__/cp.json')
+const files = require('./__tests__/cp.json')
 const processExit = process.exit
 
 setup(async (t) => {

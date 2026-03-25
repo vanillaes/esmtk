@@ -1,10 +1,10 @@
-import { setup, teardown, test } from './__test__/test.js'
+import { setup, teardown, test } from './__tests__/test.js'
 import { expand, fileExists, match } from '@vanillaes/esmtk'
 import { rmSync } from 'node:fs'
 
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
-const files = require('./__test__/util.json')
+const files = require('./__tests__/util.json')
 
 setup(async (t) => {
   process.chdir(process.cwd())

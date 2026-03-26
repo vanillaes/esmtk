@@ -72,7 +72,7 @@ npx @vanillaes/esmtk test **/*.test.js
 # run the tests (ignore tests)
 npx @vanillaes/esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
 
-# run the tests (ignore tests)
+# run the tests (change the root)
 npx @vanillaes/esmtk test **/*.test.js --root src/
 
 # run the tests (watch for changes)

@@ -26,7 +26,7 @@ program.command('test')
   })
 
 program.command('lint')
-  .description('Lint the source using StandardJS')
+  .description('Lint the source using Lint-ES')
   .option('--fix', 'Automatically fix problems')
   .action(options => {
     const flags = options.fix ? ['--fix'] : []

@@ -1,10 +1,10 @@
 import { spawn } from 'child_process'
 import { join } from 'path'
 
-const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'standard')
+const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'lint-es')
 
 /**
- * Lint the source code (using StandardJS)
+ * Lint the source code (using Lint-ES)
  * @param {object} options 'lint' options
  */
 export async function lint (options) {
@@ -25,8 +25,8 @@ export async function lint (options) {
   })
 
   child.stderr.on('data', (data) => {
-    if (data.toString() === 'standard: Run `standard --fix` to automatically fix some problems.\n') {
-      process.stderr.write('standard: Run `esmtk lint --fix` to automatically fix some problems.\n')
+    if (data.toString() === 'lint-es: Run `lint-es --fix` to automatically fix some problems.\n') {
+      process.stderr.write('esmtk: Run `esmtk lint --fix` to automatically fix some problems.\n')
     } else {
       process.stderr.write(`${data}`)
     }

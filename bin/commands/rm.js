@@ -4,7 +4,7 @@ import { expand } from '../../src/util.js'
 /**
  * POSIX rm Implemented in Node
  * @param {string[]} paths Variadic of file paths
- * @param {any} options rm options
+ * @param {object} options 'rm' options
  */
 export async function rm (paths, options) {
   if (paths.length === 1) {
@@ -26,9 +26,9 @@ export async function rm (paths, options) {
   }
 
   if (paths.length > 1) {
-    let files = await await Promise.all(paths.map(path => expand(path)))
-    files = files.flat()
+    const files = await await Promise.all(paths.map(path => expand(path)))
+    const flatFiles = files.flat()
 
-    await removeMultipleAsync(files, options?.force)
+    await removeMultipleAsync(flatFiles, options?.force)
   }
 }

@@ -31,7 +31,6 @@ export async function removeAsync (path, force = false) {
 
 /**
  * Remove a multiple files/globs asynchronously
- *
  * @param {string[]} files The files/globs to delete
  * @param {boolean} force If the file already exists, overwrite it (default false)
  */

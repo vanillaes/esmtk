@@ -4,6 +4,7 @@ import { spawn } from 'child_process'
 /**
  * Type Check the JSDOC typings
  * @param {string} entry the entry point
+ * @param {object} options 'types' options
  */
 export async function types (entry, options) {
   const npmExists = await which('npm')
@@ -26,6 +27,8 @@ export async function types (entry, options) {
   args.push('esnext')
   args.push('--allowJS')
   args.push('--checkJS')
+  args.push('--module')
+  args.push('esnext')
   args.push('--noEmit')
   args.push('--skipLibCheck')
   if (options?.strict) {

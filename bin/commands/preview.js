@@ -8,7 +8,7 @@ const require = createRequire(import.meta.url)
 
 /**
  * Preview the package contents included during 'npm publish'
- * @param {any} options preview options
+ * @param {object} options 'preview' options
  */
 export async function preview (options) {
   let ignore = await readNPMIgnore(options.root)
@@ -35,8 +35,8 @@ export async function preview (options) {
 
 /**
  * Read .npmignore
- * @param {*} root the root path
- * @returns a comma-deliminated list of ignore globs
+ * @param {string} root the root path
+ * @returns {Promise<string>} a comma-deliminated list of ignore globs
  */
 async function readNPMIgnore (root) {
   const path = join(root, '.npmignore')
@@ -50,8 +50,8 @@ async function readNPMIgnore (root) {
 
 /**
  * File list comparator
- * @param {*} a file path a
- * @param {*} b file path b
+ * @param {string} a file path a
+ * @param {string} b file path b
  * @returns {number} 1 | -1
  */
 function fileCompare (a, b) {
@@ -68,8 +68,8 @@ function fileCompare (a, b) {
 
 /**
  * Format a file path to include file size
- * @param {*} path the file path
- * @returns file size followed by file path
+ * @param {string} path the file path
+ * @returns {string} file size followed by file path
  */
 function formatFile (path) {
   const size = statSync(path).size

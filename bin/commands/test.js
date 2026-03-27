@@ -3,7 +3,7 @@ import { spawn } from 'child_process'
 /**
  * Test runnner using Tape-ES
  * @param {string} glob the glob to match test files
- * @param {any} options bundle options
+ * @param {object} options 'test' options
  */
 export async function test (glob, options) {
   const args = []

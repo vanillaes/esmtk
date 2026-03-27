@@ -5,7 +5,7 @@ import { spawn } from 'child_process'
  * Bundle ESM (ECMAScript Module) code (with tree-shaking)
  * @param {string} input the input path
  * @param {string} output the output path
- * @param {any} options bundle options
+ * @param {object} options 'bundle' options
  */
 export async function bundle (input, output, options) {
   const npmExists = await which('npm')

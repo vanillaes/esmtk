@@ -10,7 +10,7 @@ const execAsync = promisify(exec)
 
 /**
  * Create a package.json file for ECMAScript Development
- * @param {any} options init options
+ * @param {object} options 'init' options
  */
 export async function init (options) {
   const npmExists = await which('npm')
@@ -46,10 +46,9 @@ export async function init (options) {
   pkg.name = await ask(program, 'package name', DIRNAME)
   pkg.version = await ask(program, 'version', '0.0.0')
   pkg.description = await ask(program, 'description')
-  let keywords = await ask(program, 'keywords')
+  const keywords = await ask(program, 'keywords')
   if (keywords) {
-    keywords = keywords.split(' ')
-    pkg.keywords = keywords
+    pkg.keywords = keywords.split(' ')
   }
   pkg.repository = await ask(program, 'git repository', REPOSITORY)
   const user = await ask(program, 'author', USERNAME)
@@ -97,12 +96,23 @@ export async function init (options) {
   program.close()
 }
 
+/**
+ * Ask a question on the command-line
+ * @param {object} program reference to the CLI
+ * @param {string} prompt the question to ask the User
+ * @param {string} [defaultValue] the default value for the question
+ * @returns {Promise<string>} the answer to the question | the default value
+ */
 async function ask (program, prompt, defaultValue) {
   const suffix = defaultValue ? `(${defaultValue}) ` : ''
   const answer = await program.question(`${prompt}: ${suffix}`)
   return answer || defaultValue
 }
 
+/**
+ * Fetch the user.name from .gitconfig
+ * @returns {Promise<string>} the user.name
+ */
 async function fetchGitUser () {
   const { stdout, stderr } = await execAsync('git config --get user.name')
   if (stderr) {
@@ -113,6 +123,10 @@ async function fetchGitUser () {
   return `${stdout}`.trim()
 }
 
+/**
+ * Fetch the user.email from .gitconfig
+ * @returns {Promise<string>} the user.email
+ */
 async function fetchGitEmail () {
   const { stdout, stderr } = await execAsync('git config --get user.email')
   if (stderr) {
@@ -123,6 +137,10 @@ async function fetchGitEmail () {
   return `${stdout}`.trim()
 }
 
+/**
+ * Get the repository name from .git/config
+ * @returns {Promise<string>} the repository name
+ */
 async function getGitRepository () {
   const config = join(process.cwd(), '.git', 'config')
   const exists = await fileExists(config)

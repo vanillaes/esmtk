@@ -5,7 +5,7 @@ import { spawn } from 'child_process'
  * Bundle CJS (CommonJS) code
  * @param {string} input the input path
  * @param {string} output the output path
- * @param {any} options commonjs options
+ * @param {object} options 'commonjs' options
  */
 export async function commonjs (input, output, options) {
   const npmExists = await which('npm')

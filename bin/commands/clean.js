@@ -4,7 +4,7 @@ import { fileExists, match } from '../../src/util.js'
 /**
  * Clean build artifcats using sensible defaults
  * @param {string} root the root directory
- * @param {any} options clean options
+ * @param {object} options 'clean' options
  */
 export async function clean (root, options) {
   const exists = await fileExists(root)
@@ -30,6 +30,12 @@ export async function clean (root, options) {
   }
 }
 
+/**
+ * Run one category of build artifacts
+ * @param {string} root the root directory (default process.cwd())
+ * @param {string} glob the pattern of files to match
+ * @param {object} options 'clean' options
+ */
 async function cleanOne (root, glob, options) {
   const files = await match(glob, root, 'node_modules/**')
   await removeMultipleAsync(files, options?.force)

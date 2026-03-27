@@ -4,7 +4,7 @@ import { expand } from '../../src/index.js'
 /**
  * POSIX cp Implemented in Node
  * @param {string[]} paths Variadic of source/destination paths
- * @param {any} options 'cp' options
+ * @param {object} options 'cp' options
  */
 export async function cp (paths, options) {
   if (paths.length < 2) {
@@ -30,9 +30,9 @@ export async function cp (paths, options) {
   }
 
   if (paths.length > 2) {
-    let sources = paths.slice(0, -1)
-    sources = await await Promise.all(sources.map(source => expand(source)))
-    sources = sources.flat()
+    const sourcePatterns = paths.slice(0, -1)
+    const sourceFiles = await await Promise.all(sourcePatterns.map(source => expand(source)))
+    const sources = sourceFiles.flat()
     const target = paths.slice(-1)[0]
 
     await copyMultipleAsync(sources, target, options?.force)

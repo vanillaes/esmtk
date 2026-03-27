@@ -6,8 +6,7 @@ const execAsync = promisify(exec)
 
 /**
  * Expand file/glob into a list of paths
- *
- * @param {*} source the source file/glob
+ * @param {string} source the source file/glob
  * @returns {Promise<string[]>} an array of paths
  */
 export async function expand (source) {

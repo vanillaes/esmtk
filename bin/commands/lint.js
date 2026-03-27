@@ -5,7 +5,7 @@ const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'standard')
 
 /**
  * Lint the source code (using StandardJS)
- * @param {any} options
+ * @param {object} options 'lint' options
  */
 export async function lint (options) {
   const args = []

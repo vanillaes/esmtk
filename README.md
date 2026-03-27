@@ -1,6 +1,6 @@
 <h1 align="center">ECMAScript Module Toolkit</h1>
 
-ESMTK, essential tools for ECMAScript module development
+<div align="center">ESMTK, essential tools for ECMAScript module development</div>
 
 <div align="center">
   <a href="https://github.com/vanillaes/esmtk/releases"><img src="https://badgen.net/github/tag/vanillaes/esmtk?cache-control=no-cache" alt="GitHub Release"></a>
@@ -56,8 +56,8 @@ Run tests (using Tape-ES)
 `esmtk test [...options] [glob]`
 
 - `[glob]` - the glob used to locate test files (default: `**/*.spec.js`)
-- `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
-- `-r` | `--root` - the root path to run the tests from (default `process.cwd()`)
+- `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
+- `--root` - the root path to run the tests from (default `process.cwd()`)
 - `--watch` - watch for changes to the tests
 
 ### Usage
@@ -254,7 +254,7 @@ Preview the package contents included during `npm publish`
 
 `esmtk preview [...options]`
 
-- `-r` | `--root` - the root path to preview
+- `--root` - the root path to preview
 
 ### Usage
 

@@ -1,6 +1,6 @@
 {
   "name": "@vanillaes/esmtk",
-  "version": "0.24.5",
+  "version": "0.24.6",
   "description": "ES Module Toolkit",
   "keywords": [
     "ecmascript",
@@ -61,6 +61,8 @@
     "@types/node": "^25.5.0"
   },
   "lint": {
-    "ignore": [ "**/__tests__/**" ]
+    "ignore": [
+      "**/__tests__/**"
+    ]
   }
 }

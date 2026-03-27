@@ -74,7 +74,7 @@
             "console": "integratedTerminal",
         },
         {
-            "name": "Types",
+            "name": "Type",
             "type": "node",
             "request": "launch",
             "skipFiles": [
@@ -82,7 +82,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["types", "./src/index.js"],
+            "args": ["type", "./src/index.js"],
             "console": "integratedTerminal",
         },
         {

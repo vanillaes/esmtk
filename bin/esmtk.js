@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, cp, commonjs, init, lint, minify, preview, rm, test, types, typings } from './commands/index.js'
+import { bundle, clean, cp, commonjs, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
 import { Command } from 'commander'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
@@ -33,10 +33,10 @@ program.command('lint')
     lint(flags)
   })
 
-program.command('types <entry>')
+program.command('type <entry>')
   .description('Type check the JSDoc typings using Typescript')
   .action((entry, options) => {
-    types(entry, options)
+    type(entry, options)
   })
 
 program.command('typings <entry>')

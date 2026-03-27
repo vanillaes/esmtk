@@ -74,7 +74,7 @@ export async function init (options) {
     pkg.scripts = {}
     pkg.scripts.test = 'esmtk test'
     pkg.scripts.lint = 'esmtk lint'
-    pkg.scripts.types = `esmtk types ${entry}`
+    pkg.scripts.type = `esmtk type ${entry}`
     pkg.scripts.typings = `esmtk typings ${entry}`
     pkg.scripts.clean = 'esmtk clean --typings'
     pkg.scripts.preview = 'esmtk preview'

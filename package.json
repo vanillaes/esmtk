@@ -6,6 +6,7 @@
     "ecmascript",
     "esm",
     "esmodules",
+    "typescript",
     "cli",
     "developer-tools",
     "jsdoc",
@@ -39,13 +40,13 @@
   "scripts": {
     "test": "./bin/esmtk.js test",
     "lint": "./bin/esmtk.js lint",
-    "types": "./bin/esmtk.js types src/index.js && ./bin/esmtk.js types bin/commands/index.js",
+    "type": "./bin/esmtk.js type src/index.js && ./bin/esmtk.js type bin/commands/index.js",
     "bundle": "./bin/esmtk.js bundle --platform=node src/index.js src/index.esm.js",
     "minify": "./bin/esmtk.js minify --platform=node src/index.js src/index.min.js",
     "typings": "./bin/esmtk.js typings src/index.js",
     "clean": "./bin/esmtk.js clean --typings",
     "preview": "./bin/esmtk.js preview",
-    "preversion": "npm run test && npm run lint && npm run types",
+    "preversion": "npm run test && npm run lint && npm run type",
     "postversion": "git push --follow-tags"
   },
   "engines": {

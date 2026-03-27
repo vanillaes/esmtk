@@ -6,7 +6,7 @@ import { spawn } from 'child_process'
  * @param {string} entry the entry point
  * @param {object} options 'types' options
  */
-export async function types (entry, options) {
+export async function type (entry, options) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')

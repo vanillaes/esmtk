@@ -15,7 +15,7 @@ ESMTK, essential tools for ECMAScript module development
 - [init](#init) - Create a package.json file for ECMAScript module development
 - [test](#test) - Run tests (using Tape-ES)
 - [lint](#lint) - Lint the source code (using Lint-ES)
-- [types](#types) - Type check the JSDoc typings (using Typescript)
+- [type](#type) - Type check the JSDoc typings (using Typescript)
 - [bundle](#bundle) - Bundle the source code to an ECMAScript module (using ESBuild)
 - [minify](#minify) - Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 - [commonjs](#commonjs) - Bundle the source code to a CommonJS module (using ESBuild)
@@ -101,13 +101,13 @@ esmtk --fix lint
 ```
 
 
-## Types
+## Type
 
 Type check the JSDoc typings (using Typescript)
 
 ### Arguments
 
-`esmtk types [...options] [entry]`
+`esmtk type [...options] [entry]`
 
 - `[entry]` - the entry-point for the source
 - `--strict` - enable 'strict mode' type checks
@@ -116,10 +116,10 @@ Type check the JSDoc typings (using Typescript)
 
 ```sh
 # type check the sources
-esmtk types index.js
+esmtk type index.js
 
 # type check the sources (with 'strict mode' enabled)
-esmtk types --strict index.js
+esmtk type --strict index.js
 ```
 
 **Node: Due to Typescript limitations, inline JSDoc typings will be ignored if typings (ie `*.d.ts` files) exist.**

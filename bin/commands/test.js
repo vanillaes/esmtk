@@ -14,8 +14,8 @@ export async function test (glob, options) {
     args.push(options.ignore)
   }
   if (options?.cwd) {
-    args.push('--root') // Update this to --cwd when Tape-ES is updated
-    args.push(options.root) // Update this to --cwd when Tape-ES is updated
+    args.push('--cwd')
+    args.push(options.cwd)
   }
   if (options?.watch) {
     args.push('--watch')

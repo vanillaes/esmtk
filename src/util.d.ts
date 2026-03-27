@@ -19,11 +19,11 @@ export function installed(pkg: string): Promise<boolean>;
 /**
  * Description
  * @param {string} pattern glob pattern(s) to match
- * @param {string} root root path where the matcher runs from
+ * @param {string} cwd the current working directory
  * @param {string} ignore glob of pattern(s) to ignore
  * @returns {Promise<string[]>} an array of paths
  */
-export function match(pattern: string, root?: string, ignore?: string): Promise<string[]>;
+export function match(pattern: string, cwd?: string, ignore?: string): Promise<string[]>;
 /**
  * Check to see if an application is installed globally
  * @param {string} program the name of the application

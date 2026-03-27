@@ -57,7 +57,7 @@ Run tests (using Tape-ES)
 
 - `[glob]` - the glob used to locate test files (default: `**/*.spec.js`)
 - `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
-- `--root` - the root path to run the tests from (default `process.cwd()`)
+- `--cwd` - the current working directory (default `process.cwd()`)
 - `--watch` - watch for changes to the tests
 
 ### Usage
@@ -72,8 +72,8 @@ npx @vanillaes/esmtk test **/*.test.js
 # run the tests (ignore tests)
 npx @vanillaes/esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
 
-# run the tests (change the root)
-npx @vanillaes/esmtk test **/*.test.js --root src/
+# run the tests (change the current working directory)
+npx @vanillaes/esmtk test **/*.test.js --cwd src/
 
 # run the tests (watch for changes)
 npx @vanillaes/esmtk test --watch
@@ -222,9 +222,9 @@ Clean up build artifacts
 
 ### Arguments
 
-`esmtk clean [...options] [root]`
+`esmtk clean [...options] [cwd]`
 
-- `[root]` - the root directory to perform the cleanup (default: `process.cwd()`)
+- `[cwd]` - the current working directory (default: `process.cwd()`)
 - `--bundle` - Clean bundled build artifacts (default: `**/*.esm.js`)
 - `--minify` - Clean minified build artifacts (default: `**/*.min.js`)
 - `--typings` - Clean typing artifacts (default: `**/*.d.ts`)
@@ -254,7 +254,7 @@ Preview the package contents included during `npm publish`
 
 `esmtk preview [...options]`
 
-- `--root` - the root path to preview
+- `--cwd` - the current working directory
 
 ### Usage
 
@@ -262,8 +262,8 @@ Preview the package contents included during `npm publish`
 # preview the package contents
 esmtk preview
 
-# preview the package contents (from another root directory)
-esmtk preview --root some/other/dir
+# preview the package contents (from another directory)
+esmtk preview --cwd some/other/dir
 ```
 
 

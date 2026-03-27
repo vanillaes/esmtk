@@ -50,7 +50,7 @@
             "console": "integratedTerminal",
         },
         {
-            "name": "Test --root",
+            "name": "Test --cwd",
             "type": "node",
             "request": "launch",
             "skipFiles": [
@@ -58,7 +58,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["test", "--root", "src/"],
+            "args": ["test", "--cwd", "src/"],
             "console": "integratedTerminal",
         },
         {

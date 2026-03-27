@@ -19,7 +19,7 @@ program.command('test')
   .description('Run tests using Tape-ES')
   .argument('[glob]', 'The glob pattern used to find test files (default: `**/*.spec.js`)', '**/*.spec.js')
   .option('--ignore <ignore>', 'the ignore matcher pattern (default `**/node_modules/**`)')
-  .option('--root <root>', 'the root path to run the tests from (default `process.cwd()`)')
+  .option('--cwd <cwd>', 'the current working directory (default `process.cwd()`)')
   .option('--watch', 'Watch the files for changes')
   .action((glob, options) => {
     test(glob, options)
@@ -69,13 +69,13 @@ program.command('minify <input> <output>')
 
 program.command('clean')
   .description('Clean build artificts')
-  .argument('[root]', 'The root directory to perform operations from (default cwd)', process.cwd())
+  .argument('[cwd]', 'The current working directory (default cwd)', process.cwd())
   .option('--bundle [bundle]', 'Clean bundled build artifacts (default: **/*.esm.js)')
   .option('--minify [minify]', 'Clean minified build artifacts (default: **/*.min.js)')
   .option('--typings [typings]', 'Clean typing artifacts (default: **/*.d.ts)')
   .option('--custom <custom>', 'Clean based on a user-defined pattern')
   // .option('-f, --force', 'Do not prompt before overwriting', false)
-  .action((root, options) => {
+  .action((cwd, options) => {
     // set --bundle default
     if (options?.bundle && typeof (options.bundle) === 'boolean') {
       options.bundle = '**/*.esm.js'
@@ -89,12 +89,12 @@ program.command('clean')
       options.typings = '**/*.d.ts'
     }
 
-    clean(root, options)
+    clean(cwd, options)
   })
 
 program.command('preview')
   .description('Preview the package contents included during \'npm publish\'')
-  .option('--root <root>', 'the root path to run the tests from (default `process.cwd()`)', process.cwd())
+  .option('--cwd <cwd>', 'the current working directory (default `process.cwd()`)', process.cwd())
   .action((options) => {
     preview(options)
   })

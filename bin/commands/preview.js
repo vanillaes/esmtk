@@ -11,10 +11,10 @@ const require = createRequire(import.meta.url)
  * @param {object} options 'preview' options
  */
 export async function preview (options) {
-  let ignore = await readNPMIgnore(options.root)
+  let ignore = await readNPMIgnore(options.cwd)
   ignore = `${ignore},node_modules/,package-lock.json`
 
-  let files = await match('**/*', options.root, ignore)
+  let files = await match('**/*', options.cwd, ignore)
   if (files.length === 0) {
     console.log('preview: no files found')
     process.exit(0)
@@ -23,7 +23,7 @@ export async function preview (options) {
     .filter(path => statSync(path).isFile())
     .sort((a, b) => fileCompare(a, b))
 
-  const pkg = require(join(options.root, 'package.json'))
+  const pkg = require(join(options.cwd, 'package.json'))
 
   console.log()
   console.log(`📦  ${pkg.name}@${pkg.version}`)
@@ -35,11 +35,11 @@ export async function preview (options) {
 
 /**
  * Read .npmignore
- * @param {string} root the root path
+ * @param {string} cwd the current working directory
  * @returns {Promise<string>} a comma-deliminated list of ignore globs
  */
-async function readNPMIgnore (root) {
-  const path = join(root, '.npmignore')
+async function readNPMIgnore (cwd) {
+  const path = join(cwd, '.npmignore')
   const contents = await readFile(path, 'utf8')
   return contents
     .split('\n')

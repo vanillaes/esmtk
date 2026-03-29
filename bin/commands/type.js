@@ -27,8 +27,10 @@ export async function type (entry, options) {
   args.push('esnext')
   args.push('--allowJS')
   args.push('--checkJS')
-  args.push('--module')
-  args.push('esnext')
+  if (options?.module) {
+    args.push('--module')
+    args.push(options.module)
+  }
   args.push('--noEmit')
   args.push('--skipLibCheck')
   if (options?.strict) {

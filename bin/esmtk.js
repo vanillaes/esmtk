@@ -35,6 +35,7 @@ program.command('lint')
 
 program.command('type <entry>')
   .description('Type check the JSDoc typings using Typescript')
+  .option('--strict', 'Enable \'strict mode\'')
   .action((entry, options) => {
     type(entry, options)
   })

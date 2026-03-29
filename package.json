@@ -40,7 +40,7 @@
   "scripts": {
     "test": "./bin/esmtk.js test",
     "lint": "./bin/esmtk.js lint",
-    "type": "./bin/esmtk.js type src/index.js && ./bin/esmtk.js type bin/commands/index.js",
+    "type": "./bin/esmtk.js type src/index.js && ./bin/esmtk.js type bin/esmtk.js --module nodenext",
     "bundle": "./bin/esmtk.js bundle --platform=node src/index.js src/index.esm.js",
     "minify": "./bin/esmtk.js minify --platform=node src/index.js src/index.min.js",
     "typings": "./bin/esmtk.js typings src/index.js",

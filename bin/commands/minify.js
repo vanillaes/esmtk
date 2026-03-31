@@ -12,14 +12,16 @@ export async function minify (input, output, options) {
   if (!npmExists) {
     console.error('npm not found')
     console.error('is node installed?')
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   const esbuildExists = await installed('esbuild')
   if (!esbuildExists) {
     console.error('esbuild not found')
     console.error('esbuild can be installed with `npm i -g esbuild`')
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   const args = []
@@ -38,7 +40,8 @@ export async function minify (input, output, options) {
   spawn('esbuild', args, {
     cwd: process.cwd(),
     stdio: ['pipe', process.stdout, process.stderr]
-  }).on('error', err => {
-    console.error(err)
+  }).on('error', error => {
+    console.error(error)
+    process.exitCode = 1
   })
 }

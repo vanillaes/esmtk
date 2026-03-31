@@ -9,7 +9,7 @@ const processExit = process.exit
 
 setup(async (t) => {
   process.exit = function () {
-    throw new Error('process.exit(1)')
+    throw new Error('process.exit')
   }
   process.chdir(process.cwd())
   rmSync('test', { recursive: true, force: true })
@@ -28,22 +28,22 @@ test('removeAsync - remove a file', files.removeAsync, async (t) => {
 })
 
 test('removeAsync - ERROR: no such file or directory', files.removeAsync, async (t) => {
-  try {
-    await removeAsync('test1.ts')
-    t.fail('Expected error was not thrown')
-  } catch (err) {
-    t.ok(err, 'Error was thrown as expected')
-  }
+  await removeAsync('test1.ts')
+
+  const actual = process.exitCode
+  const expect = 1
+
+  t.equal(actual, expect)
   t.end()
 })
 
 test('removeAsync - ERROR: file is a directory', files.removeAsync, async (t) => {
-  try {
-    await removeAsync('directory/')
-    t.fail('Expected error was not thrown')
-  } catch (err) {
-    t.ok(err, 'Error was thrown as expected')
-  }
+  await removeAsync('directory/')
+
+  const actual = process.exitCode
+  const expect = 1
+
+  t.equal(actual, expect)
   t.end()
 })
 

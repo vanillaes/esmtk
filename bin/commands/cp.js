@@ -9,6 +9,8 @@ import { expand } from '../../src/index.js'
 export async function cp (paths, options) {
   if (paths.length < 2) {
     console.error('cp: Not enough arguments')
+    process.exitCode = 1
+    return
   }
 
   if (paths.length === 2) {

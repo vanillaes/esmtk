@@ -9,7 +9,7 @@ const processExit = process.exit
 
 setup(async (t) => {
   process.exit = function () {
-    throw new Error('process.exit(1)')
+    throw new Error('process.exit')
   }
   process.chdir(process.cwd())
   rmSync('test', { recursive: true, force: true })
@@ -28,22 +28,22 @@ test('copyAsync - copy file-to-file', files.copyAsync, async (t) => {
 })
 
 test('copyAsync - copy file-to-file - ERROR: no such file or directory (source)', files.copyAsync, async (t) => {
-  try {
-    await copyAsync('cp1/test1.ts', 'cp2/test1.ts')
-    t.fail('Expected error was not thrown')
-  } catch (err) {
-    t.ok(err, 'Error was thrown as expected')
-  }
+  await copyAsync('cp1/test1.ts', 'cp2/test1.ts')
+
+  const actual = process.exitCode
+  const expect = 1
+
+  t.equal(actual, expect)
   t.end()
 })
 
 test('copyAsync - copy file-to-file - ERROR: source is a directory', files.copyAsync, async (t) => {
-  try {
-    await copyAsync('cp1/', 'cp2/test1.txt')
-    t.fail('Expected error was not thrown')
-  } catch (err) {
-    t.ok(err, 'Error was thrown as expected')
-  }
+  await copyAsync('cp1/', 'cp2/test1.txt')
+
+  const actual = process.exitCode
+  const expect = 1
+
+  t.equal(actual, expect)
   t.end()
 })
 
@@ -58,12 +58,12 @@ test('copyAsync - copy file-to-directory', files.copyAsync, async (t) => {
 })
 
 test('copyAsync - copy file-to-directory - ERROR: no such file or directory (target)', files.copyAsync, async (t) => {
-  try {
-    await copyAsync('cp1/test1.txt', 'cpx/')
-    t.fail('Expected error was not thrown')
-  } catch (err) {
-    t.ok(err, 'Error was thrown as expected')
-  }
+  await copyAsync('cp1/test1.txt', 'cpx/')
+
+  const actual = process.exitCode
+  const expect = 1
+
+  t.equal(actual, expect)
   t.end()
 })
 
@@ -78,12 +78,12 @@ test('copyMultipleAsync - copy multiple files', files.copyMultipleAsync, async (
 })
 
 test('copyMultipleAsync - copy multiple files - ERROR: no such file or directory (target)', files.copyMultipleAsync, async (t) => {
-  try {
-    await copyMultipleAsync(['cp1/test1.txt', 'cp1/test1.js'], 'cpx/')
-    t.fail('Expected error was not thrown')
-  } catch (err) {
-    t.ok(err, 'Error was thrown as expected')
-  }
+  await copyMultipleAsync(['cp1/test1.txt', 'cp1/test1.js'], 'cpx/')
+
+  const actual = process.exitCode
+  const expect = 1
+
+  t.equal(actual, expect)
   t.end()
 })
 

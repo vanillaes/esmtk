@@ -17,22 +17,37 @@ export async function init (options) {
   if (!npmExists) {
     console.error('npm not found')
     console.error('is node installed?')
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   const gitExists = await which('git')
   if (!gitExists) {
     console.error('git not found')
     console.error('is git installed?')
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   // defaults
   const DIR = process.cwd()
   const DIRNAME = basename(process.cwd())
-  const REPOSITORY = await getGitRepository()
-  const USERNAME = gitExists ? await fetchGitUser() : ''
-  const EMAIL = gitExists ? await fetchGitEmail() : ''
+  let REPOSITORY
+  let USERNAME
+  let EMAIL
+  try {
+    REPOSITORY = await fetchGitRepository()
+    USERNAME = gitExists ? await fetchGitUser() : ''
+    EMAIL = gitExists ? await fetchGitEmail() : ''
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message)
+    } else {
+      console.error(`Unexpected error: ${error}`)
+    }
+    process.exitCode = 1
+    return
+  }
 
   const program = createInterface({ input: stdin, output: stdout })
 
@@ -116,8 +131,7 @@ async function ask (program, prompt, defaultValue) {
 async function fetchGitUser () {
   const { stdout, stderr } = await execAsync('git config --get user.name')
   if (stderr) {
-    console.error(`exec error: ${stderr}`)
-    process.exit(1)
+    throw new Error(`exec error: ${stderr}`)
   }
   console.log(`${stdout}`.trim())
   return `${stdout}`.trim()
@@ -130,18 +144,17 @@ async function fetchGitUser () {
 async function fetchGitEmail () {
   const { stdout, stderr } = await execAsync('git config --get user.email')
   if (stderr) {
-    console.error(`exec error: ${stderr}`)
-    process.exit(1)
+    throw new Error(`exec error: ${stderr}`)
   }
   console.log(`${stdout}`.trim())
   return `${stdout}`.trim()
 }
 
 /**
- * Get the repository name from .git/config
+ * Fetch the repository name from .git/config
  * @returns {Promise<string>} the repository name
  */
-async function getGitRepository () {
+async function fetchGitRepository () {
   const config = join(process.cwd(), '.git', 'config')
   const exists = await fileExists(config)
   if (!exists) {

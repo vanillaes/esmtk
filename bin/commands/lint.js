@@ -16,8 +16,9 @@ export async function lint (options) {
   const child = spawn(BIN_PATH, args, {
     cwd: process.cwd(),
     stdio: ['pipe', 'pipe', 'pipe']
-  }).on('error', err => {
-    console.error(`${err}`)
+  }).on('error', error => {
+    console.error(`${error}`)
+    process.exitCode = 1
   })
 
   child.stdout.on('data', (data) => {
@@ -30,5 +31,6 @@ export async function lint (options) {
     } else {
       process.stderr.write(`${data}`)
     }
+    process.exitCode = 1
   })
 }

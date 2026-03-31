@@ -21,10 +21,20 @@ export async function test (glob, options) {
     args.push('--watch')
   }
 
-  spawn('node', args, {
+  const child = spawn('node', args, {
     cwd: process.cwd(),
-    stdio: ['pipe', process.stdout, process.stderr]
-  }).on('error', err => {
-    console.error(err)
+    stdio: ['pipe', 'pipe', 'pipe']
+  }).on('error', error => {
+    console.error(error)
+    process.exitCode = 1
+  })
+
+  child.stdout.on('data', (data) => {
+    process.stdout.write(`${data}`)
+  })
+
+  child.stderr.on('data', (data) => {
+    process.stderr.write(`${data}`)
+    process.exitCode = 1
   })
 }

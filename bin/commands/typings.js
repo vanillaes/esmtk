@@ -10,20 +10,23 @@ export async function typings (entry) {
   if (!npmExists) {
     console.error('npm not found')
     console.error('is node installed?')
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   const esbuildExists = await installed('typescript')
   if (!esbuildExists) {
     console.error('typescript not found')
     console.error('typescript can be installed with `npm i -g typescript`')
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--declaration', '--emitDeclarationOnly', '--noEmitOnError'], {
     cwd: process.cwd(),
     stdio: ['pipe', process.stdout, process.stderr]
-  }).on('error', err => {
-    console.error(err)
+  }).on('error', error => {
+    console.error(error)
+    process.exitCode = 1
   })
 }

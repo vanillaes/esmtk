@@ -17,7 +17,7 @@ export async function preview (options) {
   let files = await match('**/*', options.cwd, ignore)
   if (files.length === 0) {
     console.log('preview: no files found')
-    process.exit(0)
+    return
   }
   files = files
     .filter(path => statSync(path).isFile())

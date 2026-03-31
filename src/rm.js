@@ -10,22 +10,25 @@ export async function removeAsync (path, force = false) {
   const exists = await fileExists(path)
   if (!exists) {
     console.error(`rm: ${path} No such file or directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   const stats = await stat(path)
   if (stats.isSymbolicLink()) {
     console.error(`rm: ${path} is a sybolic link`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   if (!stats.isFile()) {
     console.error(`rm: ${path} is a directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   try {
     await rm(path, { force: true })
-  } catch (err) {
-    console.error(`rm: error ${err.message}`)
+  } catch (error) {
+    console.error(`rm: error ${error.message}`)
   }
 }
 
@@ -39,8 +42,8 @@ export async function removeMultipleAsync (files, force = false) {
     for (const file of files) {
       await rm(file, { force: true })
     }
-  } catch (err) {
-    console.error(`cp": error ${err.message}`)
+  } catch (error) {
+    console.error(`cp": error ${error.message}`)
   }
 }
 
@@ -53,17 +56,19 @@ export async function removeRecursiveAsync (path, force = false) {
   const exists = await fileExists(path)
   if (!exists) {
     console.error(`rm: ${path} No such file or directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   const stats = await stat(path)
   if (stats.isSymbolicLink()) {
     console.error(`rm: ${path} is a sybolic link`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   try {
     await rm(path, { force: true, recursive: true })
-  } catch (err) {
-    console.error(`rm": error ${err.message}`)
+  } catch (error) {
+    console.error(`rm": error ${error.message}`)
   }
 }

@@ -10,7 +10,8 @@ export async function clean (cwd, options) {
   const exists = await fileExists(cwd)
   if (!exists) {
     console.error(`clean: ${cwd} No such file or directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   if (options?.bundle) {

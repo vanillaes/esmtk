@@ -15,14 +15,16 @@ export async function expand (source) {
     const paths = await match(source)
     if (paths.length === 0) {
       console.error(`${source} no matches found`)
-      process.exit(1)
+      process.exitCode = 1
+      return
     }
     return paths
   } else {
     const exists = await fileExists(source)
     if (!exists) {
       console.error(`${source} No such file or directory`)
-      process.exit(1)
+      process.exitCode = 1
+      return
     }
     return [source]
   }
@@ -51,7 +53,7 @@ export async function installed (pkg) {
   try {
     await execAsync(`npm list -g --depth=0 ${pkg}`)
     return true
-  } catch (e) {
+  } catch (error) {
     return false
   }
 }
@@ -80,7 +82,7 @@ export async function which (program) {
   try {
     await execAsync(`which ${program}`)
     return true
-  } catch (e) {
+  } catch (error) {
     return false
   }
 }

@@ -12,16 +12,19 @@ export async function copyAsync (source, target, force = false) {
   const sExists = await fileExists(source)
   if (!sExists) {
     console.error(`cp: ${source} No such file or directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   const sStats = await stat(source)
   if (sStats.isSymbolicLink()) {
     console.error(`cp: ${source} is a sybolic link (not copied)`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   if (!sStats.isFile()) {
     console.error(`cp: ${source} is a directory (not copied)`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   const tExists = await fileExists(target)
@@ -30,12 +33,14 @@ export async function copyAsync (source, target, force = false) {
   if (tIsDir) {
     if (!tExists) {
       console.error(`cp: ${target} No such file or directory`)
-      process.exit(1)
+      process.exitCode = 1
+      return
     }
     const tStats = await stat(target)
     if (tStats.isSymbolicLink()) {
       console.error(`cp: ${target} is a sybolic link (not copied)`)
-      process.exit(1)
+      process.exitCode = 1
+      return
     }
 
     // append source file name to target directory
@@ -46,8 +51,9 @@ export async function copyAsync (source, target, force = false) {
 
   try {
     await cp(source, target, { force: true })
-  } catch (err) {
-    console.error(`cp: error ${err.message}`)
+  } catch (error) {
+    console.error(`cp: error ${error.message}`)
+    process.exitCode = 1
   }
 }
 
@@ -61,12 +67,14 @@ export async function copyMultipleAsync (sources, target, force = false) {
   const tExists = await fileExists(target)
   if (!tExists) {
     console.error(`cp: ${target} No such file or directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   const tStats = await stat(target)
   if (tStats.isSymbolicLink()) {
     console.error(`cp: ${target} is a sybolic link (not copied)`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   try {
@@ -74,8 +82,9 @@ export async function copyMultipleAsync (sources, target, force = false) {
     for (const source of sources) {
       await cp(source, `${target}${sep}${basename(source)}`, { force: true })
     }
-  } catch (err) {
-    console.error(`cp": error ${err.message}`)
+  } catch (error) {
+    console.error(`cp": error ${error.message}`)
+    process.exitCode = 1
   }
 }
 
@@ -89,32 +98,38 @@ export async function copyRecursiveAsync (source, target, force = false) {
   const sExists = await fileExists(source)
   if (!sExists) {
     console.error(`cp: ${source} No such file or directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   const sStats = await stat(source)
   if (sStats.isSymbolicLink()) {
     console.error(`cp: ${source} is a sybolic link (not copied)`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   const tExists = await fileExists(target)
   if (!tExists) {
     console.error(`cp: ${target} No such file or directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   const tStats = await stat(target)
   if (tStats.isSymbolicLink()) {
     console.error(`cp: ${target} is a sybolic link (not copied)`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
   if (!tStats.isDirectory()) {
     console.error(`cp: target ${target} Not a directory`)
-    process.exit(1)
+    process.exitCode = 1
+    return
   }
 
   try {
     await cp(source, target, { force: true, recursive: true })
-  } catch (err) {
-    console.error(`cp": error ${err.message}`)
+  } catch (error) {
+    console.error(`cp": error ${error.message}`)
+    process.exitCode = 1
   }
 }

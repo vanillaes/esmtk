@@ -36,6 +36,10 @@ export async function type (entry, options) {
   if (options?.strict) {
     args.push('--strict')
   }
+  if (options?.types) {
+    args.push('--types')
+    args.push(options.types)
+  }
 
   spawn('tsc', args, {
     cwd: process.cwd(),

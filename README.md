@@ -114,6 +114,7 @@ Type check the JSDoc typings (using Typescript)
 - `[entry]` - the entry-point for the source
 - `--module [module]` - module resolution type (default `esnext`)
 - `--strict` - enable 'strict mode' type checks
+- `--types [types]` - specify type package names to include (ex `node` for `@types/node`)
 
 ### Usage
 

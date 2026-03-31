@@ -37,6 +37,7 @@ program.command('type <entry>')
   .description('Type check the JSDoc typings using Typescript')
   .option('--module <module>', 'Module resolution type (default esnext)', 'esnext')
   .option('--strict', 'Enable \'strict mode\'')
+  .option('--types <types>', 'specify type package names to include (ex `node` for `@types/node`)')
   .action((entry, options) => {
     type(entry, options)
   })

@@ -112,6 +112,7 @@ Type check the JSDoc typings (using Typescript)
 `esmtk type [...options] [entry]`
 
 - `[entry]` - the entry-point for the source
+- `--module [module]` - module resolution type (default `esnext`)
 - `--strict` - enable 'strict mode' type checks
 
 ### Usage

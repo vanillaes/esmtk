@@ -5,12 +5,10 @@ import { rmSync } from 'node:fs'
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const files = require('./__tests__/rm.json')
-const processExit = process.exit
+const consoleError = console.error
 
 setup(async (t) => {
-  process.exit = function () {
-    throw new Error('process.exit')
-  }
+  console.error = e => e
   process.chdir(process.cwd())
   rmSync('test', { recursive: true, force: true })
 
@@ -68,7 +66,7 @@ test('removeRecursiveAsync - ', files.removeRecursiveAsync, async (t) => {
 })
 
 teardown(async (t) => {
-  process.exit = processExit
+  console.error = consoleError
   process.chdir(process.cwd())
   rmSync('test', { recursive: true, force: true })
 

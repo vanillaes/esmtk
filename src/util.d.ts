@@ -17,7 +17,7 @@ export function fileExists(path: string): Promise<boolean>;
  */
 export function installed(pkg: string): Promise<boolean>;
 /**
- * Description
+ * Match glob(s)
  * @param {string} pattern glob pattern(s) to match
  * @param {string} cwd the current working directory
  * @param {string} ignore glob of pattern(s) to ignore

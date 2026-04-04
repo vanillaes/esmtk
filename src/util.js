@@ -59,7 +59,7 @@ export async function installed (pkg) {
 }
 
 /**
- * Description
+ * Match glob(s)
  * @param {string} pattern glob pattern(s) to match
  * @param {string} cwd the current working directory
  * @param {string} ignore glob of pattern(s) to ignore

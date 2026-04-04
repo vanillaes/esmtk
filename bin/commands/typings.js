@@ -4,8 +4,9 @@ import { spawn } from 'child_process'
 /**
  * Generate Typescript typings from JSDoc
  * @param {string} entry the entry point
+ * @param {object} options 'typings' options
  */
-export async function typings (entry) {
+export async function typings (entry, options) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -22,7 +23,22 @@ export async function typings (entry) {
     return
   }
 
-  spawn('tsc', [entry, '-t', 'esnext', '--allowJS', '--checkJS', '--skipLibCheck', '--declaration', '--emitDeclarationOnly', '--noEmitOnError'], {
+  const args = []
+  args.push(entry)
+  args.push('-t')
+  args.push('esnext')
+  args.push('--allowJS')
+  args.push('--checkJS')
+  args.push('--declaration')
+  args.push('--emitDeclarationOnly')
+  if (options?.module) {
+    args.push('--module')
+    args.push(options.module)
+  }
+  args.push('--noEmitOnError')
+  args.push('--skipLibCheck')
+
+  spawn('tsc', args, {
     cwd: process.cwd(),
     stdio: ['pipe', process.stdout, process.stderr]
   }).on('error', error => {

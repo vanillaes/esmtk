@@ -45,6 +45,7 @@ program.command('type <entry>')
 program.command('typings <entry>')
   .description('Generate typings from JSDoc using Typescript')
   .option('--module <module>', 'Module resolution type (default esnext)', 'esnext')
+  .option('--types <types>', 'specify type package names to include (ex `node` for `@types/node`)')
   .action((entry, options) => {
     typings(entry, options)
   })

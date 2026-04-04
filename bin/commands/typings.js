@@ -37,6 +37,10 @@ export async function typings (entry, options) {
   }
   args.push('--noEmitOnError')
   args.push('--skipLibCheck')
+  if (options?.types) {
+    args.push('--types')
+    args.push(options.types)
+  }
 
   spawn('tsc', args, {
     cwd: process.cwd(),

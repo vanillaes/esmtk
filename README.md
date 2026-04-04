@@ -218,6 +218,7 @@ Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 
 - `[entry]` - the entry-point for the source
 - `--module [module]` - module resolution type (default `esnext`)
+- `--types [types]` - specify type package names to include (ex `node` for `@types/node`)
 
 ### Usage
 
@@ -227,6 +228,9 @@ esmtk typings index.js
 
 # generate .d.ts files for all linked source files (with 'node' module resolution)
 esmtk type --module nodenext index.js
+
+# generate .d.ts files for all linked source files (with '@types/node' typings included)
+esmtk type --types node index.js
 ```
 
 

@@ -122,8 +122,14 @@ Type check the JSDoc typings (using Typescript)
 # type check the sources
 esmtk type index.js
 
+# type check the sources (with 'node' module resolution)
+esmtk type --module nodenext index.js
+
 # type check the sources (with 'strict mode' enabled)
 esmtk type --strict index.js
+
+# type check the sources (with '@types/node' typings included)
+esmtk type --types node index.js
 ```
 
 **Node: Due to Typescript limitations, inline JSDoc typings will be ignored if typings (ie `*.d.ts` files) exist.**
@@ -211,12 +217,16 @@ Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 `esmtk typings [entry]`
 
 - `[entry]` - the entry-point for the source
+- `--module [module]` - module resolution type (default `esnext`)
 
 ### Usage
 
 ```sh
 # generate .d.ts files for all linked source files
 esmtk typings index.js
+
+# generate .d.ts files for all linked source files (with 'node' module resolution)
+esmtk type --module nodenext index.js
 ```
 
 

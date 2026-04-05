@@ -25,16 +25,16 @@
   },
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "default": "./src/index.js"
+      "import": "./src/index.js",
+      "types": "./src/index.d.ts"
     },
     "./cp": {
-      "types": "./src/cp.d.ts",
-      "default": "./src/cp.js"
+      "import": "./src/cp.js",
+      "types": "./src/cp.d.ts"
     },
     "./rm": {
-      "types": "./src/rm.d.ts",
-      "default": "./src/rm.js"
+      "import": "./src/rm.js",
+      "types": "./src/rm.d.ts"
     }
   },
   "scripts": {

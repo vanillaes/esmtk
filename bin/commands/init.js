@@ -113,6 +113,7 @@ export async function init (options) {
 
 /**
  * Ask a question on the command-line
+ * @private
  * @param {object} program reference to the CLI
  * @param {string} prompt the question to ask the User
  * @param {string} [defaultValue] the default value for the question
@@ -126,6 +127,7 @@ async function ask (program, prompt, defaultValue) {
 
 /**
  * Fetch the user.name from .gitconfig
+ * @private
  * @returns {Promise<string>} the user.name
  */
 async function fetchGitUser () {
@@ -139,6 +141,7 @@ async function fetchGitUser () {
 
 /**
  * Fetch the user.email from .gitconfig
+ * @private
  * @returns {Promise<string>} the user.email
  */
 async function fetchGitEmail () {
@@ -152,6 +155,7 @@ async function fetchGitEmail () {
 
 /**
  * Fetch the repository name from .git/config
+ * @private
  * @returns {Promise<string>} the repository name
  */
 async function fetchGitRepository () {

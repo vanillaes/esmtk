@@ -1,5 +1,6 @@
 import { exec } from 'child_process'
-import { access, constants, glob } from 'node:fs/promises'
+import { join } from 'node:path'
+import { access, constants, glob, readFile } from 'node:fs/promises'
 import { promisify } from 'node:util'
 
 const execAsync = promisify(exec)
@@ -72,6 +73,39 @@ export async function match (pattern, cwd = process.cwd(), ignore = null) {
     return await Array.fromAsync(glob(patterns, { cwd, exclude: ignores }))
   }
   return await Array.fromAsync(glob(patterns, { cwd }))
+}
+
+/**
+ * Read .gitignore
+ * @param {string} cwd the current working directory
+ * @returns {Promise<string[]>} a comma-deliminated list of ignore globs
+ */
+export async function readGitIgnore (cwd) {
+  const path = join(cwd, '.gitignore')
+  const exists = await fileExists(path)
+  if (!exists) {
+    return []
+  }
+  const contents = await readFile(path, 'utf8')
+  return contents
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line && !line.startsWith('#'))
+}
+
+/**
+ * Read .npmignore
+ * @param {string} cwd the current working directory
+ * @returns {Promise<string>} a comma-deliminated list of ignore globs
+ */
+export async function readNPMIgnore (cwd) {
+  const path = join(cwd, '.npmignore')
+  const contents = await readFile(path, 'utf8')
+  return contents
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line && !line.startsWith('#'))
+    .join(',')
 }
 
 /**

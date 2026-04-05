@@ -33,6 +33,7 @@ export async function clean (cwd, options) {
 
 /**
  * Run one category of build artifacts
+ * @private
  * @param {string} cwd the current working directory (default process.cwd())
  * @param {string} glob the pattern of files to match
  * @param {object} options 'clean' options

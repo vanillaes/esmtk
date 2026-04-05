@@ -25,6 +25,18 @@ export function installed(pkg: string): Promise<boolean>;
  */
 export function match(pattern: string, cwd?: string, ignore?: string): Promise<string[]>;
 /**
+ * Read .gitignore
+ * @param {string} cwd the current working directory
+ * @returns {Promise<string[]>} a comma-deliminated list of ignore globs
+ */
+export function readGitIgnore(cwd: string): Promise<string[]>;
+/**
+ * Read .npmignore
+ * @param {string} cwd the current working directory
+ * @returns {Promise<string>} a comma-deliminated list of ignore globs
+ */
+export function readNPMIgnore(cwd: string): Promise<string>;
+/**
  * Check to see if an application is installed globally
  * @param {string} program the name of the application
  * @returns {Promise<boolean>} true if the application is installed, false otherwise

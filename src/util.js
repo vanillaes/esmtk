@@ -62,15 +62,16 @@ export async function installed (pkg) {
  * Match glob(s)
  * @param {string} pattern glob pattern(s) to match
  * @param {string} cwd the current working directory
- * @param {string} ignore glob of pattern(s) to ignore
+ * @param {string} [ignore] glob of pattern(s) to ignore
  * @returns {Promise<string[]>} an array of paths
  */
 export async function match (pattern, cwd = process.cwd(), ignore = null) {
+  const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
   if (ignore) {
     const ignores = ignore.includes(',') ? ignore.split(',') : [ignore]
-    return await Array.fromAsync(glob(pattern, { cwd, exclude: ignores }))
+    return await Array.fromAsync(glob(patterns, { cwd, exclude: ignores }))
   }
-  return await Array.fromAsync(glob(pattern, { cwd }))
+  return await Array.fromAsync(glob(patterns, { cwd }))
 }
 
 /**

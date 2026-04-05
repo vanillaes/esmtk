@@ -20,7 +20,7 @@ export function installed(pkg: string): Promise<boolean>;
  * Match glob(s)
  * @param {string} pattern glob pattern(s) to match
  * @param {string} cwd the current working directory
- * @param {string} ignore glob of pattern(s) to ignore
+ * @param {string} [ignore] glob of pattern(s) to ignore
  * @returns {Promise<string[]>} an array of paths
  */
 export function match(pattern: string, cwd?: string, ignore?: string): Promise<string[]>;

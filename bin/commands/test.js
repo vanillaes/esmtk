@@ -24,9 +24,6 @@ export async function test (glob, options) {
   const child = spawn('node', args, {
     cwd: process.cwd(),
     stdio: ['pipe', 'pipe', 'pipe']
-  }).on('error', error => {
-    console.error(error)
-    process.exitCode = 1
   })
 
   child.stdout.on('data', (data) => {
@@ -34,7 +31,23 @@ export async function test (glob, options) {
   })
 
   child.stderr.on('data', (data) => {
-    process.stderr.write(`${data}`)
+    data = data.toString()
+    if (data === 'Debugger attached.\n' || data === 'Waiting for the debugger to disconnect...\n') {
+      return
+    }
+    process.stderr.write(data)
     process.exitCode = 1
+  })
+
+  child.on('error', error => {
+    console.error(error)
+    process.exitCode = 1
+  })
+
+  // forward the error code
+  child.on('close', (/** @type {number} */ code) => {
+    if (code === 1) {
+      process.exitCode = 1
+    }
   })
 }

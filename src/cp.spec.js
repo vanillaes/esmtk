@@ -26,21 +26,25 @@ test('copyAsync - copy file-to-file', files.copyAsync, async (t) => {
 })
 
 test('copyAsync - copy file-to-file - ERROR: no such file or directory (source)', files.copyAsync, async (t) => {
+  const exitState = process.exitCode
   await copyAsync('cp1/test1.ts', 'cp2/test1.ts')
 
   const actual = process.exitCode
   const expect = 1
 
+  process.exitCode = exitState
   t.equal(actual, expect)
   t.end()
 })
 
 test('copyAsync - copy file-to-file - ERROR: source is a directory', files.copyAsync, async (t) => {
+  const exitState = process.exitCode
   await copyAsync('cp1/', 'cp2/test1.txt')
 
   const actual = process.exitCode
   const expect = 1
 
+  process.exitCode = exitState
   t.equal(actual, expect)
   t.end()
 })
@@ -56,11 +60,13 @@ test('copyAsync - copy file-to-directory', files.copyAsync, async (t) => {
 })
 
 test('copyAsync - copy file-to-directory - ERROR: no such file or directory (target)', files.copyAsync, async (t) => {
+  const exitState = process.exitCode
   await copyAsync('cp1/test1.txt', 'cpx/')
 
   const actual = process.exitCode
   const expect = 1
 
+  process.exitCode = exitState
   t.equal(actual, expect)
   t.end()
 })
@@ -76,11 +82,13 @@ test('copyMultipleAsync - copy multiple files', files.copyMultipleAsync, async (
 })
 
 test('copyMultipleAsync - copy multiple files - ERROR: no such file or directory (target)', files.copyMultipleAsync, async (t) => {
+  const exitState = process.exitCode
   await copyMultipleAsync(['cp1/test1.txt', 'cp1/test1.js'], 'cpx/')
 
   const actual = process.exitCode
   const expect = 1
 
+  process.exitCode = exitState
   t.equal(actual, expect)
   t.end()
 })

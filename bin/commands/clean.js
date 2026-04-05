@@ -15,30 +15,30 @@ export async function clean (cwd, options) {
   }
 
   if (options?.bundle) {
-    await cleanOne(cwd, options.bundle, options)
+    await cleanCategory(cwd, options.bundle, options)
   }
 
   if (options?.minify) {
-    await cleanOne(cwd, options.minify, options)
+    await cleanCategory(cwd, options.minify, options)
   }
 
   if (options?.typings) {
-    await cleanOne(cwd, options.typings, options)
+    await cleanCategory(cwd, options.typings, options)
   }
 
   if (options?.custom) {
-    await cleanOne(cwd, options.custom, options)
+    await cleanCategory(cwd, options.custom, options)
   }
 }
 
 /**
- * Run one category of build artifacts
+ * Clean one category of build artifacts
  * @private
  * @param {string} cwd the current working directory (default process.cwd())
  * @param {string} glob the pattern of files to match
  * @param {object} options 'clean' options
  */
-async function cleanOne (cwd, glob, options) {
+async function cleanCategory (cwd, glob, options) {
   const files = await match(glob, cwd, 'node_modules/**')
   await removeMultipleAsync(files, options?.force)
 }

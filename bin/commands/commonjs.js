@@ -33,11 +33,20 @@ export async function commonjs (input, output, options) {
   args.push(input)
   args.push(`--outfile=${output}`)
 
-  spawn('esbuild', args, {
+  const child = spawn('esbuild', args, {
     cwd: process.cwd(),
     stdio: ['pipe', process.stdout, process.stderr]
-  }).on('error', error => {
+  })
+
+  child.on('error', error => {
     console.error(error)
     process.exitCode = 1
+  })
+
+  // forward the error code
+  child.on('close', (/** @type {number} */ code) => {
+    if (code === 1) {
+      process.exitCode = 1
+    }
   })
 }

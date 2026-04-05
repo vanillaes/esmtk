@@ -26,21 +26,25 @@ test('removeAsync - remove a file', files.removeAsync, async (t) => {
 })
 
 test('removeAsync - ERROR: no such file or directory', files.removeAsync, async (t) => {
+  const exitState = process.exitCode
   await removeAsync('test1.ts')
 
   const actual = process.exitCode
   const expect = 1
 
+  process.exitCode = exitState
   t.equal(actual, expect)
   t.end()
 })
 
 test('removeAsync - ERROR: file is a directory', files.removeAsync, async (t) => {
+  const exitState = process.exitCode
   await removeAsync('directory/')
 
   const actual = process.exitCode
   const expect = 1
 
+  process.exitCode = exitState
   t.equal(actual, expect)
   t.end()
 })

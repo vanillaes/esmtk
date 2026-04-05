@@ -43,11 +43,20 @@ export async function type (entry, options) {
     args.push(options.types)
   }
 
-  spawn('tsc', args, {
+  const child = spawn('tsc', args, {
     cwd: process.cwd(),
     stdio: ['pipe', process.stdout, process.stderr]
-  }).on('error', error => {
+  })
+
+  child.on('error', error => {
     console.error(error)
     process.exitCode = 1
+  })
+
+  // forward the error code
+  child.on('close', (/** @type {number} */ code) => {
+    if (code === 1) {
+      process.exitCode = 1
+    }
   })
 }

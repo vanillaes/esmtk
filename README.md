@@ -66,19 +66,19 @@ Run tests (using Tape-ES)
 
 ```sh
 # run the tests
-npx @vanillaes/esmtk test
+esmtk test
 
 # run the tests (using a different naming scheme)
-npx @vanillaes/esmtk test **/*.test.js
+esmtk test **/*.test.js
 
 # run the tests (ignore tests)
-npx @vanillaes/esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
+esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
 
 # run the tests (change the current working directory)
-npx @vanillaes/esmtk test **/*.test.js --cwd src/
+esmtk test **/*.test.js --cwd src/
 
 # run the tests (watch for changes)
-npx @vanillaes/esmtk test --watch
+esmtk test --watch
 ```
 
 
@@ -98,8 +98,11 @@ Lint the source code (using Lint-ES)
 # lint the sources
 esmtk lint
 
+# lint the sources (change the current working directory)
+esmtk lint --cwd src/
+
 # lint the sources and attempt to automatally fix the issues
-esmtk --fix lint
+esmtk lint --fix lint
 ```
 
 
@@ -227,10 +230,10 @@ Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 esmtk typings index.js
 
 # generate .d.ts files for all linked source files (with 'node' module resolution)
-esmtk type --module nodenext index.js
+esmtk typings --module nodenext index.js
 
 # generate .d.ts files for all linked source files (with '@types/node' typings included)
-esmtk type --types node index.js
+esmtk typings --types node index.js
 ```
 
 

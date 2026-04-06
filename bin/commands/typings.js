@@ -47,6 +47,7 @@ export async function typings (entry, options) {
     stdio: ['pipe', process.stdout, process.stderr]
   })
 
+  // handle errors
   child.on('error', error => {
     console.error(error)
     process.exitCode = 1

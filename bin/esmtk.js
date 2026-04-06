@@ -27,6 +27,7 @@ program.command('test')
 
 program.command('lint')
   .description('Lint the source using Lint-ES')
+  .option('--cwd <cwd>', 'the current working directory (default `process.cwd()`)')
   .option('--fix', 'Automatically fix problems')
   .action(options => {
     const flags = options.fix ? ['--fix'] : []

@@ -74,6 +74,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Lint --cwd",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["lint", "--cwd", "~/Code/vanillaes/tape-es"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Type",
             "type": "node",
             "request": "launch",

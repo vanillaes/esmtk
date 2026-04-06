@@ -9,6 +9,10 @@ const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'lint-es')
  */
 export async function lint (options) {
   const args = []
+  if (options?.cwd) {
+    args.push('--cwd')
+    args.push(options.cwd)
+  }
   if (options?.fix) {
     args.push('--fix')
   }
@@ -39,6 +43,7 @@ export async function lint (options) {
     process.exitCode = 1
   })
 
+  // handle errors
   child.on('error', error => {
     console.error(`${error}`)
     process.exitCode = 1

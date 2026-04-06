@@ -42,6 +42,7 @@ export async function minify (input, output, options) {
     stdio: ['pipe', process.stdout, process.stderr]
   })
 
+  // handle errors
   child.on('error', error => {
     console.error(error)
     process.exitCode = 1

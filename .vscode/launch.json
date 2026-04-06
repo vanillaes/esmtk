@@ -118,19 +118,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["type", "./src/index.js"],
-            "console": "integratedTerminal",
-        },
-        {
-            "name": "Typings",
-            "type": "node",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
-            "cwd": "${workspaceFolder}",
-            "args": ["typings", "./src/index.js"],
+            "args": ["type"],
             "console": "integratedTerminal",
         },
         {
@@ -142,7 +130,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["bundle", "--platform=node", "./src/index.js", "./dist/index.js"],
+            "args": ["bundle", "--platform=node"],
             "console": "integratedTerminal",
         },
         {
@@ -154,7 +142,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["minify", "--sourcemap", "--platform=node", "./src/index.js", "./dist/index.min.js"],
+            "args": ["minify", "--platform=node"],
             "console": "integratedTerminal",
         },
         {
@@ -166,7 +154,19 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["commonjs", "--platform=node", "./src/index.js", "./dist/index.cjs"],
+            "args": ["commonjs", "--platform=node"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Typings",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["typings"],
             "console": "integratedTerminal",
         },
         {

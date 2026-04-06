@@ -3,17 +3,17 @@ import { spawn } from 'child_process'
 
 /**
  * @typedef Options
- * @property {string} module Module resolution type
- * @property {boolean} strict Enable 'strict mode' type checks
- * @property {string} types Specify type package names to include
+ * @property {string} [module] Module resolution type
+ * @property {boolean} [strict] Enable 'strict mode' type checks
+ * @property {string} [types] Specify type package names to include
  */
 
 /**
  * Generate Typescript typings from JSDoc
- * @param {string} entry the entry point
- * @param {Options} options 'typings' options
+ * @param {string} [entry] the entry point
+ * @param {Options} [options] 'typings' options
  */
-export async function typings (entry, options) {
+export async function typings (entry = '', options = {}) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -28,6 +28,10 @@ export async function typings (entry, options) {
     console.error('typescript can be installed with `npm i -g typescript`')
     process.exitCode = 1
     return
+  }
+
+  if (!entry) {
+    entry = (import.meta.resolve('@vanillaes/esmtk').replace('file://', ''))
   }
 
   const args = []

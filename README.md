@@ -119,7 +119,7 @@ Type check the JSDoc typings (using Typescript)
 
 `esmtk type [...options] [entry]`
 
-- `[entry]` - Entry-point for the source
+- `[entry]` - Entry-point for the source (default: `[entry-poiont].js`)
 - `--module` - Module resolution type (default `esnext`)
 - `--strict` - Enable 'strict mode' type checks
 - `--types` - Specify type package names to include (ex `node` for `@types/node`)
@@ -151,8 +151,8 @@ Bundle the source code to an ECMAScript module (using ESBuild)
 
 `esmtk bundle [...options] [input] [output]`
 
-- `[input]` - Input source file path
-- `[output]` - Output bundle file path
+- `[input]` - Input source file path (default: `[entry-poiont].js`)
+- `[output]` - Output bundle file path (default: `[entry-point].esm.js`)
 - `--platform=<platform>` - Target platform (ex `node`)
 
 ### Usage
@@ -174,8 +174,8 @@ Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 
 `esmtk minify [...options] [input] [output]`
 
-- `[input]` - Input source file path
-- `[output]` - Output minified bundle file path
+- `[input]` - Input source file path (default: `[entry-poiont].js`)
+- `[output]` - Output minified bundle file path (default: `[entry-poiont].min.js`)
 - `--platform=<platform>` - Target platform (ex `node`)
 - `--sourcemap` - Generate a source map for the minified bundle
 
@@ -201,8 +201,8 @@ Bundle the source code to a CommonJS module (using ESBuild)
 
 `esmtk commonjs [...options] [input] [output]`
 
-- `[input]` - Input source file path
-- `[output]` - Output commonjs bundle file path
+- `[input]` - Input source file path (default: `[entry-poiont].js`)
+- `[output]` - Output commonjs bundle file path (default: `[entry-poiont].cjs`)
 - `--platform=<platform>` - Target platform (ex `node`)
 
 ### Usage
@@ -224,7 +224,7 @@ Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 
 `esmtk typings [options...] [entry]`
 
-- `[entry]` - Entry-point for the source
+- `[entry]` - Entry-point for the source (default: `[entry-poiont].js`)
 - `--module` - Module resolution type (default `esnext`)
 - `--types` - Specify type package names to include (ex `node` for `@types/node`)
 

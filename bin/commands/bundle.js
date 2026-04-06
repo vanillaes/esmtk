@@ -3,16 +3,16 @@ import { spawn } from 'child_process'
 
 /**
  * @typedef Options
- * @property {string} platform Target platform
+ * @property {string} [platform] Target platform
  */
 
 /**
  * Bundle ESM (ECMAScript Module) code (with tree-shaking)
- * @param {string} input Input source file path
- * @param {string} output Output bundle file path
- * @param {Options} options 'bundle' options
+ * @param {string} [input] Input source file path
+ * @param {string} [output] Output bundle file path
+ * @param {Options} [options] 'bundle' options
  */
-export async function bundle (input, output, options) {
+export async function bundle (input = '', output = '', options = {}) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -27,6 +27,14 @@ export async function bundle (input, output, options) {
     console.error('esbuild can be installed with `npm i -g esbuild`')
     process.exitCode = 1
     return
+  }
+
+  if (!input) {
+    input = (import.meta.resolve('@vanillaes/esmtk').replace('file://', ''))
+  }
+
+  if (!output) {
+    output = input.replace('.js', '.esm.js')
   }
 
   const args = []

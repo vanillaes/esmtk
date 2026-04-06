@@ -3,17 +3,17 @@ import { spawn } from 'child_process'
 
 /**
  * @typedef Options
- * @property {string} platform Target platform
- * @property {boolean} sourcemap Generate a source map for the minified bundle
+ * @property {string} [platform] Target platform
+ * @property {boolean} [sourcemap] Generate a source map for the minified bundle
  */
 
 /**
  * Bundle and minify ESM (ECMAScript Module) code (with tree-shaking)
- * @param {string} input the input path
- * @param {string} output the output path
- * @param {Options} options 'minify' options
+ * @param {string} [input] the input path
+ * @param {string} [output] the output path
+ * @param {Options} [options] 'minify' options
  */
-export async function minify (input, output, options) {
+export async function minify (input = '', output = '', options = {}) {
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -28,6 +28,14 @@ export async function minify (input, output, options) {
     console.error('esbuild can be installed with `npm i -g esbuild`')
     process.exitCode = 1
     return
+  }
+
+  if (!input) {
+    input = (import.meta.resolve('@vanillaes/esmtk').replace('file://', ''))
+  }
+
+  if (!output) {
+    output = input.replace('.js', '.min.js')
   }
 
   const args = []

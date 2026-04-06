@@ -56,7 +56,7 @@ export async function minify (input, output, options) {
 
   // forward the error code
   child.on('close', (/** @type {number} */ code) => {
-    if (code === 1) {
+    if (code !== 0) {
       process.exitCode = 1
     }
   })

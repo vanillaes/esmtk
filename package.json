@@ -41,7 +41,7 @@
     "esmtk": "./bin/esmtk.js",
     "test": "./bin/esmtk.js test",
     "lint": "./bin/esmtk.js lint",
-    "type": "./bin/esmtk.js type --types node src/index.js && ./bin/esmtk.js type bin/esmtk.js --types node",
+    "type": "./bin/esmtk.js type --types node src/index.js && ./bin/esmtk.js type --types node bin/esmtk.js",
     "bundle": "./bin/esmtk.js bundle --platform=node src/index.js src/index.esm.js",
     "minify": "./bin/esmtk.js minify --platform=node src/index.js src/index.min.js",
     "typings": "./bin/esmtk.js typings --types node src/index.js",

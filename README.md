@@ -90,7 +90,9 @@ Lint the source code (using Lint-ES)
 
 `esmtk lint [...options]`
 
+- `--cwd` - the current working directory (default `process.cwd()`)
 - `--fix` - automatically fix problems
+- `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
 
 ### Usage
 
@@ -103,6 +105,9 @@ esmtk lint --cwd src/
 
 # lint the sources and attempt to automatally fix the issues
 esmtk lint --fix lint
+
+# lint the sources (ignore files)
+esmtk lint --ignore src/
 ```
 
 

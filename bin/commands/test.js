@@ -9,13 +9,13 @@ export async function test (glob, options) {
   const args = []
   args.push('./node_modules/.bin/tape-es')
   args.push(glob)
-  if (options?.ignore) {
-    args.push('--ignore')
-    args.push(options.ignore)
-  }
   if (options?.cwd) {
     args.push('--cwd')
     args.push(options.cwd)
+  }
+  if (options?.ignore) {
+    args.push('--ignore')
+    args.push(options.ignore)
   }
   if (options?.watch) {
     args.push('--watch')

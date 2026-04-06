@@ -16,6 +16,10 @@ export async function lint (options) {
   if (options?.fix) {
     args.push('--fix')
   }
+  if (options?.ignore) {
+    args.push('--ignore')
+    args.push(options.ignore)
+  }
 
   const child = spawn(BIN_PATH, args, {
     cwd: process.cwd(),

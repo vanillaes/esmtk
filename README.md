@@ -57,10 +57,10 @@ Run tests (using Tape-ES)
 
 `esmtk test [...options] [glob]`
 
-- `[glob]` - the glob used to locate test files (default: `**/*.spec.js`)
-- `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
-- `--cwd` - the current working directory (default `process.cwd()`)
-- `--watch` - watch for changes to the tests
+- `[glob]` - Glob(s) used to locate test files (default: `**/*.spec.js`)
+- `--cwd` - The current working directory (default `process.cwd()`)
+- `--ignore` - Glob(s) to ignore (default `**/node_modules/**`)
+- `--watch` - Watch for changes to the test(s)
 
 ### Usage
 
@@ -90,9 +90,9 @@ Lint the source code (using Lint-ES)
 
 `esmtk lint [...options]`
 
-- `--cwd` - the current working directory (default `process.cwd()`)
-- `--fix` - automatically fix problems
-- `--ignore` - the ignore matcher pattern (default `**/node_modules/**`)
+- `--cwd` - Current working directory (default `process.cwd()`)
+- `--fix` - Automatically fix problems
+- `--ignore` - File(s) to ignore
 
 ### Usage
 
@@ -119,10 +119,10 @@ Type check the JSDoc typings (using Typescript)
 
 `esmtk type [...options] [entry]`
 
-- `[entry]` - the entry-point for the source
-- `--module [module]` - module resolution type (default `esnext`)
-- `--strict` - enable 'strict mode' type checks
-- `--types [types]` - specify type package names to include (ex `node` for `@types/node`)
+- `[entry]` - Entry-point for the source
+- `--module` - Module resolution type (default `esnext`)
+- `--strict` - Enable 'strict mode' type checks
+- `--types` - Specify type package names to include (ex `node` for `@types/node`)
 
 ### Usage
 
@@ -151,9 +151,9 @@ Bundle the source code to an ECMAScript module (using ESBuild)
 
 `esmtk bundle [...options] [input] [output]`
 
-- `[input]` - the input source file path
-- `[output]` - the output bundle file path
-- `--platform=<platform>` - target a specific platform (ex 'node')
+- `[input]` - Input source file path
+- `[output]` - Output bundle file path
+- `--platform=<platform>` - Target platform (ex `node`)
 
 ### Usage
 
@@ -174,10 +174,10 @@ Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 
 `esmtk minify [...options] [input] [output]`
 
-- `[input]` - the input source file path
-- `[output]` - the output bundle file path
-- `--platform=<platform>` - target a specific platform (ex 'node')
-- `--sourcemap` - generate a source map for the minified bundle
+- `[input]` - Input source file path
+- `[output]` - Output minified bundle file path
+- `--platform=<platform>` - Target platform (ex `node`)
+- `--sourcemap` - Generate a source map for the minified bundle
 
 ### Usage
 
@@ -201,9 +201,9 @@ Bundle the source code to a CommonJS module (using ESBuild)
 
 `esmtk commonjs [...options] [input] [output]`
 
-- `[input]` - the input source file path
-- `[output]` - the output bundle file path
-- `--platform=<platform>` - target a specific platform (ex 'node')
+- `[input]` - Input source file path
+- `[output]` - Output commonjs bundle file path
+- `--platform=<platform>` - Target platform (ex `node`)
 
 ### Usage
 
@@ -222,11 +222,11 @@ Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 
 ### Arguments
 
-`esmtk typings [entry]`
+`esmtk typings [options...] [entry]`
 
-- `[entry]` - the entry-point for the source
-- `--module [module]` - module resolution type (default `esnext`)
-- `--types [types]` - specify type package names to include (ex `node` for `@types/node`)
+- `[entry]` - Entry-point for the source
+- `--module` - Module resolution type (default `esnext`)
+- `--types` - Specify type package names to include (ex `node` for `@types/node`)
 
 ### Usage
 
@@ -250,7 +250,7 @@ Clean up build artifacts
 
 `esmtk clean [...options] [cwd]`
 
-- `[cwd]` - the current working directory (default: `process.cwd()`)
+- `[cwd]` - Current working directory (default: `process.cwd()`)
 - `--bundle` - Clean bundled build artifacts (default: `**/*.esm.js`)
 - `--minify` - Clean minified build artifacts (default: `**/*.min.js`)
 - `--typings` - Clean typing artifacts (default: `**/*.d.ts`)
@@ -280,7 +280,7 @@ Preview the package contents included during `npm publish`
 
 `esmtk preview [...options]`
 
-- `--cwd` - the current working directory
+- `--cwd` - Current working directory
 
 ### Usage
 
@@ -301,7 +301,7 @@ A cross-platform clone of the `cp` command in Linux
 
 `esmtk cp [...options] [source...] [destination]`
 
-- `[source(s)...]` - the source file(s)/glob(s)
+- `[source...]` - Source file(s)/glob(s)
 - `[destination]` - the destination file/directory
 - `-r, --recursive` - copy files/directories recursively
 
@@ -331,9 +331,9 @@ A cross-platform clone of the `rm` command in Linux
 
 ### Arguments
 
-`esmtk rm [...options] [path(s)...]`
+`esmtk rm [...options] [paths...]`
 
-- `[path(s)...]` - the source file(s)/glob(s)
+- `[paths...]` - the source file(s)/glob(s)
 - `-r, --recursive` - remove directory recursively
 
 ### Usage

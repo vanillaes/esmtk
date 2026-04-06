@@ -17,65 +17,73 @@ program.command('init')
 
 program.command('test')
   .description('Run tests using Tape-ES')
-  .argument('[glob]', 'The glob pattern used to find test files (default: `**/*.spec.js`)', '**/*.spec.js')
-  .option('--cwd <cwd>', 'the current working directory (default `process.cwd()`)')
-  .option('--ignore <ignore>', 'the ignore matcher pattern (default `**/node_modules/**`)')
-  .option('--watch', 'Watch the files for changes')
+  .argument('[glob]', 'glob(s) used to locate test files', '**/*.spec.js')
+  .option('--cwd <cwd>', 'current working directory', process.cwd())
+  .option('--ignore <ignore>', 'glob(s) to ignore', '**/node_modules/**')
+  .option('--watch', 'watch for changes to tests')
   .action((glob, options) => {
     test(glob, options)
   })
 
 program.command('lint')
   .description('Lint the source using Lint-ES')
-  .option('--cwd <cwd>', 'the current working directory (default `process.cwd()`)')
-  .option('--fix', 'Automatically fix problems')
-  .option('--ignore <ignore>', 'the ignore matcher pattern (default `**/node_modules/**`)')
+  .option('--cwd <cwd>', 'current working directory', process.cwd())
+  .option('--fix', 'automatically fix problems')
+  .option('--ignore <ignore>', 'file(s) to ignore')
   .action((options) => {
     lint(options)
   })
 
-program.command('type <entry>')
+program.command('type')
   .description('Type check the JSDoc typings using Typescript')
-  .option('--module <module>', 'Module resolution type (default esnext)', 'esnext')
-  .option('--strict', 'Enable \'strict mode\'')
+  .argument('<entry>', 'entry-point for the source')
+  .option('--module <module>', 'module resolution type', 'esnext')
+  .option('--strict', 'enable \'strict mode\' type checks')
   .option('--types <types>', 'specify type package names to include (ex `node` for `@types/node`)')
   .action((entry, options) => {
     type(entry, options)
   })
 
-program.command('typings <entry>')
+program.command('bundle')
+  .description('Bundle the source using ESBuild')
+  .argument('<input>', 'Input source file path')
+  .argument('<output>', 'Output bundle file path')
+  .option('--platform <platform>', 'target platform (ex node)')
+  .action((input, output, options) => {
+    bundle(input, output, options)
+  })
+
+program.command('minify')
+  .description('Minify the source using ESBuild')
+  .argument('<input>', 'input source file path')
+  .argument('<output>', 'output minified bundle file path')
+  .option('--platform <platform>', 'target platform (ex node)')
+  .option('--sourcemap', 'generate a source map for the minified bundle')
+  .action((input, output, options) => {
+    minify(input, output, options)
+  })
+
+program.command('commonjs')
+  .description('Transpile the source to CommonJS using ESBuild')
+  .argument('<input>', 'Input source file path')
+  .argument('<output>', 'Output commonjs bundle file path')
+  .option('--platform <platform>', 'target platform (ex node)')
+  .action((input, output, options) => {
+    commonjs(input, output, options)
+  })
+
+program.command('typings')
   .description('Generate typings from JSDoc using Typescript')
-  .option('--module <module>', 'Module resolution type (default esnext)', 'esnext')
+  .argument('<entry>', 'entry-point for the source')
+  .option('--module <module>', 'module resolution type', 'esnext')
   .option('--types <types>', 'specify type package names to include (ex `node` for `@types/node`)')
   .action((entry, options) => {
     typings(entry, options)
   })
 
-program.command('bundle <input> <output>')
-  .description('Bundle the source using ESBuild')
-  .option('--platform <platform>', 'Target a specific platform (ex node)')
-  .action((input, output, options) => {
-    bundle(input, output, options)
-  })
-
-program.command('commonjs <input> <output>')
-  .description('Transpile the source to CommonJS using ESBuild')
-  .option('--platform <platform>', 'Target a specific platform (ex node)')
-  .action((input, output, options) => {
-    commonjs(input, output, options)
-  })
-
-program.command('minify <input> <output>')
-  .description('Minify the source using ESBuild')
-  .option('--platform <platform>', 'Target a specific platform (ex node)')
-  .option('--sourcemap', 'Generate a source map')
-  .action((input, output, options) => {
-    minify(input, output, options)
-  })
-
 program.command('clean')
   .description('Clean build artificts')
-  .argument('[cwd]', 'The current working directory (default cwd)', process.cwd())
+  .argument('[cwd]', 'Current working directory', process.cwd())
   .option('--bundle [bundle]', 'Clean bundled build artifacts (default: **/*.esm.js)')
   .option('--minify [minify]', 'Clean minified build artifacts (default: **/*.min.js)')
   .option('--typings [typings]', 'Clean typing artifacts (default: **/*.d.ts)')
@@ -100,7 +108,7 @@ program.command('clean')
 
 program.command('preview')
   .description('Preview the package contents included during \'npm publish\'')
-  .option('--cwd <cwd>', 'the current working directory (default `process.cwd()`)', process.cwd())
+  .option('--cwd <cwd>', 'current working directory', process.cwd())
   .action((options) => {
     preview(options)
   })

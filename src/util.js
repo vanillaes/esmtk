@@ -17,7 +17,7 @@ export async function expand (source) {
     if (paths.length === 0) {
       console.error(`${source} no matches found`)
       process.exitCode = 1
-      return
+      return []
     }
     return paths
   } else {
@@ -25,7 +25,7 @@ export async function expand (source) {
     if (!exists) {
       console.error(`${source} No such file or directory`)
       process.exitCode = 1
-      return
+      return []
     }
     return [source]
   }
@@ -66,7 +66,7 @@ export async function installed (pkg) {
  * @param {string} [ignore] glob of pattern(s) to ignore
  * @returns {Promise<string[]>} an array of paths
  */
-export async function match (pattern, cwd = process.cwd(), ignore = null) {
+export async function match (pattern, cwd = process.cwd(), ignore = undefined) {
   const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
   if (ignore) {
     const ignores = ignore.includes(',') ? ignore.split(',') : [ignore]

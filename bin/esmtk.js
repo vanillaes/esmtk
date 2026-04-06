@@ -88,7 +88,7 @@ program.command('clean')
   .option('--minify [minify]', 'Clean minified build artifacts (default: **/*.min.js)')
   .option('--typings [typings]', 'Clean typing artifacts (default: **/*.d.ts)')
   .option('--custom <custom>', 'Clean based on a user-defined pattern')
-  // .option('-f, --force', 'Do not prompt before overwriting', false)
+  // .option('-f, --force', 'Ignore errors', false)
   .action((cwd, options) => {
     // set --bundle default
     if (options?.bundle && typeof (options.bundle) === 'boolean') {

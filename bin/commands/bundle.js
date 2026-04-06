@@ -2,10 +2,15 @@ import { installed, which } from '../../src/index.js'
 import { spawn } from 'child_process'
 
 /**
+ * @typedef Options
+ * @property {string} platform Target platform
+ */
+
+/**
  * Bundle ESM (ECMAScript Module) code (with tree-shaking)
- * @param {string} input the input path
- * @param {string} output the output path
- * @param {object} options 'bundle' options
+ * @param {string} input Input source file path
+ * @param {string} output Output bundle file path
+ * @param {Options} options 'bundle' options
  */
 export async function bundle (input, output, options) {
   const npmExists = await which('npm')

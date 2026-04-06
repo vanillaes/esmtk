@@ -52,7 +52,11 @@ export async function copyAsync (source, target, force = false) {
   try {
     await cp(source, target, { force: true })
   } catch (error) {
-    console.error(`cp: error ${error.message}`)
+    if (error instanceof Error) {
+      console.error(`cp: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
+    }
     process.exitCode = 1
   }
 }
@@ -83,7 +87,11 @@ export async function copyMultipleAsync (sources, target, force = false) {
       await cp(source, `${target}${sep}${basename(source)}`, { force: true })
     }
   } catch (error) {
-    console.error(`cp": error ${error.message}`)
+    if (error instanceof Error) {
+      console.error(`cp: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
+    }
     process.exitCode = 1
   }
 }
@@ -129,7 +137,11 @@ export async function copyRecursiveAsync (source, target, force = false) {
   try {
     await cp(source, target, { force: true, recursive: true })
   } catch (error) {
-    console.error(`cp": error ${error.message}`)
+    if (error instanceof Error) {
+      console.error(`cp: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
+    }
     process.exitCode = 1
   }
 }

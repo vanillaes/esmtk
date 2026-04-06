@@ -9,8 +9,13 @@ import { promisify } from 'node:util'
 const execAsync = promisify(exec)
 
 /**
+ * @typedef Options
+ * @property {boolean} scripts Include ESMTK scripts?
+ */
+
+/**
  * Create a package.json file for ECMAScript Development
- * @param {object} options 'init' options
+ * @param {Options} options 'init' options
  */
 export async function init (options) {
   const npmExists = await which('npm')
@@ -103,7 +108,7 @@ export async function init (options) {
   console.log(pkgString)
 
   const ok = await ask(program, 'is this OK', 'yes')
-  if (ok.toLowerCase() === 'yes') {
+  if (ok?.toLowerCase() === 'yes') {
     await writeFile('package.json', pkgString)
   } else {
     console.log('Aborted.')
@@ -114,10 +119,10 @@ export async function init (options) {
 /**
  * Ask a question on the command-line
  * @private
- * @param {object} program reference to the CLI
+ * @param {import('node:readline/promises').Interface} program reference to the CLI
  * @param {string} prompt the question to ask the User
  * @param {string} [defaultValue] the default value for the question
- * @returns {Promise<string>} the answer to the question | the default value
+ * @returns {Promise<string | undefined>} the answer to the question | the default value
  */
 async function ask (program, prompt, defaultValue) {
   const suffix = defaultValue ? `(${defaultValue}) ` : ''
@@ -156,7 +161,7 @@ async function fetchGitEmail () {
 /**
  * Fetch the repository name from .git/config
  * @private
- * @returns {Promise<string>} the repository name
+ * @returns {Promise<string | undefined>} the repository name
  */
 async function fetchGitRepository () {
   const config = join(process.cwd(), '.git', 'config')

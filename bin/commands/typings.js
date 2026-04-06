@@ -2,9 +2,16 @@ import { installed, which } from '../../src/index.js'
 import { spawn } from 'child_process'
 
 /**
+ * @typedef Options
+ * @property {string} module Module resolution type
+ * @property {boolean} strict Enable 'strict mode' type checks
+ * @property {string} types Specify type package names to include
+ */
+
+/**
  * Generate Typescript typings from JSDoc
  * @param {string} entry the entry point
- * @param {object} options 'typings' options
+ * @param {Options} options 'typings' options
  */
 export async function typings (entry, options) {
   const npmExists = await which('npm')

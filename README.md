@@ -36,7 +36,7 @@ Create a package.json file for ECMAScript module development
 
 `esmtk init [...options]`
 
-- `--scripts` - Include ESMTK scripts
+- `--scripts` - Include ESMTK scripts?
 
 ### Usage
 
@@ -302,8 +302,8 @@ A cross-platform clone of the `cp` command in Linux
 `esmtk cp [...options] [source...] [destination]`
 
 - `[source...]` - Source file(s)/glob(s)
-- `[destination]` - the destination file/directory
-- `-r, --recursive` - copy files/directories recursively
+- `[destination]` - The destination file/directory
+- `-r, --recursive` - Copy file(s)/directorie(s) recursively
 
 ### Usage
 

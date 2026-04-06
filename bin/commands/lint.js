@@ -4,8 +4,15 @@ import { join } from 'path'
 const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'lint-es')
 
 /**
+ * @typedef Options
+ * @property {string} cwd Current working directory
+ * @property {boolean} fix Automatically fix problems
+ * @property {string} ignore File(s) to ignore
+ */
+
+/**
  * Lint the source code (using Lint-ES)
- * @param {object} options 'lint' options
+ * @param {Options} options 'lint' options
  */
 export async function lint (options) {
   const args = []

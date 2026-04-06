@@ -2,9 +2,18 @@ import { removeMultipleAsync } from '../../src/rm.js'
 import { fileExists, match } from '../../src/util.js'
 
 /**
+ * @typedef Options
+ * @property {string} bundle Clean bundled build artifacts
+ * @property {string} minify Clean minified build artifacts
+ * @property {string} typings Clean typing artifacts
+ * @property {string} custom Clean based on a user-defined pattern
+ * @property {boolean} force Ignore errors
+ */
+
+/**
  * Clean build artifcats using sensible defaults
- * @param {string} cwd the currnt working directory
- * @param {object} options 'clean' options
+ * @param {string} cwd Current working directory
+ * @param {Options} options 'clean' options
  */
 export async function clean (cwd, options) {
   const exists = await fileExists(cwd)
@@ -36,7 +45,7 @@ export async function clean (cwd, options) {
  * @private
  * @param {string} cwd the current working directory (default process.cwd())
  * @param {string} glob the pattern of files to match
- * @param {object} options 'clean' options
+ * @param {Options} options 'clean' options
  */
 async function cleanCategory (cwd, glob, options) {
   const files = await match(glob, cwd, 'node_modules/**')

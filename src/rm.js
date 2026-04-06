@@ -28,7 +28,12 @@ export async function removeAsync (path, force = false) {
   try {
     await rm(path, { force: true })
   } catch (error) {
-    console.error(`rm: error ${error.message}`)
+    if (error instanceof Error) {
+      console.error(`rm: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
+    }
+    process.exitCode = 1
   }
 }
 
@@ -43,7 +48,12 @@ export async function removeMultipleAsync (files, force = false) {
       await rm(file, { force: true })
     }
   } catch (error) {
-    console.error(`cp": error ${error.message}`)
+    if (error instanceof Error) {
+      console.error(`rm: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
+    }
+    process.exitCode = 1
   }
 }
 
@@ -69,6 +79,11 @@ export async function removeRecursiveAsync (path, force = false) {
   try {
     await rm(path, { force: true, recursive: true })
   } catch (error) {
-    console.error(`rm": error ${error.message}`)
+    if (error instanceof Error) {
+      console.error(`rm: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
+    }
+    process.exitCode = 1
   }
 }

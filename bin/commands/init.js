@@ -9,13 +9,9 @@ import { promisify } from 'node:util'
 const execAsync = promisify(exec)
 
 /**
- * @typedef Options
- * @property {boolean} scripts Include ESMTK scripts?
- */
-
-/**
  * Create a package.json file for ECMAScript Development
- * @param {Options} options 'init' options
+ * @param {object} options 'init' options
+ * @param {boolean} options.scripts Include ESMTK scripts?
  */
 export async function init (options) {
   const npmExists = await which('npm')

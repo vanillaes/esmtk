@@ -2,16 +2,12 @@ import { installed, readPackageJSON, which } from '../../src/index.js'
 import { spawn } from 'child_process'
 
 /**
- * @typedef Options
- * @property {string} [module] Module resolution type
- * @property {boolean} [strict] Enable 'strict mode' type checks
- * @property {string} [types] Specify type package names to include
- */
-
-/**
  * Type Check the JSDOC typings
  * @param {string} [entry] the entry point
- * @param {Options} [options] 'types' options
+ * @param {object} [options] 'types' options
+ * @param {string} [options.module] Module resolution type
+ * @param {boolean} [options.strict] Enable 'strict mode' type checks
+ * @param {string} [options.types] Specify type package names to include
  */
 export async function type (entry = '', options = {}) {
   const npmExists = await which('npm')

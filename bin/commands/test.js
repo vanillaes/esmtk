@@ -1,16 +1,12 @@
 import { spawn } from 'child_process'
 
 /**
- * @typedef Options
- * @property {string} cwd Current working directory
- * @property {string} ignore File(s) to ignore
- * @property {boolean} watch Watch for changes to the test(s)
- */
-
-/**
  * Test runnner using Tape-ES
  * @param {string} glob the glob to match test files
- * @param {Options} options 'test' options
+ * @param {object} options 'test' options
+ * @param {string} options.cwd Current working directory
+ * @param {string} options.ignore File(s) to ignore
+ * @param {boolean} options.watch Watch for changes to the test(s)
  */
 export async function test (glob, options) {
   const args = []

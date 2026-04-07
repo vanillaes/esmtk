@@ -2,15 +2,11 @@ import { copyAsync, copyMultipleAsync, copyRecursiveAsync } from '../../src/cp.j
 import { expand } from '../../src/index.js'
 
 /**
- * @typedef Options
- * @property {boolean} force Do not prompt before overwriting
- * @property {boolean} recursive Copy file(s)/directorie(s) recursively
- */
-
-/**
  * POSIX cp Implemented in Node
  * @param {string[]} paths Variadic of source/destination paths
- * @param {Options} options 'cp' options
+ * @param {object} options 'cp' options
+ * @param {boolean} options.force Do not prompt before overwriting
+ * @param {boolean} options.recursive Copy file(s)/directorie(s) recursively
  */
 export async function cp (paths, options) {
   if (paths.length < 2) {

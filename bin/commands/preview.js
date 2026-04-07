@@ -6,13 +6,9 @@ import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
 /**
- * @typedef Options
- * @property {string} cwd Current working directory
- */
-
-/**
  * Preview the package contents included during 'npm publish'
- * @param {Options} options 'preview' options
+ * @param {object} options 'preview' options
+ * @param {string} options.cwd Current working directory
  */
 export async function preview (options) {
   let ignore = await readNPMIgnore(options.cwd)

@@ -2,15 +2,11 @@ import { installed, readPackageJSON, which } from '../../src/index.js'
 import { spawn } from 'child_process'
 
 /**
- * @typedef Options
- * @property {string} [platform] Target platform
- */
-
-/**
  * Bundle CJS (CommonJS) code
  * @param {string} [input] Input source file path
  * @param {string} [output] Output commonjs bundle file path
- * @param {Options} [options] 'commonjs' options
+ * @param {object} [options] 'commonjs' options
+ * @param {string} [options.platform] Target platform
  */
 export async function commonjs (input = '', output = '', options = {}) {
   const npmExists = await which('npm')

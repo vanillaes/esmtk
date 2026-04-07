@@ -2,16 +2,12 @@ import { installed, readPackageJSON, which } from '../../src/index.js'
 import { spawn } from 'child_process'
 
 /**
- * @typedef Options
- * @property {string} [platform] Target platform
- * @property {boolean} [sourcemap] Generate a source map for the minified bundle
- */
-
-/**
  * Bundle and minify ESM (ECMAScript Module) code (with tree-shaking)
  * @param {string} [input] the input path
  * @param {string} [output] the output path
- * @param {Options} [options] 'minify' options
+ * @param {object} [options] 'minify' options
+ * @param {string} [options.platform] Target platform
+ * @param {boolean} [options.sourcemap] Generate a source map for the minified bundle
  */
 export async function minify (input = '', output = '', options = {}) {
   const npmExists = await which('npm')

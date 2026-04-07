@@ -2,15 +2,11 @@ import { removeAsync, removeMultipleAsync, removeRecursiveAsync } from '../../sr
 import { expand } from '../../src/util.js'
 
 /**
- * @typedef Options
- * @property {boolean} force Do not prompt before overwriting
- * @property {boolean} recursive Copy file(s)/directorie(s) recursively
- */
-
-/**
  * POSIX rm Implemented in Node
  * @param {string[]} paths Variadic of file paths
- * @param {Options} options 'rm' options
+ * @param {object} options 'rm' options
+ * @param {boolean} options.force Do not prompt before overwriting
+ * @param {boolean} options.recursive Copy file(s)/directorie(s) recursively
  */
 export async function rm (paths, options) {
   if (paths.length === 1) {

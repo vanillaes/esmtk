@@ -1,4 +1,4 @@
-import { installed, which } from '../../src/index.js'
+import { installed, readPackageJSON, which } from '../../src/index.js'
 import { spawn } from 'child_process'
 
 /**
@@ -31,7 +31,11 @@ export async function typings (entry = '', options = {}) {
   }
 
   if (!entry) {
-    entry = (import.meta.resolve('@vanillaes/esmtk').replace('file://', ''))
+    const pkg = await readPackageJSON()
+    if (!pkg.name) {
+      throw new Error('No project name found in package.json')
+    }
+    entry = (import.meta.resolve(pkg.name).replace('file://', ''))
   }
 
   const args = []

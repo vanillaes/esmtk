@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 import { bundle, clean, cp, commonjs, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
+import { readPackageJSON } from '../src/index.js'
 import { Command } from 'commander'
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-const pkg = require('../package.json')
 
+const pkg = await readPackageJSON()
 const program = new Command()
-  .version(pkg.version, '-v, --version')
+  .version(pkg?.version || '', '-v, --version')
 
 program.command('init')
   .description('Create a package.json file for ECMAScript module development')

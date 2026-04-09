@@ -1,81 +1,93 @@
 /**
- * @typedef {object} PackageJSON
- * @property {string} [name] name
- * @property {string} [version] version
- * @property {string} [description] description
- * @property {Array<string>} [keywords] keywords
- * @property {string} [repository] repository
- * @property {string} [author] author
- * @property {string} [license] license
- * @property {string} [type] type
- * @property {object} [bin] bin
- * @property {object} [exports] exports
- * @property {object} [scripts] scripts
- * @property {object} [engines] engines
- * @property {object} [dependencies] dependencies
- * @property {object} [devDependencies] devDependencies
- */
-/**
  * Read package.json
  * @param {string} cwd the current working directory
- * @returns {Promise<PackageJSON>} the contents of package.json
+ * @returns {object} the contents of package.json
  */
-export function readPackageJSON(cwd?: string): Promise<PackageJSON>;
-export type PackageJSON = {
+export function readPackageJSON(cwd?: string): object;
+/**
+ * package.json
+ */
+export class Package {
     /**
-     * name
+     * @type {Package}
      */
-    name?: string | undefined;
+    static #instance: Package;
     /**
-     * version
+     * Name
+     * @type {string}
      */
-    version?: string | undefined;
+    name: string;
     /**
-     * description
+     * Version
+     * @type {string}
      */
-    description?: string | undefined;
+    version: string;
     /**
-     * keywords
+     * Description
+     * @type {string}
      */
-    keywords?: string[] | undefined;
+    description: string;
     /**
-     * repository
+     * Keywords
+     * @type {string[]}
      */
-    repository?: string | undefined;
+    keywords: string[];
     /**
-     * author
+     * Repository
+     * @type {string}
      */
-    author?: string | undefined;
+    repository: string;
     /**
-     * license
+     * Author
+     * @type {string}
      */
-    license?: string | undefined;
+    author: string;
     /**
-     * type
+     * License
+     * @type {string}
      */
-    type?: string | undefined;
+    license: string;
     /**
-     * bin
+     * Type
+     * @type {string}
      */
-    bin?: object | undefined;
+    type: string;
     /**
-     * exports
+     * Bin
+     * @type {object}
      */
-    exports?: object | undefined;
+    bin: object;
     /**
-     * scripts
+     * Exports
+     * @type {{[key: string]: {[key: string]: string}}}
      */
-    scripts?: object | undefined;
+    exports: {
+        [key: string]: {
+            [key: string]: string;
+        };
+    };
     /**
-     * engines
+     * Engines
+     * @type {object}
      */
-    engines?: object | undefined;
+    engines: object;
     /**
-     * dependencies
+     * Dependencies
+     * @type {object}
      */
-    dependencies?: object | undefined;
+    dependencies: object;
     /**
      * devDependencies
+     * @type {object}
      */
-    devDependencies?: object | undefined;
-};
+    devDependencies: object;
+    /**
+     * Refresh package.json contents
+     */
+    refresh(): void;
+    /**
+     * Resolve the 'exports' field
+     * @returns {string} Default entry-point
+     */
+    resolve(): string;
+}

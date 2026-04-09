@@ -1,4 +1,4 @@
-import { installed, readPackageJSON, which } from '../../src/index.js'
+import { installed, Package, which } from '../../src/index.js'
 import { spawn } from 'child_process'
 
 /**
@@ -27,11 +27,8 @@ export async function minify (input = '', output = '', options = {}) {
   }
 
   if (!input) {
-    const pkg = await readPackageJSON()
-    if (!pkg.name) {
-      throw new Error('No project name found in package.json')
-    }
-    input = (import.meta.resolve(pkg?.name).replace('file://', ''))
+    const pkg = new Package()
+    input = pkg.resolve()
   }
 
   if (!output) {

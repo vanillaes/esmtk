@@ -1,36 +1,151 @@
-import { fileExists } from './index.js'
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { existsSync, readFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 
 /**
- * @typedef {object} PackageJSON
- * @property {string} [name] name
- * @property {string} [version] version
- * @property {string} [description] description
- * @property {Array<string>} [keywords] keywords
- * @property {string} [repository] repository
- * @property {string} [author] author
- * @property {string} [license] license
- * @property {string} [type] type
- * @property {object} [bin] bin
- * @property {object} [exports] exports
- * @property {object} [scripts] scripts
- * @property {object} [engines] engines
- * @property {object} [dependencies] dependencies
- * @property {object} [devDependencies] devDependencies
+ * package.json
  */
+export class Package {
+  /**
+   * Name
+   * @type {string}
+   */
+  name = ''
+
+  /**
+   * Version
+   * @type {string}
+   */
+  version = ''
+
+  /**
+   * Description
+   * @type {string}
+   */
+  description = ''
+
+  /**
+   * Keywords
+   * @type {string[]}
+   */
+  keywords = []
+
+  /**
+   * Repository
+   * @type {string}
+   */
+  repository = ''
+
+  /**
+   * Author
+   * @type {string}
+   */
+  author = ''
+
+  /**
+   * License
+   * @type {string}
+   */
+  license = ''
+
+  /**
+   * Type
+   * @type {string}
+   */
+  type = ''
+
+  /**
+   * Bin
+   * @type {object}
+   */
+  bin = {}
+
+  /**
+   * Exports
+   * @type {{[key: string]: {[key: string]: string}}}
+   */
+  exports = {}
+
+  /**
+   * Engines
+   * @type {object}
+   */
+  engines = {}
+
+  /**
+   * Dependencies
+   * @type {object}
+   */
+  dependencies = {}
+
+  /**
+   * devDependencies
+   * @type {object}
+   */
+  devDependencies = {}
+
+  /**
+   * @type {Package}
+   */
+  static #instance
+
+  constructor () {
+    // memoize that shit using a singleton
+    if (Package.#instance) {
+      return Package.#instance
+    }
+
+    this.refresh()
+
+    return this
+  }
+
+  /**
+   * Refresh package.json contents
+   */
+  refresh () {
+    const contents = readPackageJSON()
+    Object.assign(this, contents)
+
+    Package.#instance = this
+  }
+
+  /**
+   * Resolve the 'exports' field
+   * @returns {string} Default entry-point
+   */
+  resolve () {
+    if (!this.exports) {
+      throw new Error('No exports field found')
+    }
+    if (this.type === 'module') {
+      if (this.exports['.']?.default) {
+        return resolve(`${this.exports['.'].default}`)
+      }
+      if (this.exports['.']?.import) {
+        return resolve(`${this.exports['.'].import}`)
+      }
+      if (this.exports['.']) {
+        return resolve(`${this.exports['.']}`)
+      }
+      if (this.exports?.import) {
+        return resolve(`${this.exports?.import}`)
+      }
+    }
+    throw new Error('Package could not be resolved')
+  }
+}
 
 /**
  * Read package.json
  * @param {string} cwd the current working directory
- * @returns {Promise<PackageJSON>} the contents of package.json
+ * @returns {object} the contents of package.json
  */
-export async function readPackageJSON (cwd = process.cwd()) {
+export function readPackageJSON (cwd = process.cwd()) {
   const path = join(cwd, 'package.json')
-  const exists = await fileExists(path)
-  if (!exists) {
+  if (!existsSync(path)) {
     throw new Error('package.json not found')
   }
-  const contents = await readFile(path, 'utf8')
+
+  const contents = readFileSync(path, 'utf8')
   return JSON.parse(contents)
 }

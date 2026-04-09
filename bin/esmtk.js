@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import { bundle, clean, cp, commonjs, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
-import { readPackageJSON } from '../src/index.js'
+import { Package } from '../src/index.js'
 import { Command } from 'commander'
 
-const pkg = await readPackageJSON()
+const pkg = new Package()
 const program = new Command()
   .version(pkg?.version || '', '-v, --version')
 

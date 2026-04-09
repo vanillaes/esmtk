@@ -1,5 +1,5 @@
-import { installed, readPackageJSON, which } from '../../src/index.js'
-import { spawn } from 'child_process'
+import { installed, Package, which } from '../../src/index.js'
+import { spawn } from 'node:child_process'
 
 /**
  * Type Check the JSDOC typings
@@ -27,11 +27,8 @@ export async function type (entry = '', options = {}) {
   }
 
   if (!entry) {
-    const pkg = await readPackageJSON()
-    if (!pkg.name) {
-      throw new Error('No project name found in package.json')
-    }
-    entry = (import.meta.resolve(pkg.name).replace('file://', ''))
+    const pkg = new Package()
+    entry = pkg.resolve()
   }
 
   const args = []

@@ -52,7 +52,7 @@
     "node": ">=22"
   },
   "dependencies": {
-    "@vanillaes/lint-es": "^1.0.9",
+    "@vanillaes/lint-es": "^1.0.10",
     "@vanillaes/tape-es": "^4.0.12",
     "commander": "^14.0.3"
   },

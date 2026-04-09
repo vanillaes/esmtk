@@ -103,7 +103,11 @@ export class Package {
    * Refresh package.json contents
    */
   refresh () {
-    const contents = readPackageJSON()
+    const path = join(process.cwd(), 'package.json')
+    if (!existsSync(path)) {
+      return
+    }
+    const contents = JSON.parse(readFileSync(path, 'utf8'))
     Object.assign(this, contents)
 
     Package.#instance = this

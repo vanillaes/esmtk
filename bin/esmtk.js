@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, cp, commonjs, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
+import { bundle, clean, cp, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
 import { Package } from '../src/index.js'
 import { Command } from 'commander'
 
@@ -60,15 +60,6 @@ program.command('minify')
   .option('--sourcemap', 'generate a source map for the minified bundle')
   .action((input, output, options) => {
     minify(input, output, options)
-  })
-
-program.command('commonjs')
-  .description('Transpile the source to CommonJS using ESBuild')
-  .argument('[input]', 'Input source file path (default: [entry-point].js')
-  .argument('[output]', 'Output commonjs bundle file path (default: [entry-point].cjs')
-  .option('--platform <platform>', 'target platform (ex node)')
-  .action((input, output, options) => {
-    commonjs(input, output, options)
   })
 
 program.command('typings')

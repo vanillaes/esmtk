@@ -20,7 +20,6 @@
 - [type](#type) - Type check the JSDoc typings (using Typescript)
 - [bundle](#bundle) - Bundle the source code to an ECMAScript module (using ESBuild)
 - [minify](#minify) - Bundle and Minify the source code to an ECMAScript module (using ESBuild)
-- [commonjs](#commonjs) - Bundle the source code to a CommonJS module (using ESBuild)
 - [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 - [clean](#clean) - Clean up build artifacts
 - [preview](#preview) - Preview the package contents included during `npm publish`
@@ -190,29 +189,6 @@ esmtk minify --platform=node src/sample.js bundle.min.js
 
 # bundle ESM source -> minified ESM bundle (output a sourcemap)
 esmtk minify --sourcemap src/sample.js bundle.min.js
-```
-
-
-## CommonJS
-
-Bundle the source code to a CommonJS module (using ESBuild)
-
-### Arguments
-
-`esmtk commonjs [...options] [input] [output]`
-
-- `[input]` - Input source file path (default: `[entry-poiont].js`)
-- `[output]` - Output commonjs bundle file path (default: `[entry-poiont].cjs`)
-- `--platform=<platform>` - Target platform (ex `node`)
-
-### Usage
-
-```sh
-# bundle ESM source -> CommonJS bundle
-esmtk commonjs src/sample.js bundle.cjs
-
-# bundle ESM source -> CommonJS bundle (includes Node-specific bindings)
-esmtk commonjs --platform=node src/sample.js bundle.cjs
 ```
 
 

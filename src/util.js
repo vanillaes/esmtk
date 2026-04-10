@@ -1,33 +1,27 @@
 import { exec } from 'child_process'
 import { join } from 'node:path'
-import { access, constants, glob, readFile } from 'node:fs/promises'
+import { access, constants, glob, readFile, rm } from 'node:fs/promises'
 import { promisify } from 'node:util'
 
 const execAsync = promisify(exec)
 
 /**
- * Expand file/glob into a list of paths
- * @param {string} source the source file/glob
- * @returns {Promise<string[]>} an array of paths
+ * Clean files/globs
+ * @param {string[]} files Files/globs to delete
+ * @param {boolean} force If the file already exists, overwrite it (default false)
  */
-export async function expand (source) {
-  const isGlob = source.includes('*')
-  if (isGlob) {
-    const paths = await match(source)
-    if (paths.length === 0) {
-      console.error(`${source} no matches found`)
-      process.exitCode = 1
-      return []
+export async function cleanAsync (files, force = false) {
+  try {
+    for (const file of files) {
+      await rm(file, { force: true })
     }
-    return paths
-  } else {
-    const exists = await fileExists(source)
-    if (!exists) {
-      console.error(`${source} No such file or directory`)
-      process.exitCode = 1
-      return []
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`clean: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
     }
-    return [source]
+    process.exitCode = 1
   }
 }
 

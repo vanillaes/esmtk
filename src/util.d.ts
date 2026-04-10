@@ -1,9 +1,9 @@
 /**
- * Expand file/glob into a list of paths
- * @param {string} source the source file/glob
- * @returns {Promise<string[]>} an array of paths
+ * Clean files/globs
+ * @param {string[]} files Files/globs to delete
+ * @param {boolean} force If the file already exists, overwrite it (default false)
  */
-export function expand(source: string): Promise<string[]>;
+export function cleanAsync(files: string[], force?: boolean): Promise<void>;
 /**
  * Check if a file/folder exists
  * @param {string} path the path to the file/folder

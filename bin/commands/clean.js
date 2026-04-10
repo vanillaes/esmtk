@@ -1,5 +1,4 @@
-import { removeMultipleAsync } from '../../src/rm.js'
-import { fileExists, match } from '../../src/util.js'
+import { cleanAsync, fileExists, match } from '../../src/index.js'
 
 /**
  * Clean build artifcats using sensible defaults
@@ -45,5 +44,5 @@ export async function clean (cwd, options) {
  */
 async function cleanCategory (cwd, glob, force = false) {
   const files = await match(glob, cwd, 'node_modules/**')
-  await removeMultipleAsync(files, force)
+  await cleanAsync(files, force)
 }

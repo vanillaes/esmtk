@@ -1,5 +1,5 @@
-import { setup, teardown, test } from './__tests__/test.js'
-import { expand, fileExists, match } from '@vanillaes/esmtk'
+import { filesλobjects, setup, teardown, test } from './__tests__/test.js'
+import { cleanAsync, fileExists, match } from '@vanillaes/esmtk'
 import { rmSync } from 'node:fs'
 
 import { createRequire } from 'module'
@@ -13,9 +13,11 @@ setup(async (t) => {
   t.end()
 })
 
-test('expand #1 - match glob', files.expand, async (t) => {
-  const actual = await expand('*.txt')
-  const expect = ['test1.txt', 'test2.txt']
+test('cleanAsync - remove multiple files', files.cleanAsync, async (t) => {
+  await cleanAsync(['test1.txt', 'test1.js'])
+
+  const actual = filesλobjects()
+  const expect = files.cleanAsyncExpect
 
   t.deepEqual(actual, expect)
   t.end()

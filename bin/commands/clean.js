@@ -1,4 +1,4 @@
-import { cleanAsync, fileExists, match } from '../../src/index.js'
+import { cleanAsync, exists, match } from '../../src/index.js'
 
 /**
  * Clean build artifcats using sensible defaults
@@ -11,8 +11,8 @@ import { cleanAsync, fileExists, match } from '../../src/index.js'
  * @param {boolean} options.force Ignore errors
  */
 export async function clean (cwd, options) {
-  const exists = await fileExists(cwd)
-  if (!exists) {
+  const cwdExists = await exists(cwd)
+  if (!cwdExists) {
     console.error(`clean: ${cwd} No such file or directory`)
     process.exitCode = 1
     return

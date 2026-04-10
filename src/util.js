@@ -30,13 +30,23 @@ export async function cleanAsync (files, force = false) {
  * @param {string} path the path to the file/folder
  * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
  */
-export async function fileExists (path) {
+export async function exists (path) {
   try {
     await access(path, constants.F_OK)
     return true
   } catch (error) {
     return false
   }
+}
+
+/**
+ * Check if a file/folder exists
+ * @deprecated
+ * @param {string} path the path to the file/folder
+ * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
+ */
+export async function fileExists (path) {
+  return await exists(path)
 }
 
 /**
@@ -76,8 +86,8 @@ export async function match (pattern, cwd = process.cwd(), ignore = undefined) {
  */
 export async function readGitIgnore (cwd) {
   const path = join(cwd, '.gitignore')
-  const exists = await fileExists(path)
-  if (!exists) {
+  const cwdExists = await exists(path)
+  if (!cwdExists) {
     return []
   }
   const contents = await readFile(path, 'utf8')

@@ -1,5 +1,5 @@
 import { filesλobjects, setup, teardown, test } from './__tests__/test.js'
-import { cleanAsync, fileExists, match } from '@vanillaes/esmtk'
+import { cleanAsync, exists, match } from '@vanillaes/esmtk'
 import { rmSync } from 'node:fs'
 
 import { createRequire } from 'module'
@@ -23,8 +23,8 @@ test('cleanAsync - remove multiple files', files.cleanAsync, async (t) => {
   t.end()
 })
 
-test('fileExists #1 - test to see if a file exists', files.fileExists, async (t) => {
-  const actual = await fileExists('test1.txt')
+test('exists #1 - test to see if a file exists', files.exists, async (t) => {
+  const actual = await exists('test1.txt')
   const expect = true
 
   t.equal(actual, expect)
@@ -32,8 +32,8 @@ test('fileExists #1 - test to see if a file exists', files.fileExists, async (t)
   t.end()
 })
 
-test('fileExists #2 - test to see if a file does not exist', files.fileExists, async (t) => {
-  const actual = await fileExists('test1.ts')
+test('exists #2 - test to see if a file does not exist', files.exists, async (t) => {
+  const actual = await exists('test1.ts')
   const expect = false
 
   t.equal(actual, expect)

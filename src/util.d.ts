@@ -9,6 +9,13 @@ export function cleanAsync(files: string[], force?: boolean): Promise<void>;
  * @param {string} path the path to the file/folder
  * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
  */
+export function exists(path: string): Promise<boolean>;
+/**
+ * Check if a file/folder exists
+ * @deprecated
+ * @param {string} path the path to the file/folder
+ * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
+ */
 export function fileExists(path: string): Promise<boolean>;
 /**
  * Check to see if a NPM package is installed globally

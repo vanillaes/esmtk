@@ -1,2 +1,2 @@
 export { Package } from "./package.js";
-export { cleanAsync, fileExists, installed, match, readGitIgnore, readNPMIgnore, which } from "./util.js";
+export { cleanAsync, exists, fileExists, installed, match, readGitIgnore, readNPMIgnore, which } from "./util.js";

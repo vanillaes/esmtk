@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, cp, commonjs, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
+import { bundle, clean, init, lint, minify, preview, test, type, typings } from './commands/index.js'
 import { Package } from '../src/index.js'
 import { Command } from 'commander'
 
@@ -62,15 +62,6 @@ program.command('minify')
     minify(input, output, options)
   })
 
-program.command('commonjs')
-  .description('Transpile the source to CommonJS using ESBuild')
-  .argument('[input]', 'Input source file path (default: [entry-point].js')
-  .argument('[output]', 'Output commonjs bundle file path (default: [entry-point].cjs')
-  .option('--platform <platform>', 'target platform (ex node)')
-  .action((input, output, options) => {
-    commonjs(input, output, options)
-  })
-
 program.command('typings')
   .description('Generate typings from JSDoc using Typescript')
   .argument('[entry]', 'entry-point for the source (default: [entry-point].js')
@@ -110,40 +101,6 @@ program.command('preview')
   .option('--cwd <cwd>', 'current working directory', process.cwd())
   .action((options) => {
     preview(options)
-  })
-
-program.command('cp')
-  .usage(`[-r] source target
-
-    Examples:
-      $ cp SOURCE DEST
-      $ cp SOURCE... DIRECTORY
-      $ cp SOURCEGLOB... DIRECTORY
-      $ cp -r SOURCEDIR DIRECTORY
-  `)
-  .description('Copy files and directories')
-  .argument('[paths...]')
-  .option('-r, --recursive', 'Copy directories recursively', false)
-  // .option('-f, --force', 'Do not prompt before overwriting', false)
-  .action((paths, options) => {
-    cp(paths, options)
-  })
-
-program.command('rm')
-  .usage(`[-r] path/glob
-
-    Examples:
-      $ rm FILE
-      $ rm FILES...
-      $ rm GLOB...
-      $ rm -r DIRECTORY
-  `)
-  .description('Remove files or directories')
-  .argument('[paths...]')
-  // .option('-f, --force', 'Do not prompt before overwriting', false)
-  .option('-r, --recursive', 'Remove directories recursively', false)
-  .action((paths, options) => {
-    rm(paths, options)
   })
 
 program.parse(process.argv)

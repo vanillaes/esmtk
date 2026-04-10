@@ -20,12 +20,9 @@
 - [type](#type) - Type check the JSDoc typings (using Typescript)
 - [bundle](#bundle) - Bundle the source code to an ECMAScript module (using ESBuild)
 - [minify](#minify) - Bundle and Minify the source code to an ECMAScript module (using ESBuild)
-- [commonjs](#commonjs) - Bundle the source code to a CommonJS module (using ESBuild)
 - [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 - [clean](#clean) - Clean up build artifacts
 - [preview](#preview) - Preview the package contents included during `npm publish`
-- [cp](#cp) - A cross-platform clone of the `cp` command in Linux
-- [rm](#rm) - A cross-platform clone of the `rm` command in Linux
 
 
 ## Init
@@ -72,7 +69,7 @@ esmtk test
 esmtk test **/*.test.js
 
 # run the tests (ignore tests)
-esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
+esmtk test **/*.test.js --ignore **/node_modules/**,src/util.spec.js
 
 # run the tests (change the current working directory)
 esmtk test **/*.test.js --cwd src/
@@ -193,29 +190,6 @@ esmtk minify --sourcemap src/sample.js bundle.min.js
 ```
 
 
-## CommonJS
-
-Bundle the source code to a CommonJS module (using ESBuild)
-
-### Arguments
-
-`esmtk commonjs [...options] [input] [output]`
-
-- `[input]` - Input source file path (default: `[entry-poiont].js`)
-- `[output]` - Output commonjs bundle file path (default: `[entry-poiont].cjs`)
-- `--platform=<platform>` - Target platform (ex `node`)
-
-### Usage
-
-```sh
-# bundle ESM source -> CommonJS bundle
-esmtk commonjs src/sample.js bundle.cjs
-
-# bundle ESM source -> CommonJS bundle (includes Node-specific bindings)
-esmtk commonjs --platform=node src/sample.js bundle.cjs
-```
-
-
 ## Typings
 
 Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
@@ -290,67 +264,4 @@ esmtk preview
 
 # preview the package contents (from another directory)
 esmtk preview --cwd some/other/dir
-```
-
-
-## CP
-
-A cross-platform clone of the `cp` command in Linux
-
-### Arguments
-
-`esmtk cp [...options] [source...] [destination]`
-
-- `[source...]` - Source file(s)/glob(s)
-- `[destination]` - The destination file/directory
-- `-r, --recursive` - Copy file(s)/directorie(s) recursively
-
-### Usage
-
-```sh
-# copy one file
-esmtk cp file1.txt dest/file1.txt
-
-# copy multiple files
-esmtk cp file1.txt file2.txt file3.txt dest/
-
-# copy files that match a glob
-esmtk cp *.txt dest/
-
-# copy files that match multiple globs
-esmtk cp *.txt *.js *.ts dest/
-
-# recursively copy files from one directory to another
-esmtk cp -r src/ dest/
-```
-
-
-## RM
-
-A cross-platform clone of the `rm` command in Linux
-
-### Arguments
-
-`esmtk rm [...options] [paths...]`
-
-- `[paths...]` - the source file(s)/glob(s)
-- `-r, --recursive` - remove directory recursively
-
-### Usage
-
-```sh
-# remove one file
-esmtk rm file1.txt
-
-# remove multiple files
-esmtk rm file1.txt file3.txt file3.txt
-
-# remove files that match a glob
-esmtk rm *.txt
-
-# remove files that match miltiple globs
-esmtk rm *.txt *.js *.ts
-
-# recursively remove a 
-esmtk rm -r src/
 ```

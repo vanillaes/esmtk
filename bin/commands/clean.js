@@ -1,5 +1,4 @@
-import { removeMultipleAsync } from '../../src/rm.js'
-import { fileExists, match } from '../../src/util.js'
+import { cleanAsync, exists, match } from '../../src/index.js'
 
 /**
  * Clean build artifcats using sensible defaults
@@ -12,8 +11,8 @@ import { fileExists, match } from '../../src/util.js'
  * @param {boolean} options.force Ignore errors
  */
 export async function clean (cwd, options) {
-  const exists = await fileExists(cwd)
-  if (!exists) {
+  const cwdExists = await exists(cwd)
+  if (!cwdExists) {
     console.error(`clean: ${cwd} No such file or directory`)
     process.exitCode = 1
     return
@@ -45,5 +44,5 @@ export async function clean (cwd, options) {
  */
 async function cleanCategory (cwd, glob, force = false) {
   const files = await match(glob, cwd, 'node_modules/**')
-  await removeMultipleAsync(files, force)
+  await cleanAsync(files, force)
 }

@@ -10,11 +10,12 @@
     "cli",
     "developer-tools",
     "jsdoc",
-    "fs",
-    "cp",
-    "copy",
-    "rm",
-    "remove"
+    "test",
+    "lint",
+    "type",
+    "build",
+    "clean",
+    "preview"
   ],
   "repository": "https://github.com/vanillaes/esmtk",
   "author": "Evan Plaice <evanplaice@gmail.com> (https://evanplaice.com/)",
@@ -27,14 +28,6 @@
     ".": {
       "import": "./src/index.js",
       "types": "./src/index.d.ts"
-    },
-    "./cp": {
-      "import": "./src/cp.js",
-      "types": "./src/cp.d.ts"
-    },
-    "./rm": {
-      "import": "./src/rm.js",
-      "types": "./src/rm.d.ts"
     }
   },
   "scripts": {

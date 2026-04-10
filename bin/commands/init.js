@@ -1,4 +1,4 @@
-import { fileExists, which } from '../../src/index.js'
+import { exists, which } from '../../src/index.js'
 import { exec } from 'node:child_process'
 import { readFile, writeFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
@@ -161,8 +161,8 @@ async function fetchGitEmail () {
  */
 async function fetchGitRepository () {
   const config = join(process.cwd(), '.git', 'config')
-  const exists = await fileExists(config)
-  if (!exists) {
+  const configExists = await exists(config)
+  if (!configExists) {
     return
   }
   const contents = await readFile(config, 'utf-8')

@@ -138,18 +138,3 @@ export class Package {
     throw new Error('Package could not be resolved')
   }
 }
-
-/**
- * Read package.json
- * @param {string} cwd the current working directory
- * @returns {object} the contents of package.json
- */
-export function readPackageJSON (cwd = process.cwd()) {
-  const path = join(cwd, 'package.json')
-  if (!existsSync(path)) {
-    throw new Error('package.json not found')
-  }
-
-  const contents = readFileSync(path, 'utf8')
-  return JSON.parse(contents)
-}

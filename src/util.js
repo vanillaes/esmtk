@@ -1,33 +1,27 @@
 import { exec } from 'child_process'
 import { join } from 'node:path'
-import { access, constants, glob, readFile } from 'node:fs/promises'
+import { access, constants, glob, readFile, rm } from 'node:fs/promises'
 import { promisify } from 'node:util'
 
 const execAsync = promisify(exec)
 
 /**
- * Expand file/glob into a list of paths
- * @param {string} source the source file/glob
- * @returns {Promise<string[]>} an array of paths
+ * Clean files/globs
+ * @param {string[]} files Files/globs to delete
+ * @param {boolean} force If the file already exists, overwrite it (default false)
  */
-export async function expand (source) {
-  const isGlob = source.includes('*')
-  if (isGlob) {
-    const paths = await match(source)
-    if (paths.length === 0) {
-      console.error(`${source} no matches found`)
-      process.exitCode = 1
-      return []
+export async function cleanAsync (files, force = false) {
+  try {
+    for (const file of files) {
+      await rm(file, { force: true })
     }
-    return paths
-  } else {
-    const exists = await fileExists(source)
-    if (!exists) {
-      console.error(`${source} No such file or directory`)
-      process.exitCode = 1
-      return []
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`clean: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
     }
-    return [source]
+    process.exitCode = 1
   }
 }
 
@@ -36,13 +30,23 @@ export async function expand (source) {
  * @param {string} path the path to the file/folder
  * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
  */
-export async function fileExists (path) {
+export async function exists (path) {
   try {
     await access(path, constants.F_OK)
     return true
   } catch (error) {
     return false
   }
+}
+
+/**
+ * Check if a file/folder exists
+ * @deprecated
+ * @param {string} path the path to the file/folder
+ * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
+ */
+export async function fileExists (path) {
+  return await exists(path)
 }
 
 /**
@@ -82,8 +86,8 @@ export async function match (pattern, cwd = process.cwd(), ignore = undefined) {
  */
 export async function readGitIgnore (cwd) {
   const path = join(cwd, '.gitignore')
-  const exists = await fileExists(path)
-  if (!exists) {
+  const cwdExists = await exists(path)
+  if (!cwdExists) {
     return []
   }
   const contents = await readFile(path, 'utf8')

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
+import { bundle, clean, init, lint, minify, preview, test, type, typings } from './commands/index.js'
 import { Package } from '../src/index.js'
 import { Command } from 'commander'
 
@@ -101,23 +101,6 @@ program.command('preview')
   .option('--cwd <cwd>', 'current working directory', process.cwd())
   .action((options) => {
     preview(options)
-  })
-
-program.command('rm')
-  .usage(`[-r] path/glob
-
-    Examples:
-      $ rm FILE
-      $ rm FILES...
-      $ rm GLOB...
-      $ rm -r DIRECTORY
-  `)
-  .description('Remove files or directories')
-  .argument('[paths...]')
-  // .option('-f, --force', 'Do not prompt before overwriting', false)
-  .option('-r, --recursive', 'Remove directories recursively', false)
-  .action((paths, options) => {
-    rm(paths, options)
   })
 
 program.parse(process.argv)

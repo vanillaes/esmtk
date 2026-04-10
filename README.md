@@ -23,7 +23,6 @@
 - [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 - [clean](#clean) - Clean up build artifacts
 - [preview](#preview) - Preview the package contents included during `npm publish`
-- [rm](#rm) - A cross-platform clone of the `rm` command in Linux
 
 
 ## Init
@@ -70,7 +69,7 @@ esmtk test
 esmtk test **/*.test.js
 
 # run the tests (ignore tests)
-esmtk test **/*.test.js --ignore **/node_modules/**,src/rm.spec.js
+esmtk test **/*.test.js --ignore **/node_modules/**,src/util.spec.js
 
 # run the tests (change the current working directory)
 esmtk test **/*.test.js --cwd src/
@@ -265,35 +264,4 @@ esmtk preview
 
 # preview the package contents (from another directory)
 esmtk preview --cwd some/other/dir
-```
-
-
-## RM
-
-A cross-platform clone of the `rm` command in Linux
-
-### Arguments
-
-`esmtk rm [...options] [paths...]`
-
-- `[paths...]` - the source file(s)/glob(s)
-- `-r, --recursive` - remove directory recursively
-
-### Usage
-
-```sh
-# remove one file
-esmtk rm file1.txt
-
-# remove multiple files
-esmtk rm file1.txt file3.txt file3.txt
-
-# remove files that match a glob
-esmtk rm *.txt
-
-# remove files that match miltiple globs
-esmtk rm *.txt *.js *.ts
-
-# recursively remove a 
-esmtk rm -r src/
 ```

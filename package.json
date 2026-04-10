@@ -10,10 +10,12 @@
     "cli",
     "developer-tools",
     "jsdoc",
-    "fs",
-    "copy",
-    "rm",
-    "remove"
+    "test",
+    "lint",
+    "type",
+    "build",
+    "clean",
+    "preview"
   ],
   "repository": "https://github.com/vanillaes/esmtk",
   "author": "Evan Plaice <evanplaice@gmail.com> (https://evanplaice.com/)",

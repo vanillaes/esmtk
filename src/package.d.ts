@@ -1,10 +1,4 @@
 /**
- * Read package.json
- * @param {string} cwd the current working directory
- * @returns {object} the contents of package.json
- */
-export function readPackageJSON(cwd?: string): object;
-/**
  * package.json
  */
 export class Package {

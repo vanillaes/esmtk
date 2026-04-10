@@ -23,7 +23,6 @@
 - [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 - [clean](#clean) - Clean up build artifacts
 - [preview](#preview) - Preview the package contents included during `npm publish`
-- [cp](#cp) - A cross-platform clone of the `cp` command in Linux
 - [rm](#rm) - A cross-platform clone of the `rm` command in Linux
 
 
@@ -266,38 +265,6 @@ esmtk preview
 
 # preview the package contents (from another directory)
 esmtk preview --cwd some/other/dir
-```
-
-
-## CP
-
-A cross-platform clone of the `cp` command in Linux
-
-### Arguments
-
-`esmtk cp [...options] [source...] [destination]`
-
-- `[source...]` - Source file(s)/glob(s)
-- `[destination]` - The destination file/directory
-- `-r, --recursive` - Copy file(s)/directorie(s) recursively
-
-### Usage
-
-```sh
-# copy one file
-esmtk cp file1.txt dest/file1.txt
-
-# copy multiple files
-esmtk cp file1.txt file2.txt file3.txt dest/
-
-# copy files that match a glob
-esmtk cp *.txt dest/
-
-# copy files that match multiple globs
-esmtk cp *.txt *.js *.ts dest/
-
-# recursively copy files from one directory to another
-esmtk cp -r src/ dest/
 ```
 
 

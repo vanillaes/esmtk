@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, cp, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
+import { bundle, clean, init, lint, minify, preview, rm, test, type, typings } from './commands/index.js'
 import { Package } from '../src/index.js'
 import { Command } from 'commander'
 
@@ -101,23 +101,6 @@ program.command('preview')
   .option('--cwd <cwd>', 'current working directory', process.cwd())
   .action((options) => {
     preview(options)
-  })
-
-program.command('cp')
-  .usage(`[-r] source target
-
-    Examples:
-      $ cp SOURCE DEST
-      $ cp SOURCE... DIRECTORY
-      $ cp SOURCEGLOB... DIRECTORY
-      $ cp -r SOURCEDIR DIRECTORY
-  `)
-  .description('Copy files and directories')
-  .argument('[paths...]')
-  .option('-r, --recursive', 'Copy directories recursively', false)
-  // .option('-f, --force', 'Do not prompt before overwriting', false)
-  .action((paths, options) => {
-    cp(paths, options)
   })
 
 program.command('rm')

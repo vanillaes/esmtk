@@ -1,4 +1,5 @@
-import { cleanAsync, exists, match } from '../../src/index.js'
+import { exists, match } from '../../src/index.js'
+import { rm } from 'node:fs/promises'
 
 /**
  * Clean build artifcats using sensible defaults
@@ -45,4 +46,25 @@ export async function clean (cwd, options) {
 async function cleanCategory (cwd, glob, force = false) {
   const files = await match(glob, cwd, 'node_modules/**')
   await cleanAsync(files, force)
+}
+
+/**
+ * Clean files/globs
+ * @private
+ * @param {string[]} files Files/globs to delete
+ * @param {boolean} force If the file already exists, overwrite it (default false)
+ */
+export async function cleanAsync (files, force = false) {
+  try {
+    for (const file of files) {
+      await rm(file, { force: true })
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`clean: error ${error.message}`)
+    } else {
+      console.error(`Unexpected error: ${error}`)
+    }
+    process.exitCode = 1
+  }
 }

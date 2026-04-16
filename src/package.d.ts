@@ -1,4 +1,20 @@
 /**
+ * @typedef {object} RawPackage
+ * @property {string|undefined} [name] Name
+ * @property {string|undefined} [version] Version
+ * @property {string|undefined} [description] Description
+ * @property {string[]|undefined} [keywords] Keywords
+ * @property {string|undefined} [repository] Repository
+ * @property {string|undefined} [author] Author
+ * @property {string|undefined} [license] License
+ * @property {string|undefined} [type] Type
+ * @property {object|undefined} [bin] Binaries
+ * @property {{[key: string]: {[key: string]: string}}|undefined} [exports] Exports
+ * @property {object|undefined} [engines] Engines
+ * @property {object|undefined} [dependencies] Dependencies
+ * @property {object|undefined} [devDependencies] DevDependencies
+ */
+/**
  * package.json
  */
 export class Package {
@@ -7,74 +23,86 @@ export class Package {
      */
     static #instance: Package;
     /**
-     * Name
-     * @type {string}
+     * @param {string} [cwd] Current working directory
      */
-    name: string;
+    constructor(cwd?: string);
+    /**
+     * @param {string} name Name
+     */
+    set name(name: string);
+    /**
+     * Name
+     * @type {string|undefined}
+     */
+    get name(): string | undefined;
+    /**
+     * @param {string} version Version
+     */
+    set version(version: string);
     /**
      * Version
-     * @type {string}
+     * @type {string|undefined}
      */
-    version: string;
+    get version(): string | undefined;
     /**
      * Description
-     * @type {string}
+     * @type {string|undefined}
      */
-    description: string;
+    get description(): string | undefined;
     /**
      * Keywords
-     * @type {string[]}
+     * @type {string[]|undefined}
      */
-    keywords: string[];
+    get keywords(): string[] | undefined;
     /**
      * Repository
-     * @type {string}
+     * @type {string|undefined}
      */
-    repository: string;
+    get repository(): string | undefined;
     /**
      * Author
-     * @type {string}
+     * @type {string|undefined}
      */
-    author: string;
+    get author(): string | undefined;
     /**
      * License
-     * @type {string}
+     * @type {string|undefined}
      */
-    license: string;
+    get license(): string | undefined;
     /**
      * Type
-     * @type {string}
+     * @type {string|undefined}
      */
-    type: string;
+    get type(): string | undefined;
     /**
      * Bin
-     * @type {object}
+     * @type {object|undefined}
      */
-    bin: object;
+    get bin(): object | undefined;
     /**
      * Exports
-     * @type {{[key: string]: {[key: string]: string}}}
+     * @type {{[key: string]: {[key: string]: string}}|undefined}
      */
-    exports: {
+    get exports(): {
         [key: string]: {
             [key: string]: string;
         };
-    };
+    } | undefined;
     /**
      * Engines
-     * @type {object}
+     * @type {object|undefined}
      */
-    engines: object;
+    get engines(): object | undefined;
     /**
      * Dependencies
-     * @type {object}
+     * @type {object|undefined}
      */
-    dependencies: object;
+    get dependencies(): object | undefined;
     /**
      * devDependencies
-     * @type {object}
+     * @type {object|undefined}
      */
-    devDependencies: object;
+    get devDependencies(): object | undefined;
     /**
      * Refresh package.json contents
      */
@@ -84,4 +112,67 @@ export class Package {
      * @returns {string} Default entry-point
      */
     resolve(): string;
+    /**
+     * Save package.json contents
+     */
+    save(): void;
+    #private;
 }
+export type RawPackage = {
+    /**
+     * Name
+     */
+    name?: string | undefined;
+    /**
+     * Version
+     */
+    version?: string | undefined;
+    /**
+     * Description
+     */
+    description?: string | undefined;
+    /**
+     * Keywords
+     */
+    keywords?: string[] | undefined;
+    /**
+     * Repository
+     */
+    repository?: string | undefined;
+    /**
+     * Author
+     */
+    author?: string | undefined;
+    /**
+     * License
+     */
+    license?: string | undefined;
+    /**
+     * Type
+     */
+    type?: string | undefined;
+    /**
+     * Binaries
+     */
+    bin?: object | undefined;
+    /**
+     * Exports
+     */
+    exports?: {
+        [key: string]: {
+            [key: string]: string;
+        };
+    } | undefined;
+    /**
+     * Engines
+     */
+    engines?: object | undefined;
+    /**
+     * Dependencies
+     */
+    dependencies?: object | undefined;
+    /**
+     * DevDependencies
+     */
+    devDependencies?: object | undefined;
+};

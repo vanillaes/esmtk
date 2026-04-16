@@ -20,6 +20,7 @@ jobs:
     secrets: inherit
 
   cd-jsr:
+    needs: ci
     runs-on: ubuntu-latest
     permissions:
       contents: read

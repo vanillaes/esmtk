@@ -26,13 +26,6 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - id: check_jsr
-        run: |
-          if [ -f "jsr.json" ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-          fi
       - uses: actions/checkout@v6
-      - if: steps.check_jsr.outputs.exists == 'true'
+      - if: ${{ hashFiles('jsr.json') != '' }}
         run: npx jsr publish

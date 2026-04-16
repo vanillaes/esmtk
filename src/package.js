@@ -1,3 +1,4 @@
+import { runScript } from './index.js'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
@@ -11,8 +12,9 @@ import { join, resolve } from 'node:path'
  * @property {string|undefined} [author] Author
  * @property {string|undefined} [license] License
  * @property {string|undefined} [type] Type
- * @property {object|undefined} [bin] Binaries
+ * @property {{[key: string]: {[key: string]: string}}|undefined} [bin] Binaries
  * @property {{[key: string]: {[key: string]: string}}|undefined} [exports] Exports
+ * @property {{[key: string]: {[key: string]: string}}|undefined} [scripts] Scripts
  * @property {object|undefined} [engines] Engines
  * @property {object|undefined} [dependencies] Dependencies
  * @property {object|undefined} [devDependencies] DevDependencies
@@ -140,7 +142,7 @@ export class Package {
 
   /**
    * Bin
-   * @type {object|undefined}
+   * @type {{[key: string]: {[key: string]: string}}|undefined}
    */
   get bin () {
     return this.#contents.bin
@@ -152,6 +154,14 @@ export class Package {
    */
   get exports () {
     return this.#contents.exports
+  }
+
+  /**
+   * Scripts
+   * @type {{[key: string]: {[key: string]: string}}|undefined}
+   */
+  get scripts () {
+    return this.#contents.scripts
   }
 
   /**
@@ -200,6 +210,18 @@ export class Package {
     }
 
     Package.#instance = this
+  }
+
+  /**
+   * Run a 'package.json' script
+   * @param {string} name Script name
+   * @returns {Promise<number>} Script exit Code
+   */
+  async runScript (name) {
+    if (!this.scripts?.[name]) {
+      return 0
+    }
+    return await runScript(name)
   }
 
   /**

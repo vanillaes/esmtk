@@ -24,6 +24,7 @@
 - [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 - [clean](#clean) - Clean up build artifacts
 - [preview](#preview) - Preview the package contents included during `npm publish`
+- [version](#version) - Bump the package version and tag the release in Git
 
 
 ## Init
@@ -271,7 +272,14 @@ esmtk preview --cwd some/other/dir
 
 Bump the package version and tag the release in Git
 
-*Note: This bumps the version number in `package.json`, `package-lock.json` if present, and `jsr.json` if present.*
+Steps:
+1. (if present) Run the `preversion` script
+2. Bump the version in `package.json`
+3. (if present) Bump the version in `package-lock.json`
+4. (if present) Bump the version in `jsr.json`
+5. (if present) Run the `version` script
+6. Commit the changes and tag the commit with the version number in `git`
+7. (if present) Run the `postversion` script
 
 ### Arguments
 
@@ -284,6 +292,8 @@ Bump the package version and tag the release in Git
 - `--no-git-tag-version` - Tag the version in git? (default: true)
 - `--message <message>` - Git commit message (%s is replaced with the version number in the message)
 - `--preid <id>` - Pre-release identifier (ex "rc" -> 1.2.0-rc.8)
+
+### Usage
 
 ```sh
 # Bump the major version
@@ -305,7 +315,7 @@ esmtk version patch --cwd src/
 esmtk version patch --force
 
 # Bump the patch version (don't tag the release in git)
-esmtk version --no-git-tag-version
+esmtk version patch --no-git-tag-version
 
 # Bump the patch version (with a custom commit message on the tag)
 esmtk version patch --message "Release %s"

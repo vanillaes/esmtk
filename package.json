@@ -35,10 +35,11 @@
     "test": "./bin/esmtk.js test",
     "lint": "./bin/esmtk.js lint",
     "type": "./bin/esmtk.js type --types node && ./bin/esmtk.js type --types node bin/esmtk.js",
-    "typings": "./bin/esmtk.js typings --types node",
+    "build": "./bin/esmtk.js typings --types node",
     "clean": "./bin/esmtk.js clean --typings",
     "preview": "./bin/esmtk.js preview",
     "preversion": "npm run test && npm run lint && npm run type",
+    "version": "npm run clean && npm run build && git add **/*.d.ts",
     "postversion": "git push --follow-tags"
   },
   "engines": {

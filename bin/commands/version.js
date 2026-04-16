@@ -40,6 +40,16 @@ export async function version (release, options = {}) {
     throw new Error('version: Git working directory not clean.')
   }
 
+  const pkg = new Package()
+
+  if (pkg.scripts?.preversion) {
+    const code = await pkg.runScript('preversion')
+    if (code === 1) {
+      process.exitCode = 1
+      return
+    }
+  }
+
   let next
   try {
     next = await npmVersion(release, options)
@@ -55,6 +65,14 @@ export async function version (release, options = {}) {
     process.exit(1)
   }
 
+  if (pkg.scripts?.version) {
+    const code = await pkg.runScript('version')
+    if (code === 1) {
+      process.exitCode = 1
+      return
+    }
+  }
+
   if (!useGit) {
     console.log(`v${next}`)
     return
@@ -65,6 +83,14 @@ export async function version (release, options = {}) {
   } catch (error) {
     console.error(error)
     process.exit(1)
+  }
+
+  if (pkg.scripts?.postversion) {
+    const code = await pkg.runScript('postversion')
+    if (code === 1) {
+      process.exitCode = 1
+      return
+    }
   }
 
   console.log(`v${next}`)

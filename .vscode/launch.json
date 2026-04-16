@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Version",
+            "name": "--version",
             "type": "node",
             "request": "launch",
             "skipFiles": [
@@ -251,6 +251,18 @@
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
             "args": ["preview"],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Version",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["version", "patch", "--no-git-tag-version"],
             "console": "integratedTerminal",
         },
         {

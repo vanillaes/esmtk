@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, init, lint, minify, preview, test, type, typings } from './commands/index.js'
+import { bundle, clean, init, lint, minify, preview, test, type, typings, version } from './commands/index.js'
 import { Package } from '../src/index.js'
 import { Command } from 'commander'
 
@@ -97,10 +97,24 @@ program.command('clean')
   })
 
 program.command('preview')
-  .description('Preview the package contents included during \'npm publish\'')
+  .description('Preview the published package contents')
   .option('--cwd <cwd>', 'current working directory', process.cwd())
   .action((options) => {
     preview(options)
+  })
+
+program.command('version')
+  .description('Bump the package version and tag the release in Git')
+  .argument('<release>', 'major | minor | patch | premajor | preminor | prepatch | prerelease | <version>')
+  .option('--allow-same-version', 'Allow the version if it already exists (default: false)')
+  .option('--cwd <cwd>', 'Current working directory', process.cwd())
+  .option('--force', 'Commit even if the working directory is not clean (default: false)')
+  .option('--no-git-tag-version', 'Tag the version in git? (default: true)')
+  .option('--message <message>', 'Git commit message (%s is replaced with the version number in the message)')
+  .option('--preid <preid>', 'Pre-release identifier (ex "rc" -> 1.2.0-rc.8)')
+
+  .action((release, options) => {
+    version(release, options)
   })
 
 program.parse(process.argv)

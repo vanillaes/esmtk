@@ -6,8 +6,9 @@
 
 <div align="center">
   <a href="https://github.com/vanillaes/esmtk/releases"><img src="https://badgen.net/github/tag/vanillaes/esmtk?cache-control=no-cache" alt="GitHub Release"></a>
-  <a href="https://www.npmjs.com/package/@vanillaes/esmtk"><img src="https://badgen.net/npm/v/@vanillaes/esmtk?icon=npm" alt="NPM Version"></a>
-  <a href="https://www.npmjs.com/package/@vanillaes/esmtk"><img src="https://badgen.net/npm/dm/@vanillaes/esmtk?icon=npm" alt="NPM Downloads"></a>
+  <a href="https://npmjs.com/package/@vanillaes/esmtk"><img src="https://badgen.net/npm/dm/@vanillaes/esmtk?icon=npm" alt="NPM Monthly Downloads"></a>
+  <a href="https://jsr.io/@vanillaes/esmtk"><img src="https://jsr.io/badges/@vanillaes/esmtk/weekly-downloads" alt="JSR Weekly Downloads"></a>
+  <a href="https://jsr.io/@vanillaes/esmtk"><img src="https://jsr.io/badges/@vanillaes/esmtk/score" alt="JSR Score"></a>
   <a href="https://github.com/vanillaes/esmtk/actions"><img src="https://github.com/vanillaes/esmtk/workflows/Latest/badge.svg" alt="Latest Status"></a>
   <a href="https://github.com/vanillaes/esmtk/actions"><img src="https://github.com/vanillaes/esmtk/workflows/Release/badge.svg" alt="Release Status"></a>
 </div>
@@ -55,8 +56,8 @@ Run tests (using Tape-ES)
 `esmtk test [...options] [glob]`
 
 - `[glob]` - Glob(s) used to locate test files (default: `**/*.spec.js`)
-- `--cwd` - The current working directory (default `process.cwd()`)
-- `--ignore` - Glob(s) to ignore (default `**/node_modules/**`)
+- `--cwd <dir>` - The current working directory (default `process.cwd()`)
+- `--ignore <pattern<s>>` - Glob(s) to ignore (default `**/node_modules/**`)
 - `--watch` - Watch for changes to the test(s)
 
 ### Usage
@@ -87,9 +88,9 @@ Lint the source code (using Lint-ES)
 
 `esmtk lint [...options]`
 
-- `--cwd` - Current working directory (default `process.cwd()`)
+- `--cwd <dir>` - Current working directory (default `process.cwd()`)
 - `--fix` - Automatically fix problems
-- `--ignore` - File(s) to ignore
+- `--ignore <pattern(s)>` - File(s) to ignore
 
 ### Usage
 
@@ -117,9 +118,9 @@ Type check the JSDoc typings (using Typescript)
 `esmtk type [...options] [entry]`
 
 - `[entry]` - Entry-point for the source (default: `[entry-poiont].js`)
-- `--module` - Module resolution type (default `esnext`)
+- `--module <type>` - Module resolution type (default `esnext`)
 - `--strict` - Enable 'strict mode' type checks
-- `--types` - Specify type package names to include (ex `node` for `@types/node`)
+- `--types <type(s)>` - Specify type package names to include (ex `node` for `@types/node`)
 
 ### Usage
 
@@ -150,7 +151,7 @@ Bundle the source code to an ECMAScript module (using ESBuild)
 
 - `[input]` - Input source file path (default: `[entry-poiont].js`)
 - `[output]` - Output bundle file path (default: `[entry-point].esm.js`)
-- `--platform=<platform>` - Target platform (ex `node`)
+- `--platform <target>` - Target platform (ex `node`)
 
 ### Usage
 
@@ -173,7 +174,7 @@ Bundle and Minify the source code to an ECMAScript module (using ESBuild)
 
 - `[input]` - Input source file path (default: `[entry-poiont].js`)
 - `[output]` - Output minified bundle file path (default: `[entry-poiont].min.js`)
-- `--platform=<platform>` - Target platform (ex `node`)
+- `--platform <target>` - Target platform (ex `node`)
 - `--sourcemap` - Generate a source map for the minified bundle
 
 ### Usage
@@ -199,8 +200,8 @@ Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
 `esmtk typings [options...] [entry]`
 
 - `[entry]` - Entry-point for the source (default: `[entry-poiont].js`)
-- `--module` - Module resolution type (default `esnext`)
-- `--types` - Specify type package names to include (ex `node` for `@types/node`)
+- `--module <type>` - Module resolution type (default `esnext`)
+- `--types <type(s)>` - Specify type package names to include (ex `node` for `@types/node`)
 
 ### Usage
 
@@ -228,7 +229,7 @@ Clean up build artifacts
 - `--bundle` - Clean bundled build artifacts (default: `**/*.esm.js`)
 - `--minify` - Clean minified build artifacts (default: `**/*.min.js`)
 - `--typings` - Clean typing artifacts (default: `**/*.d.ts`)
-- `--custom` - Clean based on a user-defined pattern
+- `--custom [pattern]` - Clean based on a user-defined pattern
 
 ### Usage
 
@@ -254,7 +255,7 @@ Preview the package contents included during `npm publish`
 
 `esmtk preview [...options]`
 
-- `--cwd` - Current working directory
+- `--cwd <dir>` - Current working directory
 
 ### Usage
 
@@ -264,4 +265,51 @@ esmtk preview
 
 # preview the package contents (from another directory)
 esmtk preview --cwd some/other/dir
+```
+
+## Version
+
+Bump the package version and tag the release in Git
+
+*Note: This bumps the version number in `package.json`, `package-lock.json` if present, and `jsr.json` if present.*
+
+### Arguments
+
+`esmtk version [...options] [release]`
+
+- `[release]` - `major` | `minor` | `patch` | `premajor` | `preminor` | `prepatch` | `prerelease` | `<version>`
+- `--allow-same-version` - Allow the version if it already exists (default: false)
+- `--cwd <dir>` - Current working directory
+- `--force` - Commit even if the working directory is not clean (default: false)
+- `--no-git-tag-version` - Tag the version in git? (default: true)
+- `--message <message>` - Git commit message (%s is replaced with the version number in the message)
+- `--preid <id>` - Pre-release identifier (ex "rc" -> 1.2.0-rc.8)
+
+```sh
+# Bump the major version
+esmtk version major
+
+# Bump the minor version
+esmtk version major
+
+# Bump the patch version
+esmtk version major
+
+# Bump the patch version (with a version that already exists)
+esmtk version patch --allow-same-version
+
+# Bump the patch version (change the current working directory)
+esmtk version patch --cwd src/
+
+# Bump the patch version (even if the working directory contains uncommitted changes)
+esmtk version patch --force
+
+# Bump the patch version (don't tag the release in git)
+esmtk version --no-git-tag-version
+
+# Bump the patch version (with a custom commit message on the tag)
+esmtk version patch --message "Release %s"
+
+# Bump the patch version (add the prerelease id, ex "rc" -> 1.2.0-rc.8)
+esmtk version patch --preid rc
 ```

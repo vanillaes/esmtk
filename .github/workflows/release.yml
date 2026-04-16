@@ -21,11 +21,4 @@ jobs:
 
   cd-jsr:
     needs: ci
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v6
-      - if: ${{ hashFiles('jsr.json') != '' }}
-        run: npx jsr publish
+    uses: vanillaes/.github/.github/workflows/jsr.yml@main

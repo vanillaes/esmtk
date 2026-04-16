@@ -1,9 +1,6 @@
-import { match, readNPMIgnore } from '../../src/util.js'
+import { match, Package, readNPMIgnore } from '../../src/index.js'
 import { statSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
+import { dirname } from 'node:path'
 
 /**
  * Preview the package contents included during 'npm publish'
@@ -23,7 +20,7 @@ export async function preview (options) {
     .filter(path => statSync(path).isFile())
     .sort((a, b) => fileCompare(a, b))
 
-  const pkg = require(join(options.cwd, 'package.json'))
+  const pkg = new Package()
 
   console.log()
   console.log(`📦  ${pkg.name}@${pkg.version}`)

@@ -262,7 +262,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["version", "patch", "--no-git-tag-version"],
+            "args": ["version", "patch"],
             "console": "integratedTerminal",
         },
         {

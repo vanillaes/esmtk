@@ -59,6 +59,7 @@ export class PackageLock {
   }
 
   /**
+   * Name
    * @param {string} name Name
    */
   set name (name) {
@@ -74,6 +75,7 @@ export class PackageLock {
   }
 
   /**
+   * Version
    * @param {string} version Version
    */
   set version (version) {

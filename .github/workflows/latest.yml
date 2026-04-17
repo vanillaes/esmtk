@@ -10,8 +10,6 @@ on:
     tags-ignore:
       - 'v*'
 
-
 jobs:
   ci:
     uses: vanillaes/.github/.github/workflows/verify.yml@main
-

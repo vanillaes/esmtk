@@ -61,6 +61,7 @@ export class JSR {
   }
 
   /**
+   * Name
    * @param {string} name Name
    */
   set name (name) {
@@ -76,6 +77,7 @@ export class JSR {
   }
 
   /**
+   * Version
    * @param {string} version Version
    */
   set version (version) {

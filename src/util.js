@@ -1,5 +1,6 @@
-import { exec } from 'child_process'
-import { join } from 'node:path'
+import { EACCESError } from './index.js'
+import { exec } from 'node:child_process'
+import { join, resolve } from 'node:path'
 import { access, constants, glob, readFile } from 'node:fs/promises'
 import { promisify } from 'node:util'
 
@@ -7,8 +8,8 @@ const execAsync = promisify(exec)
 
 /**
  * Check if a file/folder exists
- * @param {string} path the path to the file/folder
- * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
+ * @param {string} path Path to the file/folder
+ * @returns {Promise<boolean>} True if the file/folder exists, false otherwise
  */
 export async function exists (path) {
   try {
@@ -22,8 +23,8 @@ export async function exists (path) {
 /**
  * Check if a file/folder exists
  * @deprecated
- * @param {string} path the path to the file/folder
- * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
+ * @param {string} path Path to the file/folder
+ * @returns {Promise<boolean>} True if the file/folder exists, false otherwise
  */
 export async function fileExists (path) {
   return await exists(path)
@@ -31,8 +32,8 @@ export async function fileExists (path) {
 
 /**
  * Check to see if a NPM package is installed globally
- * @param {string} pkg the name of the package
- * @returns {Promise<boolean>} true if the package is installed, false otherwise
+ * @param {string} pkg Package name
+ * @returns {Promise<boolean>} True if the package is installed, false otherwise
  */
 export async function installed (pkg) {
   try {
@@ -45,26 +46,37 @@ export async function installed (pkg) {
 
 /**
  * Match glob(s)
- * @param {string} pattern glob pattern(s) to match
- * @param {string} cwd the current working directory
- * @param {string} [ignore] glob of pattern(s) to ignore
- * @returns {Promise<string[]>} an array of paths
+ * @param {string} pattern Glob pattern(s) to match
+ * @param {string} [cwd] Current working directory
+ * @param {string} [ignore] Glob of pattern(s) to ignore
+ * @param {boolean} [unsafe] Allow file access outside of CWD
+ * @returns {Promise<string[]>} An array of paths
  */
-export async function match (pattern, cwd = process.cwd(), ignore = undefined) {
+export async function match (pattern, cwd = process.cwd(), ignore = undefined, unsafe = false) {
   const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
+  let exclude
   if (ignore) {
-    const ignores = ignore.includes(',') ? ignore.split(',') : [ignore]
-    return await Array.fromAsync(glob(patterns, { cwd, exclude: ignores }))
+    exclude = ignore.includes(',') ? ignore.split(',') : [ignore]
   }
-  return await Array.fromAsync(glob(patterns, { cwd }))
+  const files = await Array.fromAsync(glob(patterns, { cwd, exclude }))
+
+  if (!unsafe) {
+    files.forEach(file => {
+      if (!(resolve(file)).startsWith((resolve(cwd)))) {
+        throw new EACCESError(`Permission denied, traversal detected '${file}'`)
+      }
+    })
+  }
+
+  return files
 }
 
 /**
  * Read .gitignore
- * @param {string} cwd the current working directory
- * @returns {Promise<string[]>} a comma-deliminated list of ignore globs
+ * @param {string} [cwd] Current working directory
+ * @returns {Promise<string[]>} Comma-deliminated list of ignore globs
  */
-export async function readGitIgnore (cwd) {
+export async function readGitIgnore (cwd = process.cwd()) {
   const path = join(cwd, '.gitignore')
   const cwdExists = await exists(path)
   if (!cwdExists) {
@@ -79,10 +91,10 @@ export async function readGitIgnore (cwd) {
 
 /**
  * Read .npmignore
- * @param {string} cwd the current working directory
- * @returns {Promise<string>} a comma-deliminated list of ignore globs
+ * @param {string} [cwd] Current working directory
+ * @returns {Promise<string>} Comma-deliminated list of ignore globs
  */
-export async function readNPMIgnore (cwd) {
+export async function readNPMIgnore (cwd = process.cwd()) {
   const path = join(cwd, '.npmignore')
   const contents = await readFile(path, 'utf8')
   return contents
@@ -94,8 +106,8 @@ export async function readNPMIgnore (cwd) {
 
 /**
  * Check to see if an application is installed globally
- * @param {string} program the name of the application
- * @returns {Promise<boolean>} true if the application is installed, false otherwise
+ * @param {string} program Name of the application
+ * @returns {Promise<boolean>} True if the application is installed, false otherwise
  */
 export async function which (program) {
   try {

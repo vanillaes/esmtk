@@ -1,45 +1,46 @@
 /**
  * Check if a file/folder exists
- * @param {string} path the path to the file/folder
- * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
+ * @param {string} path Path to the file/folder
+ * @returns {Promise<boolean>} True if the file/folder exists, false otherwise
  */
 export function exists(path: string): Promise<boolean>;
 /**
  * Check if a file/folder exists
  * @deprecated
- * @param {string} path the path to the file/folder
- * @returns {Promise<boolean>} trie if the file/folder exists, false otherwise
+ * @param {string} path Path to the file/folder
+ * @returns {Promise<boolean>} True if the file/folder exists, false otherwise
  */
 export function fileExists(path: string): Promise<boolean>;
 /**
  * Check to see if a NPM package is installed globally
- * @param {string} pkg the name of the package
- * @returns {Promise<boolean>} true if the package is installed, false otherwise
+ * @param {string} pkg Package name
+ * @returns {Promise<boolean>} True if the package is installed, false otherwise
  */
 export function installed(pkg: string): Promise<boolean>;
 /**
  * Match glob(s)
- * @param {string} pattern glob pattern(s) to match
- * @param {string} cwd the current working directory
- * @param {string} [ignore] glob of pattern(s) to ignore
- * @returns {Promise<string[]>} an array of paths
+ * @param {string} pattern Glob pattern(s) to match
+ * @param {string} [cwd] Current working directory
+ * @param {string} [ignore] Glob of pattern(s) to ignore
+ * @param {boolean} [unsafe] Allow file access outside of CWD
+ * @returns {Promise<string[]>} An array of paths
  */
-export function match(pattern: string, cwd?: string, ignore?: string): Promise<string[]>;
+export function match(pattern: string, cwd?: string, ignore?: string, unsafe?: boolean): Promise<string[]>;
 /**
  * Read .gitignore
- * @param {string} cwd the current working directory
- * @returns {Promise<string[]>} a comma-deliminated list of ignore globs
+ * @param {string} [cwd] Current working directory
+ * @returns {Promise<string[]>} Comma-deliminated list of ignore globs
  */
-export function readGitIgnore(cwd: string): Promise<string[]>;
+export function readGitIgnore(cwd?: string): Promise<string[]>;
 /**
  * Read .npmignore
- * @param {string} cwd the current working directory
- * @returns {Promise<string>} a comma-deliminated list of ignore globs
+ * @param {string} [cwd] Current working directory
+ * @returns {Promise<string>} Comma-deliminated list of ignore globs
  */
-export function readNPMIgnore(cwd: string): Promise<string>;
+export function readNPMIgnore(cwd?: string): Promise<string>;
 /**
  * Check to see if an application is installed globally
- * @param {string} program the name of the application
- * @returns {Promise<boolean>} true if the application is installed, false otherwise
+ * @param {string} program Name of the application
+ * @returns {Promise<boolean>} True if the application is installed, false otherwise
  */
 export function which(program: string): Promise<boolean>;

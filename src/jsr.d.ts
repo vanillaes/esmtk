@@ -19,6 +19,7 @@ export class JSR {
      */
     constructor(cwd?: string);
     /**
+     * Name
      * @param {string} name Name
      */
     set name(name: string);
@@ -28,6 +29,7 @@ export class JSR {
      */
     get name(): string | undefined;
     /**
+     * Version
      * @param {string} version Version
      */
     set version(version: string);

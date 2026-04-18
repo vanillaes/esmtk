@@ -18,10 +18,10 @@
 - [init](#init) - Create a package.json file for ECMAScript module development
 - [test](#test) - Run tests (using Tape-ES)
 - [lint](#lint) - Lint the source code (using Lint-ES)
-- [type](#type) - Type check the JSDoc typings (using Typescript)
-- [bundle](#bundle) - Bundle the source code to an ECMAScript module (using ESBuild)
-- [minify](#minify) - Bundle and Minify the source code to an ECMAScript module (using ESBuild)
-- [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
+- [type](#type) - Type check the JSDoc typings ([Typescript][])
+- [bundle](#bundle) - Bundle the source code to an ECMAScript module ([ESBuild][])
+- [minify](#minify) - Bundle and Minify the source code to an ECMAScript module ([ESBuild][])
+- [typings](#typings) - Generate Type Declarations (.d.ts) from JSDoc ([Typescript][])
 - [clean](#clean) - Clean up build artifacts
 - [preview](#preview) - Preview the package contents included during `npm publish`
 - [version](#version) - Bump the package version and tag the release in Git
@@ -35,7 +35,7 @@ Create a package.json file for ECMAScript module development
 
 `esmtk init [...options]`
 
-- `--scripts` - Include ESMTK scripts?
+- `--scripts` - Include the ESMTK scripts?
 
 ### Usage
 
@@ -57,8 +57,8 @@ Run tests (using Tape-ES)
 `esmtk test [...options] [glob]`
 
 - `[glob]` - Glob(s) used to locate test files (default: `**/*.spec.js`)
-- `--cwd <dir>` - The current working directory (default `process.cwd()`)
-- `--ignore <pattern<s>>` - Glob(s) to ignore (default `**/node_modules/**`)
+- `--cwd <dir>` - The current working directory
+- `--ignore <pattern(s)>` - Glob(s) to ignore (default: `**/node_modules/**`)
 - `--watch` - Watch for changes to the test(s)
 
 ### Usage
@@ -89,9 +89,11 @@ Lint the source code (using Lint-ES)
 
 `esmtk lint [...options]`
 
-- `--cwd <dir>` - Current working directory (default `process.cwd()`)
+- `--cwd <dir>` - Current working directory
 - `--fix` - Automatically fix problems
 - `--ignore <pattern(s)>` - File(s) to ignore
+
+*Note: By default `lint-es` ignores `node_modules/`, `coverage/`, `vendor/`, `*.min.js`, hidden files, and files included in `.gitignore`.*
 
 ### Usage
 
@@ -112,13 +114,13 @@ esmtk lint --ignore src/
 
 ## Type
 
-Type check the JSDoc typings (using Typescript)
+Type check the JSDoc typings ([Typescript][])
 
 ### Arguments
 
 `esmtk type [...options] [entry]`
 
-- `[entry]` - Entry-point for the source (default: `[entry-poiont].js`)
+- `[entry]` - Entry-point for the source (default: `[entry-point].js`)
 - `--module <type>` - Module resolution type (default `esnext`)
 - `--strict` - Enable 'strict mode' type checks
 - `--types <type(s)>` - Specify type package names to include (ex `node` for `@types/node`)
@@ -144,15 +146,15 @@ esmtk type --types node index.js
 
 ## Bundle
 
-Bundle the source code to an ECMAScript module (using ESBuild)
+Bundle the source code to an ECMAScript module ([ESBuild][])
 
 ### Arguments
 
 `esmtk bundle [...options] [input] [output]`
 
-- `[input]` - Input source file path (default: `[entry-poiont].js`)
+- `[input]` - Input source file path (default: `[entry-point].js`)
 - `[output]` - Output bundle file path (default: `[entry-point].esm.js`)
-- `--platform <target>` - Target platform (ex `node`)
+- `--platform <target>` - Target platform (ex `neutral`). See [ESBuilt API - Platform][]
 
 ### Usage
 
@@ -167,16 +169,16 @@ esmtk bundle --platform=node src/sample.js bundle.js
 
 ## Minify
 
-Bundle and Minify the source code to an ECMAScript module (using ESBuild)
+Bundle and Minify the source code to an ECMAScript module ([ESBuild][])
 
 ### Arguments
 
 `esmtk minify [...options] [input] [output]`
 
-- `[input]` - Input source file path (default: `[entry-poiont].js`)
-- `[output]` - Output minified bundle file path (default: `[entry-poiont].min.js`)
-- `--platform <target>` - Target platform (ex `node`)
-- `--sourcemap` - Generate a source map for the minified bundle
+- `[input]` - Input source file path (default: `[entry-point].js`)
+- `[output]` - Output minified bundle file path (default: `[entry-point].min.js`)
+- `--platform <target>` - Target platform (default: `neutral`). See [ESBuilt API - Platform][]
+- `--sourcemap` - Generate a source map for the minified bundle. See [ESBuild API - Sourcemap][]
 
 ### Usage
 
@@ -194,13 +196,13 @@ esmtk minify --sourcemap src/sample.js bundle.min.js
 
 ## Typings
 
-Generate Type Declarations (.d.ts) from JSDoc (using Typescript)
+Generate Type Declarations (.d.ts) from JSDoc ([Typescript][])
 
 ### Arguments
 
 `esmtk typings [options...] [entry]`
 
-- `[entry]` - Entry-point for the source (default: `[entry-poiont].js`)
+- `[entry]` - Entry-point for the source (default: `[entry-point].js`)
 - `--module <type>` - Module resolution type (default `esnext`)
 - `--types <type(s)>` - Specify type package names to include (ex `node` for `@types/node`)
 
@@ -224,9 +226,8 @@ Clean up build artifacts
 
 ### Arguments
 
-`esmtk clean [...options] [cwd]`
+`esmtk clean [...options]`
 
-- `[cwd]` - Current working directory (default: `process.cwd()`)
 - `--bundle` - Clean bundled build artifacts (default: `**/*.esm.js`)
 - `--minify` - Clean minified build artifacts (default: `**/*.min.js`)
 - `--typings` - Clean typing artifacts (default: `**/*.d.ts`)
@@ -288,7 +289,7 @@ Steps:
 - `[release]` - `major` | `minor` | `patch` | `premajor` | `preminor` | `prepatch` | `prerelease` | `<version>`
 - `--cwd <dir>` - Current working directory
 - `--no-git-tag-version` - Tag the version in git? (default: true)
-- `--message <message>` - Git commit message (%s is replaced with the version number in the message)
+- `--message <message>` - GGit commit message, `%s` will be replace with the version number (default: v%s)
 - `--preid <id>` - Pre-release identifier (ex "rc" -> 1.2.0-rc.8)
 
 ### Usage
@@ -315,3 +316,8 @@ esmtk version patch --message "Release %s"
 # Bump the patch version (add the prerelease id, ex "rc" -> 1.2.0-rc.8)
 esmtk version patch --preid rc
 ```
+
+[ESBuild]: https://esbuild.github.io/
+[ESBuilt API - Platform]: https://esbuild.github.io/api/#platform
+[ESBuild API - Sourcemap]: https://esbuild.github.io/api/#sourcemap
+[Typescript]: https://www.typescriptlang.org/

@@ -16,9 +16,9 @@ program.command('init')
 
 program.command('test')
   .description('Run tests using Tape-ES')
-  .argument('[glob]', 'glob(s) used to locate test files', '**/*.spec.js')
-  .option('--cwd <cwd>', 'current working directory', process.cwd())
-  .option('--ignore <ignore>', 'glob(s) to ignore', '**/node_modules/**')
+  .argument('[glob]', 'glob(s) used to locate test files (default: **/*.spec.js')
+  .option('--cwd <cwd>', 'current working directory')
+  .option('--ignore <ignore>', 'glob(s) to ignore (default: **/node_modules/**')
   .option('--watch', 'watch for changes to tests')
   .action((glob, options) => {
     test(glob, options)
@@ -26,7 +26,7 @@ program.command('test')
 
 program.command('lint')
   .description('Lint the source using Lint-ES')
-  .option('--cwd <cwd>', 'current working directory', process.cwd())
+  .option('--cwd <cwd>', 'current working directory')
   .option('--fix', 'automatically fix problems')
   .option('--ignore <ignore>', 'file(s) to ignore')
   .action((options) => {
@@ -38,7 +38,7 @@ program.command('type')
   .argument('[entry]', 'entry-point for the source (default: [entry-point].js')
   .option('--module <module>', 'module resolution type', 'esnext')
   .option('--strict', 'enable \'strict mode\' type checks')
-  .option('--types <types>', 'specify type package names to include (ex `node` for `@types/node`)')
+  .option('--types <types>', 'specify type package names to include (ex `node` includes `@types/node`)')
   .action((entry, options) => {
     type(entry, options)
   })
@@ -47,7 +47,7 @@ program.command('bundle')
   .description('Bundle the source using ESBuild')
   .argument('[input]', 'Input source file path (default: [entry-point].js')
   .argument('[output]', 'Output bundle file path (default: [entry-point].esm.js')
-  .option('--platform <platform>', 'target platform (ex node)')
+  .option('--platform <platform>', 'target platform (default: neutral)')
   .action((input, output, options) => {
     bundle(input, output, options)
   })
@@ -73,13 +73,12 @@ program.command('typings')
 
 program.command('clean')
   .description('Clean build artificts')
-  .argument('[cwd]', 'Current working directory', process.cwd())
+  .option('--cwd <cwd>', 'current working directory')
   .option('--bundle [bundle]', 'Clean bundled build artifacts (default: **/*.esm.js)')
   .option('--minify [minify]', 'Clean minified build artifacts (default: **/*.min.js)')
   .option('--typings [typings]', 'Clean typing artifacts (default: **/*.d.ts)')
   .option('--custom <custom>', 'Clean based on a user-defined pattern')
-  // .option('-f, --force', 'Ignore errors', false)
-  .action((cwd, options) => {
+  .action((options) => {
     // set --bundle default
     if (options?.bundle && typeof (options.bundle) === 'boolean') {
       options.bundle = '**/*.esm.js'
@@ -93,7 +92,7 @@ program.command('clean')
       options.typings = '**/*.d.ts'
     }
 
-    clean(cwd, options)
+    clean(options)
   })
 
 program.command('preview')
@@ -106,9 +105,9 @@ program.command('preview')
 program.command('version')
   .description('Bump the package version and tag the release in Git')
   .argument('<release>', 'major | minor | patch | premajor | preminor | prepatch | prerelease | <version>')
-  .option('--cwd <cwd>', 'Current working directory', process.cwd())
+  .option('--cwd <cwd>', 'Current working directory')
   .option('--no-git-tag-version', 'Tag the version in git? (default: true)')
-  .option('--message <message>', 'Git commit message (%s is replaced with the version number in the message)')
+  .option('--message <message>', 'Git commit message, %s will be replace with the version number (default: v%s)')
   .option('--preid <preid>', 'Pre-release identifier (ex "rc" -> 1.2.0-rc.8)')
 
   .action((release, options) => {

@@ -5,13 +5,17 @@ import { dirname } from 'node:path'
 /**
  * Preview the package contents included during 'npm publish'
  * @param {object} options 'preview' options
- * @param {string} options.cwd Current working directory
+ * @param {string} [options.cwd] Current working directory
  */
 export async function preview (options) {
-  let ignore = await readNPMIgnore(options.cwd)
+  const {
+    cwd = process.cwd()
+  } = options
+
+  let ignore = await readNPMIgnore(cwd)
   ignore = `${ignore},node_modules/,package-lock.json`
 
-  let files = await match('**/*', options.cwd, ignore)
+  let files = await match('**/*', cwd, ignore)
   if (files.length === 0) {
     console.log('preview: no files found')
     return

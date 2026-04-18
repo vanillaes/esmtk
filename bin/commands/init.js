@@ -10,10 +10,14 @@ const execAsync = promisify(exec)
 
 /**
  * Create a package.json file for ECMAScript Development
- * @param {object} options 'init' options
- * @param {boolean} options.scripts Include ESMTK scripts?
+ * @param {object} [options] 'init' options
+ * @param {boolean} [options.scripts] Include ESMTK scripts?
  */
-export async function init (options) {
+export async function init (options = {}) {
+  const {
+    scripts
+  } = options
+
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -86,7 +90,7 @@ export async function init (options) {
     pkg.exports = {}
     pkg.exports['.'] = `./${entry}`
   }
-  if (options?.scripts) {
+  if (scripts) {
     pkg.scripts = {}
     pkg.scripts.test = 'esmtk test'
     pkg.scripts.lint = 'esmtk lint'

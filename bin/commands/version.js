@@ -19,13 +19,14 @@ const VALID_RELEASES = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prep
  * @param {object} options 'version' options
  * @param {string|undefined} [options.cwd] Current working directory
  * @param {boolean|undefined} [options.gitTagVersion] Tag the version in git?
- * @param {string|undefined} [options.message] Git commit message (%s is replaced with the version number in the message)
+ * @param {string|undefined} [options.message] Git commit message, %s will be replace with the version number (default: v%s)
  * @param {string|undefined} [options.preid] Pre-release identifier (ex 'rc' -> 1.2.0-rc.8)
  */
 export async function version (release, options = {}) {
   const {
     cwd = process.cwd(),
     gitTagVersion = true,
+    message = 'v%s',
   } = options
 
   if (!release) {
@@ -49,14 +50,14 @@ export async function version (release, options = {}) {
 
   let next
   try {
-    next = await npmVersion(release, options)
+    next = await npmVersion(release, cwd)
   } catch (error) {
     console.error(error)
     process.exit(1)
   }
 
   try {
-    await jsrVersion(next, options)
+    await jsrVersion(next, cwd)
   } catch (error) {
     console.error(error)
     process.exit(1)
@@ -76,7 +77,7 @@ export async function version (release, options = {}) {
   }
 
   try {
-    await gitVersion(next, options)
+    await gitVersion(next, message)
   } catch (error) {
     console.error(error)
     process.exit(1)
@@ -97,17 +98,11 @@ export async function version (release, options = {}) {
  * Bump the NPM Version
  * @private
  * @param {string} release Release type/number
- * @param {object} options 'npmVersion' options
- * @param {string|undefined} [options.cwd] Current working directory
- * @param {string} [options.preid] Pre-release identifier (ex 'rc' -> 1.2.0-rc.8)
+ * @param {string} [cwd] Current working directory
+ * @param {string | undefined} [preid] Pre-release identifier (ex 'rc' -> 1.2.0-rc.8)
  * @returns {Promise<string>} Next version
  */
-async function npmVersion (release, options = {}) {
-  const {
-    cwd = process.cwd(),
-    preid,
-  } = options
-
+async function npmVersion (release, cwd = process.cwd(), preid) {
   // 'package.json'
   const pkgExists = await exists(resolve(cwd, 'package.json'))
   if (!pkgExists) {
@@ -137,14 +132,9 @@ async function npmVersion (release, options = {}) {
  * Bump the JSR Version
  * @private
  * @param {string} release Release type/number
- * @param {object} options 'jsrVersion' options
- * @param {string|undefined} [options.cwd] Current working directory
+ * @param {string} [cwd] Current working directory
  */
-async function jsrVersion (release, options = {}) {
-  const {
-    cwd = process.cwd(),
-  } = options
-
+async function jsrVersion (release, cwd = process.cwd()) {
   // 'jsr.json'
   const jsrExists = await exists(resolve(cwd, 'jsr.json'))
   if (!jsrExists) {
@@ -159,16 +149,10 @@ async function jsrVersion (release, options = {}) {
  * Tag and commit the version in Git
  * @private
  * @param {string} release Release type/number
- * @param {object} options 'gitVersion' options
- * @param {string|undefined} [options.cwd] Current working directory
- * @param {string|undefined} [options.message] Git commit message (%s is replaced with the version number in the message)
+ * @param {string} [message] Git commit message (%s is replaced with the version number in the message)
+ * @param {string} [cwd] Current working directory
  */
-async function gitVersion (release, options = {}) {
-  const {
-    cwd = process.cwd(),
-    message = 'v%s',
-  } = options
-
+async function gitVersion (release, message = 'v%s', cwd = process.cwd()) {
   const filesToAdd = []
   const pkgExists = await exists(resolve(cwd, 'package.json'))
   if (pkgExists) {
@@ -301,20 +285,20 @@ function incrementVersion (current, release, preid) {
  * Run a git command, returning stdout (trimmed). Throws on non-zero exit.
  * @private
  * @param {string} args Arguments
- * @param {string} cwd Current working directory
+ * @param {string} [cwd] Current working directory
  * @returns {string} Returns stdout/stderr output
  */
-function git (args, cwd) {
+function git (args, cwd = process.cwd()) {
   return execSync(`git ${args}`, { cwd, stdio: ['ignore', 'pipe', 'pipe'] }).toString().trim()
 }
 
 /**
  * Is this a git repository?
  * @private
- * @param {string} cwd Current working directory
+ * @param {string} [cwd] Current working directory
  * @returns {boolean} Returns true if this package is a git repo, otherwise false.
  */
-function isGitRepo (cwd) {
+function isGitRepo (cwd = process.cwd()) {
   try {
     git('rev-parse --is-inside-work-tree', cwd)
     return true
@@ -325,10 +309,10 @@ function isGitRepo (cwd) {
 
 /**
  * Is the git working tree clean of uncommitted changes?
- * @param {string} cwd Current working directory
+ * @param {string} [cwd] Current working directory
  * @returns {boolean} Returns true if the working tree is clean, otherwise false
  */
-function isWorkingTreeClean (cwd) {
+function isWorkingTreeClean (cwd = process.cwd()) {
   const out = git('status --porcelain', cwd)
   return out.length === 0
 }

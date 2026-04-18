@@ -6,9 +6,15 @@ import { spawn } from 'child_process'
  * @param {string} [input] Input source file path
  * @param {string} [output] Output bundle file path
  * @param {object} [options] 'bundle' options
+ * @param {string} [options.cwd] Current working directory
  * @param {string} [options.platform] Target platform
  */
 export async function bundle (input = '', output = '', options = {}) {
+  const {
+    cwd = process.cwd(),
+    platform = 'neutral'
+  } = options
+
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -37,16 +43,13 @@ export async function bundle (input = '', output = '', options = {}) {
   const args = []
   args.push('--bundle')
   args.push('--format=esm')
-  if (options?.platform) {
-    args.push(`--platform=${options?.platform}`)
+  if (platform) {
+    args.push(`--platform=${platform}`)
   }
   args.push(input)
   args.push(`--outfile=${output}`)
 
-  const child = spawn('esbuild', args, {
-    cwd: process.cwd(),
-    stdio: ['pipe', process.stdout, process.stderr]
-  })
+  const child = spawn('esbuild', args, { cwd, stdio: ['pipe', process.stdout, process.stderr] })
 
   // handle errors
   child.on('error', error => {

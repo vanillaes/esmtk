@@ -85,11 +85,7 @@ async function execScript (script, cwd, env) {
   const args = [...cmdParts, ...extraArgs]
 
   return new Promise((resolve, reject) => {
-    const child = spawn(cmd, [...args], {
-      cwd,
-      env,
-      stdio: 'inherit'
-    })
+    const child = spawn(cmd, [...args], { cwd, env, stdio: 'inherit' })
     child.on('error', reject)
     child.on('exit', (/** @type {number} */ code) => resolve(code ?? 0))
   })

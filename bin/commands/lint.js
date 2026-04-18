@@ -6,28 +6,31 @@ const BIN_PATH = join(process.cwd(), 'node_modules', '.bin', 'lint-es')
 /**
  * Lint the source code (using Lint-ES)
  * @param {object} options 'lint' options
- * @param {string} options.cwd Current working directory
- * @param {boolean} options.fix Automatically fix problems
- * @param {string} options.ignore File(s) to ignore
+ * @param {string} [options.cwd] Current working directory
+ * @param {boolean} [options.fix] Automatically fix problems
+ * @param {string} [options.ignore] File(s) to ignore
  */
-export async function lint (options) {
+export async function lint (options = {}) {
+  const {
+    cwd = process.cwd(),
+    fix,
+    ignore
+  } = options
+
   const args = []
-  if (options?.cwd) {
+  if (options.cwd) {
     args.push('--cwd')
-    args.push(options.cwd)
+    args.push(cwd)
   }
-  if (options?.fix) {
+  if (fix) {
     args.push('--fix')
   }
-  if (options?.ignore) {
+  if (ignore) {
     args.push('--ignore')
-    args.push(options.ignore)
+    args.push(ignore)
   }
 
-  const child = spawn(BIN_PATH, args, {
-    cwd: process.cwd(),
-    stdio: ['pipe', 'pipe', 'pipe']
-  })
+  const child = spawn(BIN_PATH, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'] })
 
   child.stdout.on('data', (data) => {
     process.stdout.write(`${data}`)

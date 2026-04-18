@@ -6,10 +6,17 @@ import { spawn } from 'child_process'
  * @param {string} [input] the input path
  * @param {string} [output] the output path
  * @param {object} [options] 'minify' options
+ * @param {string} [options.cwd] Current working directory
  * @param {string} [options.platform] Target platform
  * @param {boolean} [options.sourcemap] Generate a source map for the minified bundle
  */
 export async function minify (input = '', output = '', options = {}) {
+  const {
+    cwd = process.cwd(),
+    platform = 'neutral',
+    sourcemap = false
+  } = options
+
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -39,19 +46,16 @@ export async function minify (input = '', output = '', options = {}) {
   args.push('--bundle')
   args.push('--format=esm')
   args.push('--minify')
-  if (options?.platform) {
-    args.push(`--platform=${options?.platform}`)
+  if (platform) {
+    args.push(`--platform=${platform}`)
   }
-  if (options?.sourcemap) {
+  if (sourcemap) {
     args.push('--sourcemap')
   }
   args.push(input)
   args.push(`--outfile=${output}`)
 
-  const child = spawn('esbuild', args, {
-    cwd: process.cwd(),
-    stdio: ['pipe', process.stdout, process.stderr]
-  })
+  const child = spawn('esbuild', args, { cwd, stdio: ['pipe', process.stdout, process.stderr] })
 
   // handle errors
   child.on('error', error => {

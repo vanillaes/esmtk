@@ -5,11 +5,19 @@ import { spawn } from 'child_process'
  * Generate Typescript typings from JSDoc
  * @param {string} [entry] the entry point
  * @param {object} [options] 'typings' options
+ * @param {string} [options.cwd] Current working directory
  * @param {string} [options.module] Module resolution type
  * @param {boolean} [options.strict] Enable 'strict mode' type checks
  * @param {string} [options.types] Specify type package names to include
  */
 export async function typings (entry = '', options = {}) {
+  const {
+    cwd = process.cwd(),
+    module,
+    strict,
+    types
+  } = options
+
   const npmExists = await which('npm')
   if (!npmExists) {
     console.error('npm not found')
@@ -39,21 +47,21 @@ export async function typings (entry = '', options = {}) {
   args.push('--checkJS')
   args.push('--declaration')
   args.push('--emitDeclarationOnly')
-  if (options?.module) {
+  if (module) {
     args.push('--module')
-    args.push(options.module)
+    args.push(module)
   }
   args.push('--noEmitOnError')
   args.push('--skipLibCheck')
-  if (options?.types) {
+  if (strict) {
+    args.push('--strict')
+  }
+  if (types) {
     args.push('--types')
-    args.push(options.types)
+    args.push(types)
   }
 
-  const child = spawn('tsc', args, {
-    cwd: process.cwd(),
-    stdio: ['pipe', process.stdout, process.stderr]
-  })
+  const child = spawn('tsc', args, { cwd, stdio: ['pipe', process.stdout, process.stderr] })
 
   // handle errors
   child.on('error', error => {

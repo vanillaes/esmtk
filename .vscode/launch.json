@@ -26,6 +26,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Init --scripts",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/esmtk.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["init", "--scripts"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Test",
             "type": "node",
             "request": "launch",
@@ -262,7 +274,7 @@
             ],
             "program": "${workspaceFolder}/bin/esmtk.js",
             "cwd": "${workspaceFolder}",
-            "args": ["version", "patch"],
+            "args": ["version", "--no-git-tag-version", "patch"],
             "console": "integratedTerminal",
         },
         {

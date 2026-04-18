@@ -89,6 +89,7 @@ Lint the source code ([Lint-ES][])
 
 `esmtk lint [...options]`
 
+- `[files]` - File(s)/glob(s) to lint (default: `**/*.js`)
 - `--cwd <dir>` - Current working directory
 - `--fix` - Automatically fix problems
 - `--ignore <pattern(s)>` - File(s) to ignore

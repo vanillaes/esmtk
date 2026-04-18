@@ -26,11 +26,12 @@ program.command('test')
 
 program.command('lint')
   .description('Lint the source using Lint-ES')
+  .argument('[files]', 'File(s)/glob(s) to lint (default: **/*.js)')
   .option('--cwd <cwd>', 'current working directory')
   .option('--fix', 'automatically fix problems')
   .option('--ignore <ignore>', 'file(s) to ignore')
-  .action((options) => {
-    lint(options)
+  .action((files, options) => {
+    lint(files, options)
   })
 
 program.command('type')

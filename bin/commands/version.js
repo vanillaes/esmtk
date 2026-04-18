@@ -19,7 +19,6 @@ const VALID_RELEASES = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prep
  * @param {object} options 'version' options
  * @param {boolean|undefined} [options.allowSameVersion] Allow the same version
  * @param {string|undefined} [options.cwd] Current working directory
- * @param {boolean|undefined} [options.force] Commit even if the working directory is not clean
  * @param {boolean|undefined} [options.gitTagVersion] Tag the version in git?
  * @param {string|undefined} [options.message] Git commit message (%s is replaced with the version number in the message)
  * @param {string|undefined} [options.preid] Pre-release identifier (ex 'rc' -> 1.2.0-rc.8)
@@ -28,7 +27,6 @@ export async function version (release, options = {}) {
   const {
     cwd = process.cwd(),
     gitTagVersion = true,
-    force = false,
   } = options
 
   if (!release) {
@@ -36,7 +34,7 @@ export async function version (release, options = {}) {
   }
 
   const useGit = gitTagVersion && isGitRepo(cwd)
-  if (useGit && !force && !isWorkingTreeClean(cwd)) {
+  if (useGit && !isWorkingTreeClean(cwd)) {
     throw new Error('version: Git working directory not clean.')
   }
 

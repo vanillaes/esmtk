@@ -311,9 +311,6 @@ esmtk version patch --allow-same-version
 # Bump the patch version (change the current working directory)
 esmtk version patch --cwd src/
 
-# Bump the patch version (even if the working directory contains uncommitted changes)
-esmtk version patch --force
-
 # Bump the patch version (don't tag the release in git)
 esmtk version patch --no-git-tag-version
 

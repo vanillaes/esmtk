@@ -286,9 +286,7 @@ Steps:
 `esmtk version [...options] [release]`
 
 - `[release]` - `major` | `minor` | `patch` | `premajor` | `preminor` | `prepatch` | `prerelease` | `<version>`
-- `--allow-same-version` - Allow the version if it already exists (default: false)
 - `--cwd <dir>` - Current working directory
-- `--force` - Commit even if the working directory is not clean (default: false)
 - `--no-git-tag-version` - Tag the version in git? (default: true)
 - `--message <message>` - Git commit message (%s is replaced with the version number in the message)
 - `--preid <id>` - Pre-release identifier (ex "rc" -> 1.2.0-rc.8)
@@ -304,9 +302,6 @@ esmtk version major
 
 # Bump the patch version
 esmtk version major
-
-# Bump the patch version (with a version that already exists)
-esmtk version patch --allow-same-version
 
 # Bump the patch version (change the current working directory)
 esmtk version patch --cwd src/

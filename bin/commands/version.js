@@ -17,7 +17,6 @@ const VALID_RELEASES = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prep
  * Bump the package version and tag the release in Git
  * @param {string} release major | minor | patch | premajor | preminor | prepatch | prerelease | <version>
  * @param {object} options 'version' options
- * @param {boolean|undefined} [options.allowSameVersion] Allow the same version
  * @param {string|undefined} [options.cwd] Current working directory
  * @param {boolean|undefined} [options.gitTagVersion] Tag the version in git?
  * @param {string|undefined} [options.message] Git commit message (%s is replaced with the version number in the message)
@@ -99,7 +98,6 @@ export async function version (release, options = {}) {
  * @private
  * @param {string} release Release type/number
  * @param {object} options 'npmVersion' options
- * @param {boolean|undefined} [options.allowSameVersion] Allow the same version
  * @param {string|undefined} [options.cwd] Current working directory
  * @param {string} [options.preid] Pre-release identifier (ex 'rc' -> 1.2.0-rc.8)
  * @returns {Promise<string>} Next version
@@ -108,7 +106,6 @@ async function npmVersion (release, options = {}) {
   const {
     cwd = process.cwd(),
     preid,
-    allowSameVersion = false,
   } = options
 
   // 'package.json'
@@ -119,8 +116,8 @@ async function npmVersion (release, options = {}) {
   const pkg = new Package(cwd)
   const current = pkg.version || '0.0.0'
   const next = incrementVersion(current, release, preid)
-  if (next === current && !allowSameVersion) {
-    throw new Error('version: Version not changed, might want --allow-same-version')
+  if (next === current) {
+    throw new Error('version: Version not changed')
   }
   pkg.version = next
   pkg.save()

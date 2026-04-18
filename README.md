@@ -16,8 +16,8 @@
 ## Commands
 
 - [init](#init) - Create a package.json file for ECMAScript module development
-- [test](#test) - Run tests (using Tape-ES)
-- [lint](#lint) - Lint the source code (using Lint-ES)
+- [test](#test) - Run tests ([Tape-ES][])
+- [lint](#lint) - Lint the source code ([Lint-ES][])
 - [type](#type) - Type check the JSDoc typings ([Typescript][])
 - [bundle](#bundle) - Bundle the source code to an ECMAScript module ([ESBuild][])
 - [minify](#minify) - Bundle and Minify the source code to an ECMAScript module ([ESBuild][])
@@ -50,7 +50,7 @@ npx @vanillaes/esmtk init --scripts
 
 ## Test
 
-Run tests (using Tape-ES)
+Run tests ([Tape-ES][])
 
 ### Arguments
 
@@ -83,7 +83,7 @@ esmtk test --watch
 
 ## Lint
 
-Lint the source code (using Lint-ES)
+Lint the source code ([Lint-ES][])
 
 ### Arguments
 
@@ -121,9 +121,9 @@ Type check the JSDoc typings ([Typescript][])
 `esmtk type [...options] [entry]`
 
 - `[entry]` - Entry-point for the source (default: `[entry-point].js`)
-- `--module <type>` - Module resolution type (default `esnext`)
-- `--strict` - Enable 'strict mode' type checks
-- `--types <type(s)>` - Specify type package names to include (ex `node` for `@types/node`)
+- `--module <type>` - Module resolution type (default `esnext`). See [`tsc`][]
+- `--strict` - Enable 'strict mode' type checks. See [`tsc`][]
+- `--types <type(s)>` - Specify type package names to include (ex `node` for `@types/node`). See [`tsc`][]
 
 ### Usage
 
@@ -141,7 +141,7 @@ esmtk type --strict index.js
 esmtk type --types node index.js
 ```
 
-**Node: Due to Typescript limitations, inline JSDoc typings will be ignored if typings (ie `*.d.ts` files) exist.**
+**Note: Due to Typescript limitations, inline JSDoc typings will be ignored if typings (ie `*.d.ts` files) exist.**
 
 
 ## Bundle
@@ -154,7 +154,7 @@ Bundle the source code to an ECMAScript module ([ESBuild][])
 
 - `[input]` - Input source file path (default: `[entry-point].js`)
 - `[output]` - Output bundle file path (default: `[entry-point].esm.js`)
-- `--platform <target>` - Target platform (ex `neutral`). See [ESBuilt API - Platform][]
+- `--platform <target>` - Target platform (ex `neutral`). See [`esbuild --platform`][]
 
 ### Usage
 
@@ -177,8 +177,8 @@ Bundle and Minify the source code to an ECMAScript module ([ESBuild][])
 
 - `[input]` - Input source file path (default: `[entry-point].js`)
 - `[output]` - Output minified bundle file path (default: `[entry-point].min.js`)
-- `--platform <target>` - Target platform (default: `neutral`). See [ESBuilt API - Platform][]
-- `--sourcemap` - Generate a source map for the minified bundle. See [ESBuild API - Sourcemap][]
+- `--platform <target>` - Target platform (default: `neutral`). See [`esbuild --platform`][]
+- `--sourcemap` - Generate a source map for the minified bundle. See [`esbuild --sourcemap`][]
 
 ### Usage
 
@@ -203,8 +203,9 @@ Generate Type Declarations (.d.ts) from JSDoc ([Typescript][])
 `esmtk typings [options...] [entry]`
 
 - `[entry]` - Entry-point for the source (default: `[entry-point].js`)
-- `--module <type>` - Module resolution type (default `esnext`)
-- `--types <type(s)>` - Specify type package names to include (ex `node` for `@types/node`)
+- `--module <type>` - Module resolution type (default `esnext`). See [`tsc`][]
+- `--strict` - Enable 'strict mode' type checks. See [`tsc`][]
+- `--types <type(s)>` - Specify type package names to include (ex `node` for `@types/node`). See [`tsc`][]
 
 ### Usage
 
@@ -214,6 +215,9 @@ esmtk typings index.js
 
 # generate .d.ts files for all linked source files (with 'node' module resolution)
 esmtk typings --module nodenext index.js
+
+# generate .d.ts files for all linked source files (with 'strict mode' enabled)
+esmtk typings --strict index.js
 
 # generate .d.ts files for all linked source files (with '@types/node' typings included)
 esmtk typings --types node index.js
@@ -246,7 +250,7 @@ esmtk clean --bundle *.mjs
 esmtk clean --custom *.scss.css
 ```
 
-**Node: The `clean` command automatically ignores the contents of `node_modules/`**
+**Note: The `clean` command automatically ignores the contents of `node_modules/`**
 
 
 ## Preview
@@ -269,6 +273,7 @@ esmtk preview
 esmtk preview --cwd some/other/dir
 ```
 
+
 ## Version
 
 Bump the package version and tag the release in Git
@@ -289,7 +294,7 @@ Steps:
 - `[release]` - `major` | `minor` | `patch` | `premajor` | `preminor` | `prepatch` | `prerelease` | `<version>`
 - `--cwd <dir>` - Current working directory
 - `--no-git-tag-version` - Tag the version in git? (default: true)
-- `--message <message>` - GGit commit message, `%s` will be replace with the version number (default: v%s)
+- `--message <message>` - Git commit message, `%s` will be replace with the version number (default: v%s)
 - `--preid <id>` - Pre-release identifier (ex "rc" -> 1.2.0-rc.8)
 
 ### Usage
@@ -318,6 +323,12 @@ esmtk version patch --preid rc
 ```
 
 [ESBuild]: https://esbuild.github.io/
-[ESBuilt API - Platform]: https://esbuild.github.io/api/#platform
-[ESBuild API - Sourcemap]: https://esbuild.github.io/api/#sourcemap
+[`esbuild --platform`]: https://esbuild.github.io/api/#platform
+[`esbuild --sourcemap`]: https://esbuild.github.io/api/#sourcemap
+[Lint-ES]: https://github.com/vanillaes/lint-es
+[Tape-ES]: https://github.com/vanillaes/tape-es
 [Typescript]: https://www.typescriptlang.org/
+[`tsc`]: https://www.typescriptlang.org/docs/handbook/compiler-options.html
+[`tsc --module`]: https://www.typescriptlang.org/docs/handbook/compiler-options.html#module
+[`tsc --strict`]: https://www.typescriptlang.org/docs/handbook/compiler-options.html#strict
+[`tsc --types`]: https://www.typescriptlang.org/docs/handbook/compiler-options.html#types

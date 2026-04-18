@@ -17,10 +17,10 @@ const VALID_RELEASES = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prep
  * Bump the package version and tag the release in Git
  * @param {string} release major | minor | patch | premajor | preminor | prepatch | prerelease | <version>
  * @param {object} options 'version' options
- * @param {string|undefined} [options.cwd] Current working directory
- * @param {boolean|undefined} [options.gitTagVersion] Tag the version in git?
- * @param {string|undefined} [options.message] Git commit message, %s will be replace with the version number (default: v%s)
- * @param {string|undefined} [options.preid] Pre-release identifier (ex 'rc' -> 1.2.0-rc.8)
+ * @param {string} [options.cwd] Current working directory
+ * @param {boolean} [options.gitTagVersion] Tag the version in git?
+ * @param {string} [options.message] Git commit message, %s will be replace with the version number (default: v%s)
+ * @param {string} [options.preid] Pre-release identifier (ex 'rc' -> 1.2.0-rc.8)
  */
 export async function version (release, options = {}) {
   const {

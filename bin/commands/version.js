@@ -16,7 +16,7 @@ const VALID_RELEASES = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prep
 /**
  * Bump the package version and tag the release in Git
  * @param {string} release major | minor | patch | premajor | preminor | prepatch | prerelease | <version>
- * @param {object} options 'version' options
+ * @param {object} [options] 'version' options
  * @param {string} [options.cwd] Current working directory
  * @param {boolean} [options.gitTagVersion] Tag the version in git?
  * @param {string} [options.message] Git commit message, %s will be replace with the version number (default: v%s)

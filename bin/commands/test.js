@@ -1,8 +1,9 @@
 import { spawn } from 'child_process'
+import { join } from 'path'
 
 /**
  * Test runnner using Tape-ES
- * @param {string} glob the glob to match test files
+ * @param {string} [glob] the glob to match test files
  * @param {object} [options] 'test' options
  * @param {string} [options.cwd] Current working directory
  * @param {string} [options.ignore] File(s) to ignore
@@ -15,8 +16,8 @@ export async function test (glob = '**/*.spec.js', options = {}) {
     watch
   } = options
 
+  const command = join(process.cwd(), 'node_modules', '.bin', 'tape-es')
   const args = []
-  args.push('./node_modules/.bin/tape-es')
   args.push(glob)
   if (options.cwd) {
     args.push('--cwd')
@@ -30,7 +31,7 @@ export async function test (glob = '**/*.spec.js', options = {}) {
     args.push('--watch')
   }
 
-  const child = spawn('node', args, { cwd, stdio: ['pipe', 'pipe', 'pipe'] })
+  const child = spawn(command, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'] })
 
   child.stdout.on('data', (data) => {
     process.stdout.write(`${data}`)

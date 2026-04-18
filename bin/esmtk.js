@@ -16,7 +16,7 @@ program.command('init')
 
 program.command('test')
   .description('Run tests using Tape-ES')
-  .argument('[glob]', 'glob(s) used to locate test files (default: **/*.spec.js')
+  .argument('[glob]', 'glob(s) used to locate test files (default: **/*.spec.js)')
   .option('--cwd <cwd>', 'current working directory')
   .option('--ignore <ignore>', 'glob(s) to ignore (default: **/node_modules/**')
   .option('--watch', 'watch for changes to tests')

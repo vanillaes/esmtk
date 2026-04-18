@@ -6,7 +6,7 @@
 
 <div align="center">
   <a href="https://github.com/vanillaes/esmtk/releases"><img src="https://badgen.net/github/tag/vanillaes/esmtk?cache-control=no-cache" alt="GitHub Release"></a>
-  <a href="https://npmjs.com/package/@vanillaes/esmtk"><img src="https://badgen.net/npm/dm/@vanillaes/esmtk?icon=npm" alt="NPM Monthly Downloads"></a>
+  <a href="https://npmjs.com/package/@vanillaes/esmtk"><img src="https://badgen.net/npm/dw/@vanillaes/esmtk?icon=npm" alt="NPM Weekly Downloads"></a>
   <a href="https://jsr.io/@vanillaes/esmtk"><img src="https://jsr.io/badges/@vanillaes/esmtk/weekly-downloads" alt="JSR Weekly Downloads"></a>
   <a href="https://jsr.io/@vanillaes/esmtk"><img src="https://jsr.io/badges/@vanillaes/esmtk/score" alt="JSR Score"></a>
   <a href="https://github.com/vanillaes/esmtk/actions"><img src="https://github.com/vanillaes/esmtk/workflows/Latest/badge.svg" alt="Latest Status"></a>
@@ -54,11 +54,11 @@ Run tests ([Tape-ES][])
 
 ### Arguments
 
-`esmtk test [...options] [glob]`
+`esmtk test [...options] [files]`
 
-- `[glob]` - Glob(s) used to locate test files (default: `**/*.spec.js`)
-- `--cwd <dir>` - The current working directory
-- `--ignore <pattern(s)>` - Glob(s) to ignore (default: `**/node_modules/**`)
+- `[files]` - File(s)/glob(s) to test (default: `**/*.spec.js`)
+- `--cwd <dir>` - Current working directory
+- `--ignore <pattern(s)>` - File(s)/glob(s) to ignore (default: `**/node_modules/**`)
 - `--watch` - Watch for changes to the test(s)
 
 ### Usage
@@ -92,7 +92,7 @@ Lint the source code ([Lint-ES][])
 - `[files]` - File(s)/glob(s) to lint (default: `**/*.js`)
 - `--cwd <dir>` - Current working directory
 - `--fix` - Automatically fix problems
-- `--ignore <pattern(s)>` - File(s) to ignore
+- `--ignore <pattern(s)>` - File(s)/glob(s) to ignore 
 
 *Note: By default `lint-es` ignores `node_modules/`, `coverage/`, `vendor/`, `*.min.js`, hidden files, and files included in `.gitignore`.*
 

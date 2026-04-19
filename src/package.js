@@ -37,7 +37,7 @@ export class Package {
   /**
    * @type {RawPackage}
    */
-  #contents = {}
+  contents = {}
 
   /**
    * @type {Package}
@@ -59,7 +59,7 @@ export class Package {
 
     this.refresh()
 
-    return this
+    Package.#instance = this
   }
 
   /**
@@ -67,7 +67,7 @@ export class Package {
    * @type {string|undefined}
    */
   get name () {
-    return this.#contents.name
+    return this.contents.name
   }
 
   /**
@@ -75,7 +75,7 @@ export class Package {
    * @param {string} name Name
    */
   set name (name) {
-    this.#contents.name = name
+    this.contents.name = name
   }
 
   /**
@@ -83,7 +83,7 @@ export class Package {
    * @type {string|undefined}
    */
   get version () {
-    return this.#contents.version
+    return this.contents.version
   }
 
   /**
@@ -91,7 +91,7 @@ export class Package {
    * @param {string} version Version
    */
   set version (version) {
-    this.#contents.version = version
+    this.contents.version = version
   }
 
   /**
@@ -99,7 +99,7 @@ export class Package {
    * @type {string|undefined}
    */
   get description () {
-    return this.#contents.description
+    return this.contents.description
   }
 
   /**
@@ -107,7 +107,7 @@ export class Package {
    * @type {string[]|undefined}
    */
   get keywords () {
-    return this.#contents.keywords
+    return this.contents.keywords
   }
 
   /**
@@ -115,7 +115,7 @@ export class Package {
    * @type {string|undefined}
    */
   get repository () {
-    return this.#contents.repository
+    return this.contents.repository
   }
 
   /**
@@ -123,7 +123,7 @@ export class Package {
    * @type {string|undefined}
    */
   get author () {
-    return this.#contents.author
+    return this.contents.author
   }
 
   /**
@@ -131,7 +131,7 @@ export class Package {
    * @type {string|undefined}
    */
   get license () {
-    return this.#contents.license
+    return this.contents.license
   }
 
   /**
@@ -139,7 +139,7 @@ export class Package {
    * @type {string|undefined}
    */
   get type () {
-    return this.#contents.type
+    return this.contents.type
   }
 
   /**
@@ -147,7 +147,7 @@ export class Package {
    * @type {{[key: string]: {[key: string]: string}}|undefined}
    */
   get bin () {
-    return this.#contents.bin
+    return this.contents.bin
   }
 
   /**
@@ -155,7 +155,7 @@ export class Package {
    * @type {{[key: string]: {[key: string]: string}}|undefined}
    */
   get exports () {
-    return this.#contents.exports
+    return this.contents.exports
   }
 
   /**
@@ -163,7 +163,7 @@ export class Package {
    * @type {{[key: string]: {[key: string]: string}}|undefined}
    */
   get scripts () {
-    return this.#contents.scripts
+    return this.contents.scripts
   }
 
   /**
@@ -171,7 +171,7 @@ export class Package {
    * @type {object|undefined}
    */
   get engines () {
-    return this.#contents.engines
+    return this.contents.engines
   }
 
   /**
@@ -179,7 +179,7 @@ export class Package {
    * @type {object|undefined}
    */
   get dependencies () {
-    return this.#contents.dependencies
+    return this.contents.dependencies
   }
 
   /**
@@ -187,7 +187,7 @@ export class Package {
    * @type {object|undefined}
    */
   get devDependencies () {
-    return this.#contents.devDependencies
+    return this.contents.devDependencies
   }
 
   /**
@@ -206,12 +206,10 @@ export class Package {
     }
 
     try {
-      this.#contents = JSON.parse(this.#raw)
+      this.contents = JSON.parse(this.#raw)
     } catch (error) {
       throw new Error(`Invalid package.json\n${error}`)
     }
-
-    Package.#instance = this
   }
 
   /**
@@ -258,7 +256,7 @@ export class Package {
     const path = join(this.#cwd, 'package.json')
     try {
       const trailingNewline = this.#raw.endsWith('\n') ? '\n' : ''
-      writeFileSync(path, JSON.stringify(this.#contents, null, 2) + trailingNewline)
+      writeFileSync(path, JSON.stringify(this.contents, null, 2) + trailingNewline)
     } catch (error) {
       throw new Error(`Failed to write package.json\n${error}`)
     }

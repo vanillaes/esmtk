@@ -2,3 +2,4 @@
 .vscode/
 **/*.spec.js
 **/__tests__/**
+jsr.json

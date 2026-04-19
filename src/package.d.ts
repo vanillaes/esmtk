@@ -28,6 +28,10 @@ export class Package {
      */
     constructor(cwd?: string);
     /**
+     * @type {RawPackage}
+     */
+    contents: RawPackage;
+    /**
      * Name
      * @param {string} name Name
      */

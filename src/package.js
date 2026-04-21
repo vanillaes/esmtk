@@ -19,6 +19,7 @@ import { join, resolve } from 'node:path'
  * @property {object|undefined} [dependencies] Dependencies
  * @property {object|undefined} [devDependencies] DevDependencies
  */
+export const RawPackage = {}
 
 /**
  * package.json

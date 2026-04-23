@@ -22,6 +22,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
+    "es": "bin/index.js",
     "esmtk": "bin/index.js"
   },
   "exports": {

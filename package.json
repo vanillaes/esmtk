@@ -22,7 +22,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "esmtk": "bin/esmtk.js"
+    "esmtk": "bin/index.js"
   },
   "exports": {
     ".": {
@@ -31,13 +31,13 @@
     }
   },
   "scripts": {
-    "esmtk": "./bin/esmtk.js",
-    "test": "./bin/esmtk.js test",
-    "lint": "./bin/esmtk.js lint",
-    "type": "./bin/esmtk.js type --strict --types node && ./bin/esmtk.js type --strict --types node bin/esmtk.js",
-    "build": "./bin/esmtk.js typings --types node",
-    "clean": "./bin/esmtk.js clean --typings",
-    "preview": "./bin/esmtk.js preview",
+    "esmtk": "./bin/index.js",
+    "test": "./bin/index.js test",
+    "lint": "./bin/index.js lint",
+    "type": "./bin/index.js type --strict --types node && ./bin/index.js type --strict --types node bin/index.js",
+    "build": "./bin/index.js typings --types node",
+    "clean": "./bin/index.js clean --typings",
+    "preview": "./bin/index.js preview",
     "preversion": "npm run test && npm run lint && npm run type",
     "version": "npm run clean && npm run build && git add **/*.d.ts",
     "postversion": "git push --follow-tags"

@@ -59,7 +59,7 @@ Run tests ([Tape-ES][])
 - `[files]` - File(s)/glob(s) to test (default: `**/*.spec.js`)
 - `--cwd <dir>` - Current working directory
 - `--ignore <pattern(s)>` - File(s)/glob(s) to ignore (default: `**/node_modules/**`)
-- `--watch` - Watch for changes to the test(s)
+- `--watch` - Watch for changes
 
 ### Usage
 
@@ -155,7 +155,7 @@ Bundle the source code to an ECMAScript module ([ESBuild][])
 
 - `[input]` - Input source file path (default: `[entry-point].js`)
 - `[output]` - Output bundle file path (default: `[entry-point].esm.js`)
-- `--platform <target>` - Target platform (ex `neutral`). See [`esbuild --platform`][]
+- `--platform <target>` - Target platform (default: `neutral`). See [`esbuild --platform`][]
 
 ### Usage
 

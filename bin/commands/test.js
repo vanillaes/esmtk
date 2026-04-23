@@ -3,13 +3,13 @@ import { join } from 'path'
 
 /**
  * Test runnner using Tape-ES
- * @param {string} [glob] the glob to match test files
+ * @param {string} [files] File(s)/glob(s) to test
  * @param {object} [options] 'test' options
  * @param {string} [options.cwd] Current working directory
- * @param {string} [options.ignore] File(s) to ignore
+ * @param {string} [options.ignore] Files(s)/glob(s) to ignore
  * @param {boolean} [options.watch] Watch for changes to the test(s)
  */
-export async function test (glob = '**/*.spec.js', options = {}) {
+export async function test (files = '**/*.spec.js', options = {}) {
   const {
     cwd = process.cwd(),
     ignore = '**/node_modules/**',
@@ -18,7 +18,7 @@ export async function test (glob = '**/*.spec.js', options = {}) {
 
   const command = join(process.cwd(), 'node_modules', '.bin', 'tape-es')
   const args = []
-  args.push(glob)
+  args.push(files)
   if (options.cwd) {
     args.push('--cwd')
     args.push(cwd)

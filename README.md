@@ -1,6 +1,6 @@
 <h1 align="center">ECMAScript Module Toolkit</h1>
 
-<div align="center">ESMTK, essential tools for ECMAScript module development</div>
+<div align="center">Essential tools for ECMAScript module development</div>
 
 <br />
 
@@ -33,7 +33,7 @@ Create a package.json file for ECMAScript module development
 
 ### Arguments
 
-`esmtk init [...options]`
+`@vanillaes/esmtk init [...options]`
 
 - `--scripts` - Include the ESMTK scripts?
 
@@ -54,7 +54,7 @@ Run tests ([Tape-ES][])
 
 ### Arguments
 
-`esmtk test [...options] [files]`
+`es test [...options] [files]`
 
 - `[files]` - File(s)/glob(s) to test (default: `**/*.spec.js`)
 - `--cwd <dir>` - Current working directory
@@ -65,19 +65,19 @@ Run tests ([Tape-ES][])
 
 ```sh
 # run the tests
-esmtk test
+es test
 
 # run the tests (using a different naming scheme)
-esmtk test **/*.test.js
+es test **/*.test.js
 
 # run the tests (ignore tests)
-esmtk test **/*.test.js --ignore **/node_modules/**,src/util.spec.js
+es test **/*.test.js --ignore **/node_modules/**,src/util.spec.js
 
 # run the tests (change the current working directory)
-esmtk test **/*.test.js --cwd src/
+es test **/*.test.js --cwd src/
 
 # run the tests (watch for changes)
-esmtk test --watch
+es test --watch
 ```
 
 
@@ -87,7 +87,7 @@ Lint the source code ([Lint-ES][])
 
 ### Arguments
 
-`esmtk lint [...options]`
+`es lint [...options]`
 
 - `[files]` - File(s)/glob(s) to lint (default: `**/*.js`)
 - `--cwd <dir>` - Current working directory
@@ -100,16 +100,16 @@ Lint the source code ([Lint-ES][])
 
 ```sh
 # lint the sources
-esmtk lint
+es lint
 
 # lint the sources (change the current working directory)
-esmtk lint --cwd src/
+es lint --cwd src/
 
 # lint the sources and attempt to automatally fix the issues
-esmtk lint --fix lint
+es lint --fix lint
 
 # lint the sources (ignore files)
-esmtk lint --ignore src/
+es lint --ignore src/
 ```
 
 
@@ -119,7 +119,7 @@ Type check the JSDoc typings ([Typescript][])
 
 ### Arguments
 
-`esmtk type [...options] [entry]`
+`es type [...options] [entry]`
 
 - `[entry]` - Entry-point for the source (default: `[entry-point].js`)
 - `--module <type>` - Module resolution type (default `esnext`). See [`tsc`][]
@@ -130,16 +130,16 @@ Type check the JSDoc typings ([Typescript][])
 
 ```sh
 # type check the sources
-esmtk type index.js
+es type index.js
 
 # type check the sources (with 'node' module resolution)
-esmtk type --module nodenext index.js
+es type --module nodenext index.js
 
 # type check the sources (with 'strict mode' enabled)
-esmtk type --strict index.js
+es type --strict index.js
 
 # type check the sources (with '@types/node' typings included)
-esmtk type --types node index.js
+es type --types node index.js
 ```
 
 **Note: Due to Typescript limitations, inline JSDoc typings will be ignored if typings (ie `*.d.ts` files) exist.**
@@ -151,7 +151,7 @@ Bundle the source code to an ECMAScript module ([ESBuild][])
 
 ### Arguments
 
-`esmtk bundle [...options] [input] [output]`
+`es bundle [...options] [input] [output]`
 
 - `[input]` - Input source file path (default: `[entry-point].js`)
 - `[output]` - Output bundle file path (default: `[entry-point].esm.js`)
@@ -161,10 +161,10 @@ Bundle the source code to an ECMAScript module ([ESBuild][])
 
 ```sh
 # bundle ESM source -> ESM bundle
-esmtk bundle src/sample.js bundle.js
+es bundle src/sample.js bundle.js
 
 # bundle ESM source -> ESM bundle (includes Node-specific bindings)
-esmtk bundle --platform=node src/sample.js bundle.js
+es bundle --platform=node src/sample.js bundle.js
 ```
 
 
@@ -174,7 +174,7 @@ Bundle and Minify the source code to an ECMAScript module ([ESBuild][])
 
 ### Arguments
 
-`esmtk minify [...options] [input] [output]`
+`es minify [...options] [input] [output]`
 
 - `[input]` - Input source file path (default: `[entry-point].js`)
 - `[output]` - Output minified bundle file path (default: `[entry-point].min.js`)
@@ -185,13 +185,13 @@ Bundle and Minify the source code to an ECMAScript module ([ESBuild][])
 
 ```sh
 # bundle ESM source -> minified ESM bundle
-esmtk minify src/sample.js bundle.min.js
+es minify src/sample.js bundle.min.js
 
 # bundle ESM source -> minified ESM bundle (includes Node-specific bindings)
-esmtk minify --platform=node src/sample.js bundle.min.js
+es minify --platform=node src/sample.js bundle.min.js
 
 # bundle ESM source -> minified ESM bundle (output a sourcemap)
-esmtk minify --sourcemap src/sample.js bundle.min.js
+es minify --sourcemap src/sample.js bundle.min.js
 ```
 
 
@@ -201,7 +201,7 @@ Generate Type Declarations (.d.ts) from JSDoc ([Typescript][])
 
 ### Arguments
 
-`esmtk typings [options...] [entry]`
+`es typings [options...] [entry]`
 
 - `[entry]` - Entry-point for the source (default: `[entry-point].js`)
 - `--module <type>` - Module resolution type (default `esnext`). See [`tsc`][]
@@ -212,16 +212,16 @@ Generate Type Declarations (.d.ts) from JSDoc ([Typescript][])
 
 ```sh
 # generate .d.ts files for all linked source files
-esmtk typings index.js
+es typings index.js
 
 # generate .d.ts files for all linked source files (with 'node' module resolution)
-esmtk typings --module nodenext index.js
+es typings --module nodenext index.js
 
 # generate .d.ts files for all linked source files (with 'strict mode' enabled)
-esmtk typings --strict index.js
+es typings --strict index.js
 
 # generate .d.ts files for all linked source files (with '@types/node' typings included)
-esmtk typings --types node index.js
+es typings --types node index.js
 ```
 
 
@@ -231,7 +231,7 @@ Clean up build artifacts
 
 ### Arguments
 
-`esmtk clean [...options]`
+`es clean [...options]`
 
 - `--bundle` - Clean bundled build artifacts (default: `**/*.esm.js`)
 - `--minify` - Clean minified build artifacts (default: `**/*.min.js`)
@@ -242,13 +242,13 @@ Clean up build artifacts
 
 ```sh
 # clean all build artifacts
-esmtk clean --bundle --minify --typings
+es clean --bundle --minify --typings
 
 # override default extension
-esmtk clean --bundle *.mjs
+es clean --bundle *.mjs
 
 # define your own pattern
-esmtk clean --custom *.scss.css
+es clean --custom *.scss.css
 ```
 
 **Note: The `clean` command automatically ignores the contents of `node_modules/`**
@@ -260,7 +260,7 @@ Preview the package contents included during `npm publish`
 
 ### Arguments
 
-`esmtk preview [...options]`
+`es preview [...options]`
 
 - `--cwd <dir>` - Current working directory
 
@@ -268,10 +268,10 @@ Preview the package contents included during `npm publish`
 
 ```sh
 # preview the package contents
-esmtk preview
+es preview
 
 # preview the package contents (from another directory)
-esmtk preview --cwd some/other/dir
+es preview --cwd some/other/dir
 ```
 
 
@@ -290,7 +290,7 @@ Steps:
 
 ### Arguments
 
-`esmtk version [...options] [release]`
+`es version [...options] [release]`
 
 - `[release]` - `major` | `minor` | `patch` | `premajor` | `preminor` | `prepatch` | `prerelease` | `<version>`
 - `--cwd <dir>` - Current working directory
@@ -302,25 +302,25 @@ Steps:
 
 ```sh
 # Bump the major version
-esmtk version major
+es version major
 
 # Bump the minor version
-esmtk version major
+es version major
 
 # Bump the patch version
-esmtk version major
+es version major
 
 # Bump the patch version (change the current working directory)
-esmtk version patch --cwd src/
+es version patch --cwd src/
 
 # Bump the patch version (don't tag the release in git)
-esmtk version patch --no-git-tag-version
+es version patch --no-git-tag-version
 
 # Bump the patch version (with a custom commit message on the tag)
-esmtk version patch --message "Release %s"
+es version patch --message "Release %s"
 
 # Bump the patch version (add the prerelease id, ex "rc" -> 1.2.0-rc.8)
-esmtk version patch --preid rc
+es version patch --preid rc
 ```
 
 [ESBuild]: https://esbuild.github.io/

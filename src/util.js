@@ -72,6 +72,28 @@ export async function match (pattern, cwd = process.cwd(), ignore = undefined, u
 }
 
 /**
+ * Match all glob(s)
+ * @param {string[]} patterns Glob pattern(s) to match
+ * @param {string} [cwd] Current working directory
+ * @param {string[]} [exclude] Glob pattern(s) to exclude
+ * @param {boolean} [unsafe] Allow file access outside of CWD
+ * @returns {Promise<string[]>} An array of paths
+ */
+export async function matchAll (patterns, cwd = process.cwd(), exclude = undefined, unsafe = false) {
+  const files = await Array.fromAsync(glob(patterns, { cwd, exclude }))
+
+  if (!unsafe) {
+    files.forEach(file => {
+      if (!(resolve(file)).startsWith((resolve(cwd)))) {
+        throw new EACCESError(`Permission denied, traversal detected '${file}'`)
+      }
+    })
+  }
+
+  return files
+}
+
+/**
  * Read .gitignore
  * @param {string} [cwd] Current working directory
  * @returns {Promise<string[]>} Comma-deliminated list of ignore globs

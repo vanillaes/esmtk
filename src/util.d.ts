@@ -27,6 +27,15 @@ export function installed(pkg: string): Promise<boolean>;
  */
 export function match(pattern: string, cwd?: string, ignore?: string, unsafe?: boolean): Promise<string[]>;
 /**
+ * Match all glob(s)
+ * @param {string[]} patterns Glob pattern(s) to match
+ * @param {string} [cwd] Current working directory
+ * @param {string[]} [exclude] Glob pattern(s) to exclude
+ * @param {boolean} [unsafe] Allow file access outside of CWD
+ * @returns {Promise<string[]>} An array of paths
+ */
+export function matchAll(patterns: string[], cwd?: string, exclude?: string[], unsafe?: boolean): Promise<string[]>;
+/**
  * Read .gitignore
  * @param {string} [cwd] Current working directory
  * @returns {Promise<string[]>} Comma-deliminated list of ignore globs

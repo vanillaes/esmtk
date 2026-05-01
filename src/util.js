@@ -54,15 +54,20 @@ export async function installed (pkg) {
  */
 export async function match (pattern, cwd = process.cwd(), ignore = undefined, unsafe = false) {
   const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
+
   let exclude
   if (ignore) {
     exclude = ignore.includes(',') ? ignore.split(',') : [ignore]
   }
+
   const files = await Array.fromAsync(glob(patterns, { cwd, exclude }))
 
   if (!unsafe) {
+    const cwdAbs = resolve(cwd)
     files.forEach(file => {
-      if (!(resolve(file)).startsWith((resolve(cwd)))) {
+      // expand relative paths, don't expand absolute paths
+      const fileAbs = !file.startsWith('/') ? resolve(cwd, file) : resolve(file)
+      if (!fileAbs.startsWith(cwdAbs)) {
         throw new EACCESError(`Permission denied, traversal detected '${file}'`)
       }
     })
@@ -83,8 +88,11 @@ export async function matchAll (patterns, cwd = process.cwd(), exclude = undefin
   const files = await Array.fromAsync(glob(patterns, { cwd, exclude }))
 
   if (!unsafe) {
+    const cwdAbs = resolve(cwd)
     files.forEach(file => {
-      if (!(resolve(file)).startsWith((resolve(cwd)))) {
+      // expand relative paths, don't expand absolute paths
+      const fileAbs = !file.startsWith('/') ? resolve(cwd, file) : resolve(file)
+      if (!fileAbs.startsWith(cwdAbs)) {
         throw new EACCESError(`Permission denied, traversal detected '${file}'`)
       }
     })

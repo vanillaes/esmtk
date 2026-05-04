@@ -1,4 +1,4 @@
-import { Package } from './index.js'
+import { Package } from '../index.js'
 import { spawn } from 'node:child_process'
 import { resolve, delimiter } from 'node:path'
 

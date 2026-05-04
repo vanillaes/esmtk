@@ -1,5 +1,7 @@
-import { exists, JSR, Package, PackageLock } from '../../src/index.js'
-import { execSync } from 'node:child_process'
+import { JSR } from '../../src/jsr.js'
+import { isGitRepo, isGitWorkingTreeClean, gitAdd, gitCommit, gitLatestRelease, gitTag } from '../../src/git.js'
+import { Package, PackageLock } from '../../src/npm/index.js'
+import { exists, which } from '../../src/util.js'
 import { resolve } from 'node:path'
 
 const VALID_RELEASES = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease']
@@ -27,15 +29,30 @@ export async function version (release, options = {}) {
     cwd = process.cwd(),
     gitTagVersion = true,
     message = 'v%s',
+    preid
   } = options
 
   if (!release) {
     throw new Error('version: Missing release type or version')
   }
 
-  const useGit = gitTagVersion && isGitRepo(cwd)
-  if (useGit && !isWorkingTreeClean(cwd)) {
-    throw new Error('version: Git working directory not clean.')
+  const gitExists = await which('git')
+  if (!gitExists) {
+    console.error('version: Git not found')
+    process.exit(1)
+    return
+  }
+
+  if (!isGitRepo(cwd)) {
+    console.error('version: Not a git repository')
+    process.exit(1)
+    return
+  }
+
+  if (!isGitWorkingTreeClean(cwd)) {
+    console.error('version: Git working directory not clean')
+    process.exit(1)
+    return
   }
 
   const pkg = new Package()
@@ -48,9 +65,14 @@ export async function version (release, options = {}) {
     }
   }
 
-  let next
+  const current = gitLatestRelease()
+  const next = incrementVersion(current, release, preid)
+  if (next === current) {
+    throw new Error('version: Version not changed')
+  }
+
   try {
-    next = await npmVersion(release, cwd)
+    await npmVersion(next, cwd)
   } catch (error) {
     console.error(error)
     process.exit(1)
@@ -71,16 +93,13 @@ export async function version (release, options = {}) {
     }
   }
 
-  if (!useGit) {
-    console.log(`v${next}`)
-    return
-  }
-
-  try {
-    await gitVersion(next, message)
-  } catch (error) {
-    console.error(error)
-    process.exit(1)
+  if (gitTagVersion) {
+    try {
+      await gitVersion(next, message)
+    } catch (error) {
+      console.error(error)
+      process.exit(1)
+    }
   }
 
   if (pkg.scripts?.postversion) {
@@ -99,33 +118,23 @@ export async function version (release, options = {}) {
  * @private
  * @param {string} release Release type/number
  * @param {string} [cwd] Current working directory
- * @param {string | undefined} [preid] Pre-release identifier (ex 'rc' -> 1.2.0-rc.8)
- * @returns {Promise<string>} Next version
  */
-async function npmVersion (release, cwd = process.cwd(), preid) {
-  // 'package.json'
+async function npmVersion (release, cwd = process.cwd()) {
+  // Update 'package.json' if it exists
   const pkgExists = await exists(resolve(cwd, 'package.json'))
-  if (!pkgExists) {
-    throw new Error('version: no package.json found')
+  if (pkgExists) {
+    const pkg = new Package(cwd)
+    pkg.version = release
+    pkg.save()
   }
-  const pkg = new Package(cwd)
-  const current = pkg.version || '0.0.0'
-  const next = incrementVersion(current, release, preid)
-  if (next === current) {
-    throw new Error('version: Version not changed')
-  }
-  pkg.version = next
-  pkg.save()
 
   // Update 'package-lock.json' if it exists
   const pkgLockExists = await exists(resolve(cwd, 'package-lock.json'))
   if (pkgLockExists) {
     const pkgLock = new PackageLock(cwd)
-    pkgLock.version = next
+    pkgLock.version = release
     pkgLock.save()
   }
-
-  return next
 }
 
 /**
@@ -166,11 +175,13 @@ async function gitVersion (release, message = 'v%s', cwd = process.cwd()) {
   if (jsrExists) {
     filesToAdd.push('jsr.json')
   }
+  await gitAdd(filesToAdd, cwd)
 
-  git(`add ${filesToAdd.join(' ')}`, cwd)
-  const commitMsg = message.replace(/%s/g, release)
-  git(`commit -m ${JSON.stringify(commitMsg)}`, cwd)
-  git(`tag -a v${release} -m ${JSON.stringify(commitMsg)}`, cwd)
+  message = message.replace(/%s/g, release)
+  message = JSON.stringify(message)
+  await gitCommit(message, cwd)
+
+  await gitTag(release, message, cwd)
 }
 
 /**
@@ -279,40 +290,4 @@ function incrementVersion (current, release, preid) {
     default:
       throw new Error(`Unknown release type: ${release}`)
   }
-}
-
-/**
- * Run a git command, returning stdout (trimmed). Throws on non-zero exit.
- * @private
- * @param {string} args Arguments
- * @param {string} [cwd] Current working directory
- * @returns {string} Returns stdout/stderr output
- */
-function git (args, cwd = process.cwd()) {
-  return execSync(`git ${args}`, { cwd, stdio: ['ignore', 'pipe', 'pipe'] }).toString().trim()
-}
-
-/**
- * Is this a git repository?
- * @private
- * @param {string} [cwd] Current working directory
- * @returns {boolean} Returns true if this package is a git repo, otherwise false.
- */
-function isGitRepo (cwd = process.cwd()) {
-  try {
-    git('rev-parse --is-inside-work-tree', cwd)
-    return true
-  } catch {
-    return false
-  }
-}
-
-/**
- * Is the git working tree clean of uncommitted changes?
- * @param {string} [cwd] Current working directory
- * @returns {boolean} Returns true if the working tree is clean, otherwise false
- */
-function isWorkingTreeClean (cwd = process.cwd()) {
-  const out = git('status --porcelain', cwd)
-  return out.length === 0
 }

@@ -281,7 +281,8 @@ Bump the package version and tag the release in Git
 
 Steps:
 1. (if present) Run the `preversion` script
-2. Bump the version in `package.json`
+2. Locate the latest git version tag
+2. (if present) Bump the version in `package.json`
 3. (if present) Bump the version in `package-lock.json`
 4. (if present) Bump the version in `jsr.json`
 5. (if present) Run the `version` script

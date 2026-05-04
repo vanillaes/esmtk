@@ -8,7 +8,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["--version"],
             "console": "integratedTerminal",
@@ -20,7 +20,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["init"],
             "console": "integratedTerminal",
@@ -32,7 +32,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["init", "--scripts"],
             "console": "integratedTerminal",
@@ -56,7 +56,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["test", "--ignore", "node_modules/**,src/util.spec.js"],
             "console": "integratedTerminal",
@@ -68,7 +68,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["test", "--cwd", "src/"],
             "console": "integratedTerminal",
@@ -80,7 +80,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["lint"],
             "console": "integratedTerminal",
@@ -92,7 +92,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["lint", "--cwd", "~/Code/vanillaes/tape-es"],
             "console": "integratedTerminal",
@@ -104,7 +104,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["lint", "--fix"],
             "console": "integratedTerminal",
@@ -116,7 +116,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["lint", "--ignore", "node_modules/**,**/__tests__/*,src/util.spec.js"],
             "console": "integratedTerminal",
@@ -128,7 +128,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["type"],
             "console": "integratedTerminal",
@@ -140,7 +140,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["bundle", "--platform=node"],
             "console": "integratedTerminal",
@@ -152,7 +152,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["minify", "--platform=node"],
             "console": "integratedTerminal",
@@ -164,7 +164,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["typings"],
             "console": "integratedTerminal",
@@ -176,7 +176,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["clean", "--bundle"],
             "console": "integratedTerminal",
@@ -188,7 +188,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["clean", "--bundle", "**/*.js"],
             "console": "integratedTerminal",
@@ -200,7 +200,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["clean", "--bundle", "**/*.mjs"],
             "console": "integratedTerminal",
@@ -212,7 +212,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["clean", "--minify"],
             "console": "integratedTerminal",
@@ -224,7 +224,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["clean", "--typings"],
             "console": "integratedTerminal",
@@ -236,7 +236,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["clean", "--bundle", "--minify", "--typings"],
             "console": "integratedTerminal",
@@ -248,7 +248,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["clean", "--custom", "**/*.min.js"],
             "console": "integratedTerminal",
@@ -260,7 +260,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["preview"],
             "console": "integratedTerminal",
@@ -272,7 +272,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/bin/esmtk.js",
+            "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
             "args": ["version", "--no-git-tag-version", "patch"],
             "console": "integratedTerminal",

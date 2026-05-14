@@ -73,5 +73,10 @@ export class PackageLock {
      * Save package-lock.json contents
      */
     save(): void;
+    /**
+     * ClassName
+     * @type {string}
+     */
+    get [Symbol.toStringTag](): string;
     #private;
 }

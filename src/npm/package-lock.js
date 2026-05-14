@@ -54,6 +54,14 @@ export class PackageLock {
   }
 
   /**
+   * ClassName
+   * @type {string}
+   */
+  get [Symbol.toStringTag] () {
+    return 'Package-Lock'
+  }
+
+  /**
    * Name
    * @type {string|undefined}
    */

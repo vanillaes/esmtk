@@ -66,6 +66,14 @@ export class Package {
   }
 
   /**
+   * ClassName
+   * @type {string}
+   */
+  get [Symbol.toStringTag] () {
+    return 'Package'
+  }
+
+  /**
    * Name
    * @type {string|undefined}
    */

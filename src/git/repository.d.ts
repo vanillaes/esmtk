@@ -41,4 +41,9 @@ export class Repository {
      * @returns {string} Returns stdout/stderr output
      */
     static tag(release: string, message: string, cwd?: string): string;
+    /**
+     * ClassName
+     * @type {string}
+     */
+    get [Symbol.toStringTag](): string;
 }

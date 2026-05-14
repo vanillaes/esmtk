@@ -2,4 +2,5 @@ export { EACCESError } from "./errors.js";
 export { JSR } from "./jsr.js";
 export { gitUserEmail, gitUserName, gitSync, isGitRepo, readGitIgnore, Repository } from "./git/index.js";
 export { installed, Package, PackageLock, RawPackage, readNPMIgnore, runScript } from "./npm/index.js";
+export { parse, stringify, Version } from "./semver/index.js";
 export { execAsync, exists, fileExists, match, matchAll, which } from "./util.js";

@@ -214,5 +214,10 @@ export class Package {
      * Save package.json contents
      */
     save(): void;
+    /**
+     * ClassName
+     * @type {string}
+     */
+    get [Symbol.toStringTag](): string;
     #private;
 }

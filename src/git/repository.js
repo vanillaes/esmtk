@@ -4,6 +4,18 @@ export class Repository {
   /** @type { string } */
   static cwd = process.cwd()
 
+  constructor () {
+    throw new Error('Repository is a static class and cannot be instantiated')
+  }
+
+  /**
+   * ClassName
+   * @type {string}
+   */
+  get [Symbol.toStringTag] () {
+    return 'Repository'
+  }
+
   /**
    * Git add/stage the following files
    * @param {string[]} files Files to add
@@ -41,7 +53,8 @@ export class Repository {
    */
   static latestRelease (cwd = Repository.cwd) {
     const tag = gitSync('describe --match "v*" --abbrev=0 --tags $(git rev-list --tags --max-count=1)', cwd) || 'v0.0.0'
-    return tag.substring(1)
+    const cleaned = tag.replace(/^v/, '')
+    return cleaned
   }
 
   /**
@@ -73,9 +86,5 @@ export class Repository {
    */
   static tag (release, message, cwd = process.cwd()) {
     return gitSync(`tag -a v${release} -m ${message}`, cwd)
-  }
-
-  constructor () {
-    throw new Error('Repository is a static class and cannot be instantiated')
   }
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { bundle, clean, init, lint, minify, preview, test, type, typings, version } from './commands/index.js'
-import { Package } from '../src/index.js'
+import { Package } from '../src/npm/package.js'
 import { Command } from 'commander'
 
 const pkg = new Package()

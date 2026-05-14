@@ -1,10 +1,10 @@
-import { EACCESError } from './index.js'
+import { EACCESError } from './errors.js'
 import { exec } from 'node:child_process'
-import { join, resolve } from 'node:path'
-import { access, constants, glob, readFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
+import { access, constants, glob } from 'node:fs/promises'
 import { promisify } from 'node:util'
 
-const execAsync = promisify(exec)
+export const execAsync = promisify(exec)
 
 /**
  * Check if a file/folder exists
@@ -28,20 +28,6 @@ export async function exists (path) {
  */
 export async function fileExists (path) {
   return await exists(path)
-}
-
-/**
- * Check to see if a NPM package is installed globally
- * @param {string} pkg Package name
- * @returns {Promise<boolean>} True if the package is installed, false otherwise
- */
-export async function installed (pkg) {
-  try {
-    await execAsync(`npm list -g --depth=0 ${pkg}`)
-    return true
-  } catch (error) {
-    return false
-  }
 }
 
 /**
@@ -99,39 +85,6 @@ export async function matchAll (patterns, cwd = process.cwd(), exclude = undefin
   }
 
   return files
-}
-
-/**
- * Read .gitignore
- * @param {string} [cwd] Current working directory
- * @returns {Promise<string[]>} Comma-deliminated list of ignore globs
- */
-export async function readGitIgnore (cwd = process.cwd()) {
-  const path = join(cwd, '.gitignore')
-  const cwdExists = await exists(path)
-  if (!cwdExists) {
-    return []
-  }
-  const contents = await readFile(path, 'utf8')
-  return contents
-    .split('\n')
-    .map(line => line.trim())
-    .filter(line => line && !line.startsWith('#'))
-}
-
-/**
- * Read .npmignore
- * @param {string} [cwd] Current working directory
- * @returns {Promise<string>} Comma-deliminated list of ignore globs
- */
-export async function readNPMIgnore (cwd = process.cwd()) {
-  const path = join(cwd, '.npmignore')
-  const contents = await readFile(path, 'utf8')
-  return contents
-    .split('\n')
-    .map(line => line.trim())
-    .filter(line => line && !line.startsWith('#'))
-    .join(',')
 }
 
 /**

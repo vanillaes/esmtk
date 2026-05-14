@@ -1,9 +1,29 @@
+export type RawPackageLock = {
+    /**
+     * Name
+     */
+    name?: string | undefined;
+    /**
+     * Version
+     */
+    version?: string | undefined;
+    /**
+     * Packages
+     */
+    packages?: {
+        [key: string]: {
+            [key: string]: string;
+        };
+    } | undefined;
+};
 /**
- * @typedef {object} RawPackage
+ * @typedef {object} RawPackageLock
  * @property {string|undefined} [name] Name
  * @property {string|undefined} [version] Version
  * @property {{[key: string]: {[key: string]: string}}|undefined} [packages] Packages
  */
+/** @type { RawPackageLock } */
+export const RawPackageLock: RawPackageLock;
 /**
  * package-lock.json
  */
@@ -55,21 +75,3 @@ export class PackageLock {
     save(): void;
     #private;
 }
-export type RawPackage = {
-    /**
-     * Name
-     */
-    name?: string | undefined;
-    /**
-     * Version
-     */
-    version?: string | undefined;
-    /**
-     * Packages
-     */
-    packages?: {
-        [key: string]: {
-            [key: string]: string;
-        };
-    } | undefined;
-};

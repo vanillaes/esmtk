@@ -1,4 +1,4 @@
-import { exists, match } from '../../src/index.js'
+import { exists, match } from '../../src/util.js'
 import { rm } from 'node:fs/promises'
 
 /**

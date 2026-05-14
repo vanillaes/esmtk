@@ -33,14 +33,14 @@
   },
   "scripts": {
     "esmtk": "./bin/index.js",
-    "test": "./bin/index.js test",
-    "lint": "./bin/index.js lint",
-    "type": "./bin/index.js type --strict --types node && ./bin/index.js type --strict --types node bin/index.js",
-    "build": "./bin/index.js typings --types node",
-    "clean": "./bin/index.js clean --typings",
-    "preview": "./bin/index.js preview",
+    "test": "es test",
+    "lint": "es lint",
+    "type": "es type --strict --types node && es type --strict --types node bin/index.js",
+    "build": "es typings --types node",
+    "clean": "es clean --typings",
+    "preview": "es preview",
     "preversion": "npm run test && npm run lint && npm run type",
-    "version": "npm run clean && npm run build && git add **/*.d.ts",
+    "version": "npm run clean && npm run build && git add --ignore-errors **/*.d.ts",
     "postversion": "git push --follow-tags"
   },
   "engines": {

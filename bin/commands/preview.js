@@ -1,4 +1,6 @@
-import { match, Package, readNPMIgnore } from '../../src/index.js'
+import { match } from '../../src/util.js'
+import { Package } from '../../src/npm/package.js'
+import { readNPMIgnore } from '../../src/npm/util.js'
 import { statSync } from 'node:fs'
 import { dirname } from 'node:path'
 

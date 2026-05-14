@@ -85,7 +85,8 @@ export type RawPackage = {
  * @property {object|undefined} [dependencies] Dependencies
  * @property {object|undefined} [devDependencies] DevDependencies
  */
-export const RawPackage: {};
+/** @type { RawPackage } */
+export const RawPackage: RawPackage;
 /**
  * package.json
  */

@@ -1,12 +1,10 @@
-import { exists, which } from '../../src/index.js'
-import { exec } from 'node:child_process'
-import { readFile, writeFile } from 'node:fs/promises'
+import { which } from '../../src/util.js'
+import { Repository } from '../../src/git/repository.js'
+import { gitUserEmail, gitUserName } from '../../src/git/utils.js'
+import { writeFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
 import { stdin, stdout } from 'node:process'
 import { createInterface } from 'node:readline/promises'
-import { promisify } from 'node:util'
-
-const execAsync = promisify(exec)
 
 /**
  * Create a package.json file for ECMAScript Development
@@ -37,22 +35,9 @@ export async function init (options = {}) {
   // defaults
   const DIR = process.cwd()
   const DIRNAME = basename(process.cwd())
-  let REPOSITORY
-  let USERNAME
-  let EMAIL
-  try {
-    REPOSITORY = await fetchGitRepository()
-    USERNAME = gitExists ? await fetchGitUser() : ''
-    EMAIL = gitExists ? await fetchGitEmail() : ''
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message)
-    } else {
-      console.error(`Unexpected error: ${error}`)
-    }
-    process.exitCode = 1
-    return
-  }
+  const REPOSITORY = Repository.url()
+  const USERNAME = gitUserName()
+  const EMAIL = gitUserEmail()
 
   const program = createInterface({ input: stdin, output: stdout })
 
@@ -128,50 +113,4 @@ async function ask (program, prompt, defaultValue) {
   const suffix = defaultValue ? `(${defaultValue}) ` : ''
   const answer = await program.question(`${prompt}: ${suffix}`)
   return answer || defaultValue
-}
-
-/**
- * Fetch the user.name from .gitconfig
- * @private
- * @returns {Promise<string>} the user.name
- */
-async function fetchGitUser () {
-  const { stdout, stderr } = await execAsync('git config --get user.name')
-  if (stderr) {
-    throw new Error(`exec error: ${stderr}`)
-  }
-  console.log(`${stdout}`.trim())
-  return `${stdout}`.trim()
-}
-
-/**
- * Fetch the user.email from .gitconfig
- * @private
- * @returns {Promise<string>} the user.email
- */
-async function fetchGitEmail () {
-  const { stdout, stderr } = await execAsync('git config --get user.email')
-  if (stderr) {
-    throw new Error(`exec error: ${stderr}`)
-  }
-  console.log(`${stdout}`.trim())
-  return `${stdout}`.trim()
-}
-
-/**
- * Fetch the repository name from .git/config
- * @private
- * @returns {Promise<string | undefined>} the repository name
- */
-async function fetchGitRepository () {
-  const config = join(process.cwd(), '.git', 'config')
-  const configExists = await exists(config)
-  if (!configExists) {
-    return
-  }
-  const contents = await readFile(config, 'utf-8')
-  const match = contents.match(/^\turl\s=\shttps:\/\/.*$/gm)
-  if (match) {
-    return match[0].replace('\turl = ', '')
-  }
 }

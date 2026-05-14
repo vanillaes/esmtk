@@ -1,6 +1,8 @@
 import { JSR } from '../../src/jsr.js'
-import { isGitRepo, isGitWorkingTreeClean, gitAdd, gitCommit, gitLatestRelease, gitTag } from '../../src/git.js'
-import { Package, PackageLock } from '../../src/npm/index.js'
+import { Repository } from '../../src/git/repository.js'
+import { isGitRepo } from '../../src/git/utils.js'
+import { Package } from '../../src/npm/package.js'
+import { PackageLock } from '../../src/npm/package-lock.js'
 import { exists, which } from '../../src/util.js'
 import { resolve } from 'node:path'
 
@@ -49,14 +51,14 @@ export async function version (release, options = {}) {
     return
   }
 
-  if (!isGitWorkingTreeClean(cwd)) {
+  Repository.cwd = cwd
+  if (!Repository.isWorkingTreeClean(cwd)) {
     console.error('version: Git working directory not clean')
     process.exit(1)
     return
   }
 
   const pkg = new Package()
-
   if (pkg.scripts?.preversion) {
     const code = await pkg.runScript('preversion')
     if (code === 1) {
@@ -65,7 +67,7 @@ export async function version (release, options = {}) {
     }
   }
 
-  const current = gitLatestRelease()
+  const current = Repository.latestRelease()
   const next = incrementVersion(current, release, preid)
   if (next === current) {
     throw new Error('version: Version not changed')
@@ -175,13 +177,13 @@ async function gitVersion (release, message = 'v%s', cwd = process.cwd()) {
   if (jsrExists) {
     filesToAdd.push('jsr.json')
   }
-  await gitAdd(filesToAdd, cwd)
+  Repository.add(filesToAdd, cwd)
 
   message = message.replace(/%s/g, release)
   message = JSON.stringify(message)
-  await gitCommit(message, cwd)
+  Repository.commit(message, cwd)
 
-  await gitTag(release, message, cwd)
+  Repository.tag(release, message, cwd)
 }
 
 /**

@@ -1,6 +1,37 @@
-import { Package } from '../index.js'
+import { execAsync } from '../util.js'
+import { Package } from './package.js'
 import { spawn } from 'node:child_process'
-import { resolve, delimiter } from 'node:path'
+import { join, resolve, delimiter } from 'node:path'
+import { readFile } from 'node:fs/promises'
+
+/**
+ * Check to see if a NPM package is installed globally
+ * @param {string} pkg Package name
+ * @returns {Promise<boolean>} True if the package is installed, false otherwise
+ */
+export async function installed (pkg) {
+  try {
+    await execAsync(`npm list -g --depth=0 ${pkg}`)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+/**
+ * Read .npmignore
+ * @param {string} [cwd] Current working directory
+ * @returns {Promise<string>} Comma-deliminated list of ignore globs
+ */
+export async function readNPMIgnore (cwd = process.cwd()) {
+  const path = join(cwd, '.npmignore')
+  const contents = await readFile(path, 'utf8')
+  return contents
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line && !line.startsWith('#'))
+    .join(',')
+}
 
 /**
  * Run a script from package.json, like `npm run <name>`

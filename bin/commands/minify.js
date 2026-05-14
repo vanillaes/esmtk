@@ -1,4 +1,6 @@
-import { installed, Package, which } from '../../src/index.js'
+import { which } from '../../src/util.js'
+import { Package } from '../../src/npm/package.js'
+import { installed } from '../../src/npm/util.js'
 import { spawn } from 'child_process'
 
 /**

@@ -2,11 +2,14 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
- * @typedef {object} RawPackage
+ * @typedef {object} RawPackageLock
  * @property {string|undefined} [name] Name
  * @property {string|undefined} [version] Version
  * @property {{[key: string]: {[key: string]: string}}|undefined} [packages] Packages
  */
+
+/** @type { RawPackageLock } */
+export const RawPackageLock = {}
 
 /**
  * package-lock.json
@@ -23,7 +26,7 @@ export class PackageLock {
   #raw = ''
 
   /**
-   * @type {RawPackage}
+   * @type {RawPackageLock}
    */
   #contents = {}
 

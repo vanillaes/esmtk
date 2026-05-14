@@ -1,4 +1,4 @@
-import { runScript } from './index.js'
+import { runScript } from './util.js'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 
@@ -19,6 +19,8 @@ import { join, resolve } from 'node:path'
  * @property {object|undefined} [dependencies] Dependencies
  * @property {object|undefined} [devDependencies] DevDependencies
  */
+
+/** @type { RawPackage } */
 export const RawPackage = {}
 
 /**

@@ -274,7 +274,7 @@
             ],
             "program": "${workspaceFolder}/bin/index.js",
             "cwd": "${workspaceFolder}",
-            "args": ["version", "--no-git-tag-version", "patch"],
+            "args": ["version", "2.10.1"],
             "console": "integratedTerminal",
         },
         {

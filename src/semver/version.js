@@ -1,7 +1,7 @@
 import { parse } from './parse.js'
 import { stringify } from './stringify.js'
-
-const VALID_RELEASES = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease']
+import { isReleaseType } from './validate.js'
+import { ValidationError } from '../errors.js'
 
 export class Version {
   /**
@@ -42,15 +42,12 @@ export class Version {
 
   /**
    * Increment a version according to a release type.
-   * @param {string} release major | minor | patch | premajor | preminor | prepatch | prerelease | <version>
+   * @param {string} release major | minor | patch | premajor | preminor | prepatch | prerelease
    * @param {string|undefined} [preid] Optional prerelease identifier (e.g., 'beta')
    */
   bump (release, preid) {
-    // Explicit version passed in?
-    if (!VALID_RELEASES.includes(release)) {
-      // Allow leading 'v'
-      const cleaned = release.replace(/^v/, '')
-      Object.assign(this, parse(cleaned))
+    if (!isReleaseType(release)) {
+      throw new ValidationError('Not a valid release-type')
     }
 
     switch (release) {

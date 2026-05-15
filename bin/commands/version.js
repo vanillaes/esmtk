@@ -1,6 +1,8 @@
+import { ValidationError } from '../../src/errors.js'
 import { JSR } from '../../src/jsr.js'
 import { Repository } from '../../src/git/repository.js'
 import { isGitRepo } from '../../src/git/utils.js'
+import { isReleaseType, isValidVersion } from '../../src/semver/validate.js'
 import { Version } from '../../src/semver/version.js'
 import { Package } from '../../src/npm/package.js'
 import { PackageLock } from '../../src/npm/package-lock.js'
@@ -31,20 +33,20 @@ export async function version (release, options = {}) {
   const gitExists = await which('git')
   if (!gitExists) {
     console.error('version: Git not found')
-    process.exit(1)
+    process.exitCode = 1
     return
   }
 
   if (!isGitRepo(cwd)) {
     console.error('version: Not a git repository')
-    process.exit(1)
+    process.exitCode = 1
     return
   }
 
   Repository.cwd = cwd
   if (!Repository.isWorkingTreeClean(cwd)) {
     console.error('version: Git working directory not clean')
-    process.exit(1)
+    process.exitCode = 1
     return
   }
 
@@ -58,8 +60,16 @@ export async function version (release, options = {}) {
   }
 
   const current = Repository.latestRelease()
-  const next = new Version(current)
-  next.bump(release, preid)
+  /** @type {Version} */
+  let next
+  if (isReleaseType(release)) {
+    next = new Version(current)
+    next.bump(release, preid)
+  } else if (isValidVersion(release.replace(/^v/, ''))) {
+    next = new Version(release)
+  } else {
+    throw new ValidationError(`Not a valid release-type or SemVer: ${release}`)
+  }
 
   if (`${next}` === current) {
     throw new Error('version: Version not changed')

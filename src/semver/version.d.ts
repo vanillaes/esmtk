@@ -25,7 +25,7 @@ export class Version {
     build: string[];
     /**
      * Increment a version according to a release type.
-     * @param {string} release major | minor | patch | premajor | preminor | prepatch | prerelease | <version>
+     * @param {string} release major | minor | patch | premajor | preminor | prepatch | prerelease
      * @param {string|undefined} [preid] Optional prerelease identifier (e.g., 'beta')
      */
     bump(release: string, preid?: string | undefined): void;

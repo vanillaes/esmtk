@@ -3,8 +3,15 @@
  */
 export class EACCESError extends Error {
     /**
-     * @param {string} [message] the error message
+     * @param {string} [message] Error message
      */
     constructor(message?: string);
+    code: string;
+}
+export class ValidationError extends Error {
+    /**
+     * @param {string} message Error message
+     */
+    constructor(message: string);
     code: string;
 }

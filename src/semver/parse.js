@@ -1,22 +1,31 @@
+import { isValidVersion } from './validate.js'
 import { Version } from './version.js'
+import { ValidationError } from '../errors.js'
 
 /**
  * Parse a semver string into a Version
- * Supports: MAJOR.MINOR.PATCH[-PRERELEASE][+BUILD]
+ * @description
+ * Supports MAJOR.MINOR.PATCH[-PRERELEASE][+BUILD]
  * @param {string} version The string version of a version
  * @returns {Version} The version split into parts
  */
 export function parse (version) {
-  const re = /^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+([0-9A-Za-z.-]+))?$/
-  const m = re.exec(version)
-  if (!m) throw new Error(`Invalid version: ${version}`)
+  if (!isValidVersion(version)) {
+    throw new ValidationError(`Invalid version: ${version}`)
+  }
+
+  const pattern = /^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+([0-9A-Za-z.-]+))?$/
+  const match = pattern.exec(version)
+  if (!match) {
+    throw new Error(`Invalid version: ${version}`)
+  }
   const current = new Version()
   Object.assign(current, {
-    major: Number(m[1]),
-    minor: Number(m[2]),
-    patch: Number(m[3]),
-    prerelease: m[4] ? m[4].split('.') : [],
-    build: m[5] ? m[5].split('.') : [],
+    major: Number(match[1]),
+    minor: Number(match[2]),
+    patch: Number(match[3]),
+    prerelease: match[4] ? match[4].split('.') : [],
+    build: match[5] ? match[5].split('.') : [],
   })
   return current
 }

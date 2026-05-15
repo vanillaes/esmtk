@@ -84,7 +84,7 @@ export class Repository {
    * @param {string} cwd Current working directory
    * @returns {string} Returns stdout/stderr output
    */
-  static tag (release, message, cwd = process.cwd()) {
+  static tag (release, message, cwd = Repository.cwd) {
     return gitSync(`tag -a v${release} -m ${message}`, cwd)
   }
 }

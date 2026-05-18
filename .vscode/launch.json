@@ -266,6 +266,18 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Run",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/index.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["run", "esmtk", "lint"],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Version",
             "type": "node",
             "request": "launch",

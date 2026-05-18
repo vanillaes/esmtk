@@ -232,7 +232,7 @@ export class Package {
     if (!this.scripts?.[name]) {
       return 0
     }
-    return await runScript(name)
+    return await runScript(name, this.#cwd)
   }
 
   /**

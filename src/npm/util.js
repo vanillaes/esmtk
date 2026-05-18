@@ -1,8 +1,8 @@
-import { execAsync } from '../util.js'
 import { Package } from './package.js'
-import { spawn } from 'node:child_process'
+import { execSync, spawn } from 'node:child_process'
 import { join, resolve, delimiter } from 'node:path'
 import { readFile } from 'node:fs/promises'
+import { execAsync } from '../util.js'
 
 /**
  * Check to see if a NPM package is installed globally
@@ -16,6 +16,34 @@ export async function installed (pkg) {
   } catch (error) {
     return false
   }
+}
+
+/**
+ * Locate the local npm package directory
+ * @param {string} [cwd] Current working directory
+ * @returns {string} The local npm bin directory
+ */
+export function localBin (cwd = process.cwd()) {
+  return resolve(cwd, 'node_modules', '.bin')
+}
+
+/**
+ * Locate the global npm package directory
+ * @returns {string} The global npm bin
+ */
+export function globalBin () {
+  const prefix = npmSync('config get prefix -g').toString().trim()
+  return `${prefix}/bin`
+}
+
+/**
+ * Run a npm command, returning stdout (trimmed). Throws on non-zero exit.
+ * @param {string} args Arguments
+ * @param {string} [cwd] Current working directory
+ * @returns {string} Returns stdout/stderr output
+ */
+export function npmSync (args, cwd = process.cwd()) {
+  return execSync(`npm ${args}`, { cwd, stdio: ['ignore', 'pipe', 'pipe'] }).toString().trim()
 }
 
 /**
@@ -34,19 +62,31 @@ export async function readNPMIgnore (cwd = process.cwd()) {
 }
 
 /**
- * Run a script from package.json, like `npm run <name>`
- * @param {string} name Script name
- * @param {object} options 'runScript' options
- * @param {string} [options.cwd] Current working directory
- * @param {NodeJS.ProcessEnv} [options.env] Current environment
+ * Run a command from local and globally unstalled packages
+ * @param {string} cmd Command
+ * @param {string[]} args Script name
+ * @param {string} [cwd] Current working directory
+ * @param {boolean} [unsafe] Unsafe mode (Include ENV:PATH)
  * @returns {Promise<number>} Exit code of the script
  */
-export async function runScript (name, options = {}) {
-  const {
-    cwd = process.cwd(),
-    env = process.env,
-  } = options
+export async function runCommand (cmd, args, cwd = process.cwd(), unsafe = false) {
+  // Setup scripts environment
+  const runEnv = getEnv(cwd, unsafe)
 
+  return new Promise((resolve, reject) => {
+    const child = spawn(cmd, [...args], { cwd, env: runEnv, stdio: 'inherit' })
+    child.on('error', reject)
+    child.on('exit', (/** @type {number} */ code) => resolve(code ?? 0))
+  })
+}
+
+/**
+ * Run a script from package.json
+ * @param {string} name Script name
+ * @param {string} [cwd] Current working directory
+ * @returns {Promise<number>} Exit code of the script
+ */
+export async function runScript (name, cwd = process.cwd()) {
   const pkg = new Package()
   const script = String(pkg.scripts?.[name])
   if (!script) {
@@ -54,7 +94,7 @@ export async function runScript (name, options = {}) {
   }
 
   // Setup scripts environment
-  const scriptEnv = getScriptEnv(cwd, env)
+  const scriptEnv = getEnv(cwd)
 
   // Execute one script
   if (!script.includes('&&')) {
@@ -65,7 +105,7 @@ export async function runScript (name, options = {}) {
   let fail = false
   for (const script of scripts) {
     try {
-      const code = await execScript(script, cwd, env)
+      const code = await execScript(script, cwd, scriptEnv)
       if (code !== 0) {
         fail = true
       }
@@ -86,16 +126,23 @@ export async function runScript (name, options = {}) {
 /**
  * Prepend node_modules/.bin to PATH so local binaries resolve
  * @private
- * @param {string} cwd Current working directory
- * @param {NodeJS.ProcessEnv} env Current Environment
+ * @param {string} [cwd] Current working directory
+ * @param {boolean} [unsafe] Unsafe mode (Include ENV:PATH)
  * @returns {NodeJS.ProcessEnv} Current environment patched with node_modules/.bin
  */
-function getScriptEnv (cwd, env) {
-  const binPath = resolve(cwd, 'node_modules', '.bin')
+function getEnv (cwd = process.cwd(), unsafe = false) {
+  const local = localBin(cwd)
   const pathKey = process.platform === 'win32' ? 'Path' : 'PATH'
-  return {
-    ...env,
-    [pathKey]: `${binPath}${delimiter}${env[pathKey] ?? ''}`,
+  if (!unsafe) {
+    const global = globalBin()
+    return {
+      [pathKey]: `${local}${delimiter}${global}`
+    }
+  } else {
+    return {
+      ...process.env,
+      [pathKey]: `${local}${delimiter}${process.env[pathKey] ?? ''}`
+    }
   }
 }
 
@@ -104,7 +151,7 @@ function getScriptEnv (cwd, env) {
  * @private
  * @param {string} script Script
  * @param {string} cwd Current working directory
- * @param {NodeJS.ProcessEnv} env Script Environment
+ * @param {NodeJS.ProcessEnv} env Script environment
  * @returns {Promise<number>} Execution exitCode
  */
 async function execScript (script, cwd, env) {

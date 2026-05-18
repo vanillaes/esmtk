@@ -25,6 +25,7 @@
 - [clean](#clean) - Clean up build artifacts
 - [preview](#preview) - Preview the package contents included during `npm publish`
 - [version](#version) - Bump the package version and tag the release in Git
+- [run](#run) - Run a command from local/global modules
 
 
 ## Init
@@ -323,6 +324,25 @@ es version patch --message "Release %s"
 # Bump the patch version (add the prerelease id, ex "rc" -> 1.2.0-rc.8)
 es version patch --preid rc
 ```
+
+
+## Run
+
+Run a command from local/global modules
+
+*Note: This command does **NOT** expose the full system `PATH`*
+
+### Arguments
+
+`es run [...argv]`
+
+### Usage
+
+```sh
+# run a command
+es run esmtk lint --fix
+```
+
 
 [ESBuild]: https://esbuild.github.io/
 [`esbuild --platform`]: https://esbuild.github.io/api/#platform

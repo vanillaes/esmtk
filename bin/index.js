@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { bundle, clean, init, lint, minify, preview, test, type, typings, version } from './commands/index.js'
+import { bundle, clean, init, lint, minify, preview, run, test, type, typings, version } from './commands/index.js'
 import { Package } from '../src/npm/package.js'
 import { Command } from 'commander'
 
@@ -101,6 +101,15 @@ program.command('preview')
   .option('--cwd <cwd>', 'Current working directory', process.cwd())
   .action((options) => {
     preview(options)
+  })
+
+program.command('run')
+  .allowUnknownOption()
+  .allowExcessArguments()
+  .description('Run a command (local and global packages only)')
+  .usage('[command] [...args]')
+  .action((_, cmd) => {
+    run(cmd.args)
   })
 
 program.command('version')
